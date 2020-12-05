@@ -15,9 +15,10 @@ fi
 XDG_SESSION_TYPE=x11
 
 # keyboard
-xset r rate 300 50 # Increase key speed via a rate change
+ # Increase key speed via a rate change
+xset r rate 300 50
 setxkbmap -layout us,ir
-# setxkbmap -option
+#setxkbmap -option
 setxkbmap -option 'ctrl:nocaps'
 setxkbmap -option 'grp:alt_shift_toggle'
 
