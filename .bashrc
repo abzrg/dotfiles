@@ -55,26 +55,26 @@ case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
 esac
 
-__prompt_command() {
-   code=$?
-   [[ $code != 0 ]] && echo -e "\033[02;31m✗ ${code}"
-   PS1="$(ps1_hostname)\[\e[1;36m\]\W\[\e[1;30m\]$(__git_ps1)\[\e[1;31m\]:\[\e[0m\] "
-}
-
-ps1_hostname() {
-   host=$(hostname)
-   user=$(whoami)
-      echo "\[\e[0;37m\]$user\[\e[2;32m\]@\[\e[0;37m\]$host "
-}
-
-
-# # prompt
-# export PROMPT_COMMAND=__prompt_command
 # __prompt_command() {
 #    code=$?
-#    [[ $code != 0 ]] && echo -e "\033[01;31m✗ ${code}${RESET_COLOR} "
-#    PS1='\[\033[01;34m\]\W\[\033[01;32m\]\[\033[48m\]$(__git_ps1) \[\033[00m\]$ '
+#    [[ $code != 0 ]] && echo -e "\033[02;31m✗ ${code}"
+#    PS1="$(ps1_hostname)\[\e[1;36m\]\W\[\e[1;30m\]$(__git_ps1)\[\e[1;31m\]:\[\e[0m\] "
 # }
+
+# ps1_hostname() {
+#    host=$(hostname)
+#    user=$(whoami)
+#       echo "\[\e[0;37m\]$user\[\e[2;32m\]@\[\e[0;37m\]$host "
+# }
+
+
+# prompt
+export PROMPT_COMMAND=__prompt_command
+__prompt_command() {
+   code=$?
+   [[ $code != 0 ]] && echo -e "\033[01;31m✗ ${code} "
+   PS1="\[\e[1;36m\]\W\[\e[1;30m\]$(__git_ps1)\[\e[1;31m\]:\[\e[0m\] "
+}
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
