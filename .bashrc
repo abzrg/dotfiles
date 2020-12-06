@@ -57,14 +57,14 @@ esac
 
 __prompt_command() {
    code=$?
-   [[ $code != 0 ]] && echo -e "\033[01;31m✗ ${code}${RESET_COLOR}"
-   PS1="$(ps1_hostname)\[\e[1;36m\]\W$(__git_ps1)\[\e[1;31m\]:\[\e[0m\] "
+   [[ $code != 0 ]] && echo -e "\033[02;31m✗ ${code}"
+   PS1="$(ps1_hostname)\[\e[1;36m\]\W\[\e[1;30m\]$(__git_ps1)\[\e[1;31m\]:\[\e[0m\] "
 }
 
 ps1_hostname() {
    host=$(hostname)
    user=$(whoami)
-      echo "\[\e[1;30m\]$user\[\e[0;37m\]@\[\e[1;36m\]$host "
+      echo "\[\e[0;37m\]$user\[\e[2;32m\]@\[\e[0;37m\]$host "
 }
 
 
