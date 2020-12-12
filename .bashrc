@@ -113,3 +113,5 @@ alias of7='source ~/OpenFOAM/OpenFOAM-7/etc/bashrc'
 # aliasrc
 [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
 
+# git tab-completion <https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash>
+source ~/.local/share/git-completion.bash
