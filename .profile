@@ -25,7 +25,7 @@ export LESSHISTFILE='-' # no history file for less
 export DICS="/usr/share/stardict/dic/" # path to dictionaries
 export SUDO_ASKPASS="$HOME/.local/bin/dmenupass"
 export FZF_DEFAULT_OPTS="--layout=reverse --height 40%"
-export FZF_DEFAULT_COMMAND='fd -H -I' # Including hidden files in search
+export FZF_DEFAULT_COMMAND='fdfind -H -I' # Including hidden files in search
 export LESSOPEN='|/usr/bin/lesspipe %s' # allow less to view non-text files
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
 export LESS_TERMCAP_md=$'\E[1;36m'     # begin blink
