@@ -11,47 +11,37 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
   unset f
 fi
 
-# Plank need this to start. by default this variable is set to tty
+# By default this variable is set to tty
 XDG_SESSION_TYPE=x11
 
-# keyboard
- # Increase key speed via a rate change
+# Keyboard
+## Increase key speed via a rate change
 xset r rate 300 50
 setxkbmap -layout us,ir
-#setxkbmap -option
 setxkbmap -option 'ctrl:nocaps'
 setxkbmap -option 'grp:alt_shift_toggle'
 
-# other stuff
-# xrdb --merge ~/.Xresources &
-~/.local/bin/picomstart &
-# emacs --daemon &
-# sxhkd &
-# fehbg
-# dunst &
-# mpd &
-# mpDris2 &
-urxvtd -q -f -o &
-
-
-### BSPWM+I3 ###
-# sets pointer so that it's not just an X
+## sets pointer so that it's not just an X
 #xsetroot -cursor_name left_ptr
-
-# sets brightness to half
-#xbacklight -set 50
-
 # turns num lock on automatically
 # xdotool key Num_Lock
+#sxhkd &
+#emacs --daemon &
+#xbacklight -set 50
+xrdb -load ~/.Xresources &
+~/.local/bin/picomstart &
+~/.fehbg &
+mpd &
+mpDris2 &
+dunst &
+urxvtd -q -f -o &
+touchpad &
 
-# sets background
-
-
-#exec bspwm
-# exec i3 -V >> /var/log/i3/$(date +'%F-%k-%M-%S').log 2>&1
-#feh --bg-scale Pictures/cityscape_26.png &
-#exec i3
-
+# LOOP
+while true; do
+	dwm >/dev/null 2>&1
+done
+exec dwm
 
 # exec enlightenment_start
 # exec mate-session
@@ -68,11 +58,13 @@ urxvtd -q -f -o &
 # exec cinnamon-session
 # exec pekwm
 # exec catwm
-# exec dwm
 # exec startede
 # exec icewm-session
 # exec jwm
 # exec monsterwm
 # exec notion
 # exec startdde       # deepin-session
-exec startxfce4
+# exec startxfce4
+# exec bspwm
+# exec i3 -V >> /var/log/i3/$(date +'%F-%k-%M-%S').log 2>&1
+# exec i3
