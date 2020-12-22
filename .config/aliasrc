@@ -1,0 +1,194 @@
+#!/bin/sh
+
+# SENSIBLE DEFAULTS + VERBOSITY
+alias \
+	cp="cp -iv"							\
+	mv="mv -iv"							\
+	rm="rm -vI"							\
+	mkd="mkdir -pv"						\
+	duh="du -h -d 0 [^.]*"				\
+	yt="youtube-dl --add-metadata -i"	\
+	yta="yt -x -f bestaudio/best"		\
+	ytb="yt -f bestvideo+bestaudio"		\
+	# ffmpeg="ffmpeg -hide_banner"		\
+
+# COLORIZE COMMANDS
+alias \
+	ls="ls -hNFX --color=auto --group-directories-first"	\
+	l="ls -ali"												\
+	grep="grep --color=auto"								\
+	egrep="egrep --color=auto"								\
+	fgrep="fgrep --color=auto"								\
+	diff="diff --color=auto"
+
+# LONG COMMANDS
+alias \
+	bat='batcat'						\
+	df='df -h'							\
+	a="sudo apt"						\
+	e="$EDITOR"				 			\
+	f="$FILE"							\
+	g="git"								\
+	o='xdg-open'						\
+	v="$VISUAL"							\
+	z="zathura"							\
+	fd="fdfind"							\
+	ka="killall"						\
+	grp="grep -Rli"						\
+	SS="sudo systemctl"					\
+	free='free -m'						\
+	sdn="sudo shutdown -h now"			\
+	trem="transmission-remote"			\
+	merge='xrdb -merge ~/.Xresources'	\
+	slc="make clean && rm config.h"     \
+	myip="curl http://myip.dnsomatic.com && echo ''" \
+	visudo='sudo EDITOR=nvim visudo -f /etc/sudoers.d/ali' \
+	config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME' \
+	alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# DIRECTORIES 
+alias \
+	cd..='cd ..'									\
+	m="cd ${XDG_MUSIC_DIR:-$HOME/Music}"			\
+	cf="cd ${XDG_CONFIG_HOME:-$HOME/.config}"		\
+	dl="cd ${XDG_DOWNLOAD_DIR:-$HOME/Downloads}"	\
+	dt="cd ${XDG_DATA_HOME:-$HOME/.local/share}"	\
+	sc="cd $HOME/.local/bin"						\
+	scr="cd $HOME/.local/scripts"					\
+	doc="cd ${XDG_DOCUMENTS_DIR:-$HOME/Documents}"	\
+	pic="cd ${XDG_PICTURES_DIR:-$HOME/Pictures}"	\
+	vid="cd ${XDG_VIDEOS_DIR:-$HOME/Videos}"		\
+	th="cd $HOME/Documents/project/Thesis/thesis"	\
+	art="cd $HOME/Documents/project/articles"		\
+	proj="cd $HOME/Documents/project/"
+
+# FILES
+alias \
+	inp="$EDITOR $HOME/.inputrc"	\
+	xre="$EDITOR $HOME/.Xresources"	\
+	xin="$EDITOR $HOME/.xinitrc"	\
+	cfb="$EDITOR $HOME/.bashrc"		\
+	cfp="$EDITOR $HOME/.profile"	\
+	cft="$EDITOR .tmux.conf"		\
+	cfa="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc"				\
+	cfi="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/i3/config"			\
+	cfib="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/i3blocks/config"	\
+	cfl="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/lf/lfrc"				\
+	cfL="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/lf/scope"			\
+	cfm="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/mutt/muttrc"			\
+	cfmb="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/ncmpcpp/bindings"	\
+	cfmc="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/ncmpcpp/config"		\
+	cfr="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/ranger/"				\
+	cfn="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/newsboat/config"		\
+	cfu="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/newsboat/urls"		\
+	cfv="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/init.vim"		\
+	cfx="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/sxiv/exec/key-handler"
+
+# libreoffice
+alias \
+	writer="libreoffice --writer"	\
+	calc="libreoffice --calc"		\
+	impress="libreoffice --impress"
+
+# FUNCTIONS
+
+urxvt_launcher() { urxvt -geometry 80x3 -name 'bashrun' -e sh -c "/bin/bash -i -t"; }
+
+def() {
+	# sdcv (stardict)
+	# Data in ~/.local/share/stardict/dic/
+	sdcv -n --utf8-output --color "$@" 2>&1 | \
+	fold --width=$(tput cols) | \
+	less -FRX
+}
+
+tra(){ translte "$@" | less -R ;}
+
+odef() {
+	# dict network protocol
+	curl -s dict://dict.org/d:"$@" | less -F -X -R 
+}
+
+ex ()
+{
+	# -- ARCHIVE EXTRACTION
+	# usage: ex <file>
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1   ;;
+      *.tar.gz)    tar xzf $1   ;;
+      *.bz2)       bunzip2 $1   ;;
+      *.rar)       unrar x $1   ;;
+      *.gz)        gunzip $1    ;;
+      *.tar)       tar xf $1    ;;
+      *.tbz2)      tar xjf $1   ;;
+      *.tgz)       tar xzf $1   ;;
+      *.zip)       unzip $1     ;;
+      *.Z)         uncompress $1;;
+      *.7z)        7z x $1      ;;
+      *.deb)       ar x $1      ;;
+      *.tar.xz)    tar xf $1    ;;
+      *.tar.zst)   unzstd $1    ;;      
+      *)           echo "'$1' cannot be extracted via ex()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
+
+# shdl() { curl -O $(curl -s https://sci-hub.st/"$@" | grep location.href | grep -o https.*pdf) ;}
+
+shdl() { wget $(curl -s https://sci-hub.st/"$@" | grep location.href | grep -o sci-hub.*pdf) ;}
+
+# shdl() { curl -O $(curl -s https://sci-hub.scihubtw.st/"$@" | grep location.href | grep -o https.*pdf) ;}
+
+se() {
+	# -- Search through the scripts
+	du -a ~/.config/* ~/.local/* | awk '{print $2}' | fzf | xargs -r $EDITOR
+}
+
+alias a="sudo apt"
+install_with_fzf () {
+	sudo apt install $( \
+		apt list 2>/dev/null | \
+		fzf \
+			  -m \
+			  --preview="echo {} | cut -d'/' -f1 | xargs -r apt show 2>/dev/null" \
+			  --preview-window=:hidden \
+			  --bind="ctrl-x:toggle-preview" \
+			  --height=100% | \
+		cut -d/ -f1 |\
+		tr '\n' ' ' \
+	)
+}
+
+update_fzf(){
+	# A function for faster access of files and directories
+	# Update fzf files & directories
+	fd -t f -H -I . $HOME > ~/.local/share/files
+	fd -H -t d . $HOME    > ~/.local/share/directories 
+}
+
+open_with_fzf() {
+    cat ~/.local/share/files | fzf | xargs -ro -d "\n" xdg-open 2>&-
+}
+
+text_file_with_fzf() {
+     cat ~/.local/share/files  | fzf -m --height 100% --preview="less {}" | xargs -ro -d "\n" $EDITOR -p  2>&-
+}
+
+text_file_cur_dir_with_fzf() {
+    fd -t f -H -I  | fzf -m --no-height --preview="less {}" | xargs -ro -d "\n" $EDITOR -p  2>&-
+}
+
+cd_with_fzf() {
+    # cd $HOME && cd "$(fd -H -t d . $HOME | fzf --preview="tree -C -L 1 {}" --bind="ctrl-space:toggle-preview" --preview-window=:hidden)"
+    cd "$(cat ~/.local/share/directories | fzf --preview="tree -C -L 1 {}" --bind="ctrl-x:toggle-preview" --preview-window=:hidden)"
+}
+
+# MISCELLANEOUS
+# The terminal rickroll
+alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash'
+
+# Use nevim for vim if present.
+command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d"

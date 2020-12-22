@@ -1,0 +1,29 @@
+# Carries over site-wide readline configuration to the user
+# configuration. Usually /etc/inputrc includes some goodies.
+$include /etc/inputrc
+
+# emacs, vi
+set editing-mode emacs
+
+# Terminate cycling completion by Esc
+set isearch-terminators on
+set print-completions-horizontally on
+set bell-style visible
+set skip-completed-text on
+set completion-ignore-case On
+set completion-map-case on
+set completion-prefix-display-length 3
+set mark-symlinked-directories On
+set show-all-if-ambiguous On
+set show-all-if-unmodified On
+set visible-stats On
+
+# \C: ctrl
+"\C-p": history-search-backward
+"\C-n": history-search-forward
+# \e: alt
+"\el": menu-complete
+"\eh": menu-complete-backward
+# [A: up, [B: down
+"\e[A": history-search-backward
+"\e[B": history-search-forward
