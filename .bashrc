@@ -86,8 +86,8 @@ xterm*|*rxvt*)
 esac
 
 # fzf
-source /usr/share/doc/fzf/examples/key-bindings.bash
-source /usr/share/doc/fzf/examples/completion.bash
+source /usr/share/fzf/key-bindings.bash
+source /usr/share/fzf/completion.bash
 # functions are implemented in aliasrc
 # print function definition with: "declare -f <function>" or "type <function>
 bind '"\ec":"cd_with_fzf\r"'
