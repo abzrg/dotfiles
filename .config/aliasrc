@@ -32,7 +32,6 @@ alias \
 	o='xdg-open'						\
 	v="$VISUAL"							\
 	z="zathura"							\
-	fd="fdfind"							\
 	ka="killall"						\
 	grp="grep -Rli"						\
 	SS="sudo systemctl"					\
@@ -147,19 +146,31 @@ se() {
 	du -a ~/.config/* ~/.local/* | awk '{print $2}' | fzf | xargs -r $EDITOR
 }
 
-alias a="sudo apt"
+# APT
+# alias a="sudo apt"
+# install_with_fzf () {
+# 	sudo apt install $( \
+# 		apt list 2>/dev/null | \
+# 		fzf \
+# 			  -m \
+# 			  --preview="echo {} | cut -d'/' -f1 | xargs -r apt show 2>/dev/null" \
+# 			  --preview-window=:hidden \
+# 			  --bind="ctrl-x:toggle-preview" \
+# 			  --height=100% | \
+# 		cut -d/ -f1 |\
+# 		tr '\n' ' ' \
+# 	)
+# }
+
+# PACMAN
 install_with_fzf () {
-	sudo apt install $( \
-		apt list 2>/dev/null | \
-		fzf \
-			  -m \
-			  --preview="echo {} | cut -d'/' -f1 | xargs -r apt show 2>/dev/null" \
-			  --preview-window=:hidden \
-			  --bind="ctrl-x:toggle-preview" \
-			  --height=100% | \
-		cut -d/ -f1 |\
-		tr '\n' ' ' \
-	)
+	pacman -Slq | fzf --multi --preview 'pacman -Si {1}' | \
+	   	xargs -ro sudo pacman -S
+}
+
+remove_with_fzf () {
+	pacman -Qq | fzf --multi --preview 'pacman -Qi {1}' | \
+	   	xargs -ro sudo pacman -Rns
 }
 
 update_fzf(){
