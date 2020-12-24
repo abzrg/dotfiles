@@ -34,8 +34,9 @@ xrdb -load ~/.Xresources &
 mpd &
 mpDris2 &
 dunst &
-urxvtd -q -f -o &
+# urxvtd -q -f -o &
 touchpad &
+xbanish &
 
 # LOOP
 while true; do
