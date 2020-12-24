@@ -28,13 +28,14 @@ setxkbmap -option 'grp:alt_shift_toggle'
 #sxhkd &
 #emacs --daemon &
 #xbacklight -set 50
-xrdb -load ~/.Xresources &
-~/.local/bin/picomstart &
+# xrdb -load ~/.Xresources &
 ~/.fehbg &
+~/.local/bin/picomstart &
 mpd &
 mpDris2 &
 dunst &
 # urxvtd -q -f -o &
+xset -dpms &
 touchpad &
 xbanish &
 nm-applet &
