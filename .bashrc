@@ -17,7 +17,7 @@ export BROWSER="firefox"
 export READER="zathura"
 export FILE="lf"
 export FZF_DEFAULT_OPTS="--layout=reverse --height 50%"
-export FZF_DEFAULT_COMMAND='fdfind -H -I' # Including hidden files in search
+export FZF_DEFAULT_COMMAND='fd -H -I' # Including hidden files in search
 export LESSOPEN='|/usr/bin/lesspipe %s' # allow less to view non-text files
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
 export LESS_TERMCAP_md=$'\E[1;36m'     # begin blink
@@ -55,6 +55,9 @@ case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
 esac
 
+# Git prompt script that should be sourced in arch distros
+source /usr/share/git/completion/git-prompt.sh
+
 # __prompt_command() {
 #    code=$?
 #    [[ $code != 0 ]] && echo -e "\033[02;31m✗ ${code}"
@@ -73,7 +76,7 @@ export PROMPT_COMMAND=__prompt_command
 __prompt_command() {
    code=$?
    [[ $code != 0 ]] && echo -e "\033[01;31m✗ ${code} "
-   PS1="\[\e[1;36m\]\W\[\e[1;30m\]$(__git_ps1)\[\e[1;31m\]:\[\e[0m\] "
+   PS1="\[\e[1;36m\]\W\[\e[1;32m\]$(__git_ps1)\[\e[1;31m\]:\[\e[0m\] "
 }
 
 # If this is an xterm set the title to user@host:dir
