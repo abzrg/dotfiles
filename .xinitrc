@@ -37,6 +37,7 @@ dunst &
 # urxvtd -q -f -o &
 touchpad &
 xbanish &
+nm-applet &
 
 # LOOP
 while true; do
