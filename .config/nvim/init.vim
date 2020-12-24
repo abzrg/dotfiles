@@ -42,6 +42,7 @@ set tabstop=4
 " set t_8b=\[[48;2;%lu;%lu;%lum
 " set termguicolors
 set thesaurus+=~/.config/nvim/moby-words.txt
+set undofile
 set updatetime=300
 "" Wildmenu
 set wildignore=*.git/*,*.tags,tags,*.o,*.class  " What to ignore in completion
