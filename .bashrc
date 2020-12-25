@@ -98,6 +98,7 @@ bind '"\ex":"text_file_with_fzf\r"'
 bind '"\ey":"text_file_cur_dir_with_fzf\r"'
 bind '"\eo":"open_with_fzf\r"'
 bind '"\ep":"install_with_fzf\r"'
+bind '"\er":"remove_with_fzf\r"'
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
