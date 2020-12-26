@@ -40,8 +40,9 @@ set tabstop=4
 " let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 " set t_8f=\[[38;2;%lu;%lu;%lum
 " set t_8b=\[[48;2;%lu;%lu;%lum
-" set termguicolors
+set termguicolors
 set thesaurus+=~/.config/nvim/moby-words.txt
+set title
 set undofile
 set updatetime=300
 "" Wildmenu
@@ -62,18 +63,17 @@ set tags+=~/OpenFOAM/OpenFOAM-7/tags
 
 "" Pluging Setting ================================================
 
-source ~/.config/nvim/vim-plug/goyo.vim
+source ~/.config/nvim/vim-plug/coc.vim
+source ~/.config/nvim/vim-plug/easy-motion.vim
 source ~/.config/nvim/vim-plug/emmet.vim
-source ~/.config/nvim/vim-plug/vim-commentary.vim
+source ~/.config/nvim/vim-plug/fzf.vim
+source ~/.config/nvim/vim-plug/goyo.vim
 source ~/.config/nvim/vim-plug/nerd-tree.vim
+source ~/.config/nvim/vim-plug/table-mode.vim
+source ~/.config/nvim/vim-plug/vim-airline.vim
+source ~/.config/nvim/vim-plug/vim-commentary.vim
 source ~/.config/nvim/vim-plug/vim-hexokinase.vim
 source ~/.config/nvim/vim-plug/vimtex.vim
-source ~/.config/nvim/vim-plug/airline.vim
-source ~/.config/nvim/vim-plug/fzf.vim
-source ~/.config/nvim/vim-plug/easy-motion.vim
-source ~/.config/nvim/vim-plug/coc.vim
-source ~/.config/nvim/vim-plug/vim-airline.vim
-source ~/.config/nvim/vim-plug/table-mode.vim
 
 
 
@@ -81,8 +81,7 @@ source ~/.config/nvim/vim-plug/table-mode.vim
 
 """" Colorscheme: colo | colorscheme
 
-colo ron
-set bg=light
+colo codedark
 """" transparent background
 " hi! Normal ctermbg=NONE guibg=NONE
 " hi! NonText ctermbg=NONE guibg=NONE
