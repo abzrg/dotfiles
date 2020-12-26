@@ -192,3 +192,7 @@ au BufReadPost *.H set syntax=cpp
 
 "Treat .md files as markdown file
 au BufEnter *.md set ft=markdown
+
+" Have dwmblocks automatically recompile and run when you edit this file in
+" vim with the following line in your vimrc/init.vim:
+autocmd BufWritePost ~/.local/src/dwmblocks/config.h !cd ~/.local/src/dwmblocks/; sudo make install && { killall -q dwmblocks;setsid dwmblocks & }
