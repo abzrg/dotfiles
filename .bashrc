@@ -63,7 +63,7 @@ esac
 source /usr/share/git/completion/git-prompt.sh
 
 # prompt
-PS1="\[\e[1;36m\]\W\[\e[1;32m\]$(__git_ps1)\[\e[1;31m\]:\[\e[0m\] "
+export PS1='\[\e[1;36m\]\W\[\e[1;32m\]$(__git_ps1)\[\e[1;31m\]:\[\e[0m\] '
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
