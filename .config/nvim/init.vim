@@ -195,4 +195,4 @@ au BufEnter *.md set ft=markdown
 
 " Have dwmblocks automatically recompile and run when you edit this file in
 " vim with the following line in your vimrc/init.vim:
-autocmd BufWritePost ~/.local/src/dwmblocks/config.h !cd ~/.local/src/dwmblocks/; sudo make install && { killall -q dwmblocks;setsid dwmblocks & }
+autocmd BufWritePost ~/.config/dwmblocks/blocks.def.h !cd ~/.config/dwmblocks/; rm blocks.h; sudo make clean install && { killall -q dwmblocks;setsid dwmblocks & }
