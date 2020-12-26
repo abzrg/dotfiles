@@ -39,6 +39,7 @@ xset -dpms &
 touchpad &
 xbanish &
 nm-applet &
+udiskie -t &
 
 # LOOP
 while true; do
