@@ -18,7 +18,7 @@ export READER="zathura"
 export FILE="lf"
 export FZF_DEFAULT_OPTS="--layout=reverse --height 50%"
 export FZF_DEFAULT_COMMAND='fd -H -I' # Including hidden files in search
-export LESSOPEN='|/usr/bin/lesspipe %s' # allow less to view non-text files
+export LESSOPEN='|/usr/bin/lesspipe.sh %s' # allow less to view non-text files
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
 export LESS_TERMCAP_md=$'\E[1;36m'     # begin blink
 export LESS_TERMCAP_me=$'\E[0m'        # reset bold/blink
@@ -27,7 +27,6 @@ export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
 export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
 export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
 export LESS=-R
-export PROMPT_COMMAND=__prompt_command
 
 # SHOPT
 shopt -s checkwinsize # checks term size when bash regains control
@@ -50,34 +49,21 @@ export HISTFILE="${XDG_DATA_HOME:-$HOME/.local/share}/history"
 # Colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
+# Change title of terminals
+case ${TERM} in
+  xterm*|rxvt*|Eterm*|aterm|kterm|gnome*|alacritty|st|konsole*)
+    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\007"'
+        ;;
+  screen*)
+    PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\033\\"'
+    ;;
 esac
 
 # Git prompt script that should be sourced in arch distros
 source /usr/share/git/completion/git-prompt.sh
 
-# __prompt_command() {
-#    code=$?
-#    [[ $code != 0 ]] && echo -e "\033[02;31m✗ ${code}"
-#    PS1="$(ps1_hostname)\[\e[1;36m\]\W\[\e[1;30m\]$(__git_ps1)\[\e[1;31m\]:\[\e[0m\] "
-# }
-
-# ps1_hostname() {
-#    host=$(hostname)
-#    user=$(whoami)
-#       echo "\[\e[0;37m\]$user\[\e[2;32m\]@\[\e[0;37m\]$host "
-# }
-
-
 # prompt
-export PROMPT_COMMAND=__prompt_command
-__prompt_command() {
-   code=$?
-   [[ $code != 0 ]] && echo -e "\033[01;31m✗ ${code} "
-   PS1="\[\e[1;36m\]\W\[\e[1;32m\]$(__git_ps1)\[\e[1;31m\]:\[\e[0m\] "
-}
+PS1="\[\e[1;36m\]\W\[\e[1;32m\]$(__git_ps1)\[\e[1;31m\]:\[\e[0m\] "
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
