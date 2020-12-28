@@ -16,6 +16,7 @@ let mapleader = ' '
 
 ""  Options =======================================================
 
+filetype plugin indent off
 set clipboard+=unnamedplus
 set encoding=utf-8
 " set foldlevel=1             " default foldlevel 1 to see headings
@@ -25,7 +26,8 @@ set hlsearch
 set ignorecase
 set incsearch
 set nobackup
-set nocindent noautoindent nosmartindent indentexpr= "disable autoindents
+set nocindent noautoindent indentexpr= "disable autoindents
+set smartindent
 set nowritebackup
 set scrolloff=7
 set shiftwidth=4
