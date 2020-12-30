@@ -9,6 +9,16 @@ $if mode=vi
 	# mapping i to enter insert mode and jj to get back to normal mode
     set keymap vi-command
     "i": vi-insertion-mode
+    set keymap vi-command
+	"gu": upcase-word
+    set keymap vi-command
+	"gl": downcase-word
+    set keymap vi-command
+	"gc": capitalize-word
+    set keymap vi-command
+	"gt": transpose-chars
+    set keymap vi-command
+	"gT": transpose-words
     set keymap vi-insert
     "jj": vi-movement-mode
 
@@ -25,8 +35,11 @@ $if mode=vi
 	"\C-l": clear-screen
 	"\C-n": next-history
 	"\C-p": previous-history
-	"\C-w": backward-kill-word
+	"\C-w": unix-word-rubout
 	"\C-x": alias-expand-line
+	"\C-b": backward-char
+	"\C-f": forward-char
+	"\C-k": kill-line
 $endif
 
 # Terminate cycling completion by Esc
@@ -51,3 +64,8 @@ set visible-stats On
 # [A: up, [B: down
 "\e[A": history-search-backward
 "\e[B": history-search-forward
+
+# Magic space
+$if Bash
+  Space: magic-space
+$endif
