@@ -18,6 +18,8 @@ let mapleader = ' '
 
 filetype plugin indent off
 set clipboard+=unnamedplus
+set cursorcolumn 
+set cursorline
 set encoding=utf-8
 " set foldlevel=1             " default foldlevel 1 to see headings
 " set foldmethod=marker       " sets the fold method to {{{ }}} markers
@@ -192,7 +194,7 @@ autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
 au BufReadPost *.C set syntax=cpp
 au BufReadPost *.H set syntax=cpp
 
-"Treat .md files as markdown file
+" Treat .md files as markdown file
 au BufEnter *.md set ft=markdown
 
 " Have dwmblocks automatically recompile and run when you edit this file in
