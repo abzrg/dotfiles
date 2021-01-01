@@ -12,9 +12,10 @@ esac
 export LANG="en_US.UTF-8"
 export EDITOR="nvim"
 export VISUAL="nvim"
-export TERMINAL="urxvtc"
+export TERMINAL="alacritty"
 export BROWSER="firefox"
 export READER="zathura"
+export PAGER="less"
 export FILE="lf"
 export FZF_DEFAULT_OPTS="--layout=reverse --height 50%"
 export FZF_DEFAULT_COMMAND='fd -H -I' # Including hidden files in search
@@ -27,6 +28,7 @@ export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
 export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
 export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
 export LESS=-R
+export COLORTERM="truecolor"
 
 # SHOPT
 shopt -s checkwinsize # checks term size when bash regains control
@@ -41,7 +43,7 @@ shopt -s globstar # ** in pathname match all files, zero or more dir and subdirs
 stty -ixon # Disable ctrl-s and ctrl-q.
 
 # History
-HISTCONTROL=ignoreboth # ignore duplicate and line starting space
+HISTCONTROL=ignoreboth:erasedups # ignore duplicate and line starting space
 HISTSIZE=10000
 HISTFILESIZE=10000
 export HISTFILE="${XDG_DATA_HOME:-$HOME/.local/share}/history"

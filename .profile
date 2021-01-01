@@ -12,9 +12,10 @@
 export LANG="en_US.UTF-8"
 export EDITOR="nvim"
 export VISUAL="nvim"
-export TERMINAL="urxvtc"
+export TERMINAL="alacritty"
 export BROWSER="firefox"
 export READER="zathura"
+export PAGER="less"
 export FILE="ranger"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -35,6 +36,7 @@ export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
 export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
 export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
 export LESS=-R
+export COLORTERM="truecolor"
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
