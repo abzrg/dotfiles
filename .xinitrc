@@ -19,7 +19,6 @@ XDG_SESSION_TYPE=x11
 xset r rate 300 50
 setxkbmap -layout us,ir
 setxkbmap -option 'ctrl:nocaps'
-setxkbmap -option 'grp:alt_shift_toggle'
 
 ## sets pointer so that it's not just an X
 #xsetroot -cursor_name left_ptr
@@ -39,7 +38,9 @@ xset -dpms &
 touchpad &
 xbanish &
 nm-applet &
+volumeicon &
 udiskie -t &
+dwmblocks &
 
 # LOOP
 while true; do
