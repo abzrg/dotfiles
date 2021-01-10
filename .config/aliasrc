@@ -23,7 +23,6 @@ alias \
 
 # LONG COMMANDS
 alias \
-	bat='batcat'						\
 	df='df -h'							\
 	a="sudo apt"						\
 	e="$EDITOR"				 			\
@@ -39,7 +38,7 @@ alias \
 	sdn="sudo shutdown -h now"			\
 	trem="transmission-remote"			\
 	merge='xrdb -merge ~/.Xresources'	\
-	slc="make clean && rm config.h"     \
+	slc="make clean && rm -f config.h"     \
 	myip="curl http://myip.dnsomatic.com && echo ''" \
 	visudo='sudo EDITOR=nvim visudo -f /etc/sudoers.d/ali' \
 	config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME' \
@@ -68,7 +67,7 @@ alias \
 	xin="$EDITOR $HOME/.xinitrc"	\
 	cfb="$EDITOR $HOME/.bashrc"		\
 	cfp="$EDITOR $HOME/.profile"	\
-	cft="$EDITOR .tmux.conf"		\
+	cft="$EDITOR $HOME/.tmux.conf"		\
 	cfa="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc"				\
 	cfi="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/i3/config"			\
 	cfib="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/i3blocks/config"	\

@@ -13,7 +13,7 @@ export LANG="en_US.UTF-8"
 export EDITOR="nvim"
 export VISUAL="nvim"
 export TERMINAL="alacritty"
-export BROWSER="firefox"
+export BROWSER="brave"
 export READER="zathura"
 export PAGER="less"
 export FILE="lf"
@@ -101,6 +101,7 @@ fi
 
 # OpenFOAM7
 alias of7='source ~/OpenFOAM/OpenFOAM-7/etc/bashrc'
+alias fe40='source $HOME/foam/foam-extend-4.0/etc/bashrc'
 
 # aliasrc
 [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
