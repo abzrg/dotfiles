@@ -27,17 +27,19 @@ set hidden
 set hlsearch
 set ignorecase
 set incsearch
+set mouse=a
 set nobackup
 set nocindent noautoindent indentexpr= "disable autoindents
-set smartindent
+set noshowmode
+set noswapfile
 set nowritebackup
+set smartindent
 set scrolloff=7
 set shiftwidth=4
-set shortmess+=cI
+set shortmess+=I
 set signcolumn=auto
 set smartcase
 set splitbelow splitright
-set noswapfile
 set tabstop=4
 " set Vim-specific sequences for RGB colors
 " let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
