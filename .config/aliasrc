@@ -41,7 +41,7 @@ alias \
 	slc="make clean && rm -f config.h"     \
 	myip="curl http://myip.dnsomatic.com && echo ''" \
 	visudo='sudo EDITOR=nvim visudo -f /etc/sudoers.d/ali' \
-	config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME' \
+	config='/usr/bin/git --git-dir=$HOME/repos/dotfiles/ --work-tree=$HOME' \
 	alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # DIRECTORIES 
