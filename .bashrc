@@ -108,3 +108,6 @@ alias fe40='source $HOME/foam/foam-extend-4.0/etc/bashrc'
 
 # git tab-completion <https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash>
 source ~/.local/share/git-completion.bash
+
+# z : tracks most used directories based on 'frequency'
+[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
