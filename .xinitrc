@@ -18,7 +18,9 @@ XDG_SESSION_TYPE=x11
 ## Increase key speed via a rate change
 xset r rate 300 50
 setxkbmap -layout us,ir
+setxkbmap us
 setxkbmap -option 'ctrl:nocaps'
+xcape -e 'Control_L=Escape'
 
 ## sets pointer so that it's not just an X
 #xsetroot -cursor_name left_ptr
