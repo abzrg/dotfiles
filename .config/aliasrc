@@ -41,6 +41,8 @@ alias \
 	slc="make clean && rm -f config.h"     \
 	myip="curl http://myip.dnsomatic.com && echo ''" \
 	visudo='sudo EDITOR=nvim visudo -f /etc/sudoers.d/ali' \
+	conda_a='source ~/bin/anaconda3/bin/activate' \
+	conda_d='conda deactivate' \
 	config='/usr/bin/git --git-dir=$HOME/repos/dotfiles/ --work-tree=$HOME' \
 	alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
@@ -58,7 +60,8 @@ alias \
 	vid="cd ${XDG_VIDEOS_DIR:-$HOME/Videos}"		\
 	th="cd $HOME/Documents/project/Thesis/thesis"	\
 	art="cd $HOME/Documents/project/articles"		\
-	proj="cd $HOME/Documents/project/"
+	proj="cd $HOME/Documents/project/"				\
+	org="cd ${XDG_DOCUMENTS_DIR:-$HOME/Documents/OrgFiles}"
 
 # FILES
 alias \
