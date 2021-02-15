@@ -18,7 +18,7 @@ let mapleader = ' '
 
 filetype plugin indent off
 set clipboard+=unnamedplus
-set cursorcolumn 
+" set cursorcolumn 
 set cursorline
 set encoding=utf-8
 " set foldlevel=1             " default foldlevel 1 to see headings
@@ -87,7 +87,7 @@ source ~/.config/nvim/vim-plug/vimtex.vim
 
 """" Colorscheme: colo | colorscheme
 
-colo codedark
+colo solarized8
 """" transparent background
 " hi! Normal ctermbg=NONE guibg=NONE
 " hi! NonText ctermbg=NONE guibg=NONE
@@ -96,13 +96,13 @@ highlight ColorColumn guibg=darkmagenta guifg=black ctermbg=darkmagenta ctermfg=
 
 call matchadd('ColorColumn', '\%81v', 1)
 " custom highlight
-highlight PmenuSel ctermbg=gray ctermfg=black
-highlight Visual cterm=reverse
-highlight StatusLine ctermfg=101 ctermbg=235
-highlight Search ctermbg=darkyellow ctermfg=white
-highlight Comment ctermfg=240
-highlight SpellBad ctermbg=NONE cterm=underline
-highlight SpellCap cterm=undercurl ctermbg=NONE
+" highlight PmenuSel ctermbg=gray ctermfg=black
+" highlight Visual cterm=reverse
+" highlight StatusLine ctermfg=101 ctermbg=235
+" highlight Search ctermbg=darkyellow ctermfg=white
+" highlight Comment ctermfg=240
+" highlight SpellBad ctermbg=NONE cterm=underline
+" highlight SpellCap cterm=undercurl ctermbg=NONE
 
 
 "" Mapping ========================================================
@@ -139,6 +139,8 @@ map ,p :!opout <c-r>%<CR><CR>
 """" Check your shell script
 map ,s :!clear && shellcheck --shell=sh %<CR>
 map ,w yiw <bar> :!vimdic<CR>
+"""" Use urlview to choose and open a url
+map ,u :w<Home>silent <End> !urlview<CR>
 " -----------------------------------------------------------------
 """" Enable English language spell checking
 map \o :setlocal spell! spelllang=en_au<CR>
@@ -193,8 +195,8 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
 
 " Treat .C and .H files as c/cpp files
-au BufReadPost *.C set syntax=cpp
-au BufReadPost *.H set syntax=cpp
+au BufReadPost *.C set filetype=cpp
+au BufReadPost *.H set filetype=cpp
 
 " Treat .md files as markdown file
 au BufEnter *.md set ft=markdown

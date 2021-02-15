@@ -2,6 +2,7 @@ call plug#begin('~/.config/nvim/plugged')
 " Colorscheme
     Plug 'srcery-colors/srcery-vim'
     Plug 'romainl/Apprentice'
+    Plug 'lifepillar/vim-solarized8'
     " Plug 'flazz/vim-colorschemes'
 " Commenting
     Plug 'tpope/vim-commentary'
