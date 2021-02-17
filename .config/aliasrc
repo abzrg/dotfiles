@@ -139,7 +139,7 @@ ex ()
 
 # shdl() { curl -O $(curl -s https://sci-hub.st/"$@" | grep location.href | grep -o https.*pdf) ;}
 
-shdl() { wget $(curl -s https://sci-hub.st/"$@" | grep location.href | grep -o sci-hub.*pdf) ;}
+shdl() { curl -O $(curl -s https://sci-hub.st/"$@" | grep location.href | grep -o http.*pdf) ;}
 
 # shdl() { curl -O $(curl -s https://sci-hub.scihubtw.st/"$@" | grep location.href | grep -o https.*pdf) ;}
 
