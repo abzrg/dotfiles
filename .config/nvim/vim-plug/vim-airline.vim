@@ -9,5 +9,5 @@
 " Change warning format:
 	let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
 let g:airline#extensions#hunks#non_zero_only = 1
-let g:airline_theme = 'solarized_flood'
+let g:airline_theme = 'tomorrow'
 let g:airline#extensions#hunks#non_zero_only = 1

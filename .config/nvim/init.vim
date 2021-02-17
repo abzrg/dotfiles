@@ -42,10 +42,10 @@ set smartcase
 set splitbelow splitright
 set tabstop=4
 " set Vim-specific sequences for RGB colors
-" let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-" let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-" set t_8f=\[[38;2;%lu;%lu;%lum
-" set t_8b=\[[48;2;%lu;%lu;%lum
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+set t_8f=\[[38;2;%lu;%lu;%lum
+set t_8b=\[[48;2;%lu;%lu;%lum
 set termguicolors
 set thesaurus+=~/.config/nvim/moby-words.txt
 set title
@@ -87,7 +87,7 @@ source ~/.config/nvim/vim-plug/vimtex.vim
 
 """" Colorscheme: colo | colorscheme
 
-colo solarized8
+colo Tomorrow-Night
 """" transparent background
 " hi! Normal ctermbg=NONE guibg=NONE
 " hi! NonText ctermbg=NONE guibg=NONE
