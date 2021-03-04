@@ -36,6 +36,7 @@ shopt -s autocd # change to named directory
 shopt -s cdspell # autocorrects cd misspellings
 shopt -s cmdhist # save multi-line commands in history as single line
 shopt -s dotglob
+shopt -u progcomp # enables the programmable completion facilities(avoids the need for \ before variables name in tab completion)
 shopt -s histappend # append to the history file, do not overwrite history
 shopt -s expand_aliases # expand aliases. use C-A-e for expantion
 shopt -s no_empty_cmd_completion
@@ -101,6 +102,7 @@ fi
 
 # OpenFOAM7
 alias of7='source ~/OpenFOAM/OpenFOAM-7/etc/bashrc'
+alias of8='source ~/OpenFOAM/OpenFOAM-8/etc/bashrc'
 alias fe40='source $HOME/foam/foam-extend-4.0/etc/bashrc'
 
 # aliasrc
