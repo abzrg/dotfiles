@@ -20,13 +20,13 @@ export FILE="lf"
 export FZF_DEFAULT_OPTS="--layout=reverse --height 50%"
 export FZF_DEFAULT_COMMAND='fd -H -I' # Including hidden files in search
 export LESSOPEN='|/usr/bin/lesspipe.sh %s' # allow less to view non-text files
-# export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
-# export LESS_TERMCAP_md=$'\E[1;36m'     # begin blink
-# export LESS_TERMCAP_me=$'\E[0m'        # reset bold/blink
-# export LESS_TERMCAP_so=$'\E[01;42;30m' # begin reverse video
-# export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
-# export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
-# export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
+export LESS_TERMCAP_mb=$'\e[1;32m'      # begin bold
+export LESS_TERMCAP_md=$'\e[1;32m'      # begin blink
+export LESS_TERMCAP_me=$'\e[0m'         # reset bold/blink
+export LESS_TERMCAP_so=$'\e[01;33m'     # begin reverse video
+export LESS_TERMCAP_se=$'\e[0m'         # reset reverse video
+export LESS_TERMCAP_us=$'\e[1;4;31m'    # begin underline
+export LESS_TERMCAP_ue=$'\e[0m'         # reset underline
 export LESS=-R
 export COLORTERM="truecolor"
 
@@ -35,8 +35,8 @@ shopt -s checkwinsize # checks term size when bash regains control
 shopt -s autocd # change to named directory
 shopt -s cdspell # autocorrects cd misspellings
 shopt -s cmdhist # save multi-line commands in history as single line
+shopt -s direxpand # If set, Bash replaces directory names with the results of word expansion when performing filename completion.
 shopt -s dotglob
-shopt -u progcomp # enables the programmable completion facilities(avoids the need for \ before variables name in tab completion)
 shopt -s histappend # append to the history file, do not overwrite history
 shopt -s expand_aliases # expand aliases. use C-A-e for expantion
 shopt -s no_empty_cmd_completion
@@ -66,7 +66,8 @@ esac
 source /usr/share/git/completion/git-prompt.sh
 
 # prompt
-export PS1='$(history -a)\[\e[1;31m\][\[\e[1;33m\]\u\[\e[1;32m\]@\[\e[1;34m\]\h \[\e[1;35m\]\W\[\e[1;36m\]$(__git_ps1)\[\e[1;31m\]]\[\e[0m\]% '
+export PS1='$(history -a)\[\e[1;31m\][\[\e[1;33m\]\u\[\e[1;32m\]@\[\e[1;34m\]\h \[\e[1;35m\]\W\[\e[1;36m\]$(__git_ps1)\[\e[1;31m\]]\[\e[0m\]⟩ '
+# export PS1='$(history -a)\[\e[1;34m\]\W$(__git_ps1) \[\e[0m\]⟩ '
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
