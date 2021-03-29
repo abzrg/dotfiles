@@ -11,16 +11,16 @@
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
 # set by alacritty itself.
-#env:
+env:
   # TERM variable
   #
   # This value is used to set the `$TERM` environment variable for
   # each instance of Alacritty. If it is not present, alacritty will
   # check the local terminfo database and use `alacritty` if it is
   # available, otherwise `xterm-256color` is used.
-  #TERM: alacritty
+  TERM: xterm-256color
 
-#window:
+window:
   # Window dimensions (changes require restart)
   #
   # Number of lines/columns (not pixels) in the terminal. The number of columns
@@ -42,9 +42,9 @@
   #
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
-  #padding:
-  #  x: 0
-  #  y: 0
+  padding:
+   x: 2
+   y: 2
 
   # Spread additional padding evenly around the terminal content.
   #dynamic_padding: false
@@ -99,16 +99,16 @@
   #multiplier: 3
 
 # Font configuration
-#font:
+font:
   # Normal (roman) font face
-  #normal:
+  normal:
     # Font family
     #
     # Default:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    #family: monospace
+    family: noto sans mono
 
     # The `style` can be specified to pick a specific face.
     #style: Regular
@@ -147,14 +147,14 @@
     #style: Bold Italic
 
   # Point size
-  #size: 11.0
+  size: 13
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
   # spacing.
-  #offset:
-  #  x: 0
-  #  y: 0
+  # offset:
+  #  x: -1
+  #  y: -1
 
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increasing `x` moves the glyph to the
@@ -170,10 +170,292 @@
   #use_thin_strokes: true
 
 # If `true`, bold text is drawn using the bright color variants.
-#draw_bold_text_with_bright_colors: false
+draw_bold_text_with_bright_colors: false
+
+colors:
+  # Default colors
+  primary:
+    background: '#1d2021'
+    foreground: '#d5c4a1'
+
+  # Normal colors
+  normal:
+    black:   '#1d2021'
+    red:     '#fb4934'
+    green:   '#b8bb26'
+    yellow:  '#fabd2f'
+    blue:    '#83a598'
+    magenta: '#d3869b'
+    cyan:    '#8ec07c'
+    white:   '#d5c4a1'
+
+  # Bright colors
+  bright:
+    black:   '#665c54'
+    red:     '#fb4934'
+    green:   '#b8bb26'
+    yellow:  '#fabd2f'
+    blue:    '#83a598'
+    magenta: '#d3869b'
+    cyan:    '#8ec07c'
+    white:   '#fbf1c7'
+
+# # Colors (Nord)
+# colors:
+#    # Default colors
+#    primary:
+#      background: '#2E3440'
+#      foreground: '#D8DEE9'
+
+#    # Normal colors
+#    normal:
+#      black:   '#3B4252'
+#      red:     '#BF616A'
+#      green:   '#A3BE8C'
+#      yellow:  '#EBCB8B'
+#      blue:    '#81A1C1'
+#      magenta: '#B48EAD'
+#      cyan:    '#88C0D0'
+#      white:   '#E5E9F0'
+
+#    # Bright colors
+#    bright:
+#      black:   '#4C566A'
+#      red:     '#BF616A'
+#      green:   '#A3BE8C'
+#      yellow:  '#EBCB8B'
+#      blue:    '#81A1C1'
+#      magenta: '#B48EAD'
+#      cyan:    '#8FBCBB'
+#      white:   '#ECEFF4'
+
+# # KDE Breeze (Ported from Konsole)
+# colors:
+#   # Default colors
+#   primary:
+#     background: '#232627'
+#     foreground: '#fcfcfc'
+
+#     dim_foreground: '#eff0f1'
+#     bright_foreground: '#ffffff'
+#     dim_background: '#31363b'
+#     bright_background: '#000000'
+
+#   # Normal colors
+#   normal:
+#     black: '#232627'
+#     red: '#ed1515'
+#     green: '#11d116'
+#     yellow: '#f67400'
+#     blue: '#1d99f3'
+#     magenta: '#9b59b6'
+#     cyan: '#1abc9c'
+#     white: '#fcfcfc'
+
+#   # Bright colors
+#   bright:
+#     black: '#7f8c8d'
+#     red: '#c0392b'
+#     green: '#1cdc9a'
+#     yellow: '#fdbc4b'
+#     blue: '#3daee9'
+#     magenta: '#8e44ad'
+#     cyan: '#16a085'
+#     white: '#ffffff'
+
+#   # Dim colors
+#   dim:
+#     black: '#31363b'
+#     red: '#783228'
+#     green: '#17a262'
+#     yellow: '#b65619'
+#     blue: '#1b668f'
+#     magenta: '#614a73'
+#     cyan: '#186c60'
+#     white: '#63686d'
+
+# # Colors (Blood Moon)
+# colors:
+#   # Default colors
+#   primary:
+#     background: '#10100E'
+#     foreground: '#C6C6C4'
+
+#   # Normal colors
+#   normal:
+#     black:   '#10100E'
+#     red:     '#C40233'
+#     green:   '#009F6B'
+#     yellow:  '#FFD700'
+#     blue:    '#0087BD'
+#     magenta: '#9A4EAE'
+#     cyan:    '#20B2AA'
+#     white:   '#C6C6C4'
+
+#   # Bright colors
+#   bright:
+#     black:   '#696969'
+#     red:     '#FF2400'
+#     green:   '#03C03C'
+#     yellow:  '#FDFF00'
+#     blue:    '#007FFF'
+#     magenta: '#FF1493'
+#     cyan:    '#00CCCC'
+#     white:   '#FFFAFA'
+
+# colors:
+#   # Default colors
+#   primary:
+#     background: '#292C3E'
+#     foreground: '#EBEBEB'
+
+#   # Cursor colors
+#   cursor:
+#    text: '#FF261E'
+#    cursor: '#FF261E'
+
+#   # Normal colors
+#   normal:
+#     black:   '#0d0d0d'
+#     red:     '#FF301B'
+#     green:   '#A0E521'
+#     yellow:  '#FFC620'
+#     blue:    '#1BA6FA'
+#     magenta: '#8763B8'
+#     cyan:    '#21DEEF'
+#     white:   '#EBEBEB'
+
+#   # Bright colors
+#   bright:
+#     black:   '#6D7070'
+#     red:     '#FF4352'
+#     green:   '#B8E466'
+#     yellow:  '#FFD750'
+#     blue:    '#1BA6FA'
+#     magenta: '#A578EA'
+#     cyan:    '#73FBF1'
+#     white:   '#FEFEF8'
+
+# # Colors (Ayu Dark)
+# colors:
+#   # Default colors
+#   primary:
+#     background: '#0A0E14'
+#     foreground: '#B3B1AD'
+
+#   # Normal colors
+#   normal:
+#     black: '#01060E'
+#     red: '#EA6C73'
+#     green: '#91B362'
+#     yellow: '#F9AF4F'
+#     blue: '#53BDFA'
+#     magenta: '#FAE994'
+#     cyan: '#90E1C6'
+#     white: '#C7C7C7'
+
+#   # Bright colors
+#   bright:
+#     black: '#686868'
+#     red: '#F07178'
+#     green: '#C2D94C'
+#     yellow: '#FFB454'
+#     blue: '#59C2FF'
+#     magenta: '#FFEE99'
+#     cyan: '#95E6CB'
+#     white: '#FFFFFF'
+
+# # XTerm's default colors
+# colors:
+#    # Default colors
+#    primary:
+#      background: '#000000'
+#      foreground: '#ffffff'
+#    # Normal colors
+#    normal:
+#      black:   '#000000'
+#      red:     '#cd0000'
+#      green:   '#00cd00'
+#      yellow:  '#cdcd00'
+#      blue:    '#0000ee'
+#      magenta: '#cd00cd'
+#      cyan:    '#00cdcd'
+#      white:   '#e5e5e5'
+
+#    # Bright colors
+#    bright:
+#      black:   '#7f7f7f'
+#      red:     '#ff0000'
+#      green:   '#00ff00'
+#      yellow:  '#ffff00'
+#      blue:    '#5c5cff'
+#      magenta: '#ff00ff'
+#      cyan:    '#00ffff'
+#      white:   '#ffffff'
+
+# BRODIE
+# colors:
+#    # Default colors
+   # primary:
+   #   background: '#1E1E1E'
+   #   foreground: '#D4D4E4'
+
+#   # Normal colors
+#    normal:
+#      black:   '#191919'
+#      red:     '#b02626'
+#      green:   '#40a62f'
+#      yellow:  '#f2e635'
+#      blue:    '#314ad0'
+#      magenta: '#b30ad0'
+#      cyan:    '#32d0fc'
+#      white:   '#acadb1'
+
+#    # Bright colors
+#    bright:
+#      black:   '#36393d'
+#      red:     '#ce2727'
+#      green:   '#47c930'
+#      yellow:  '#fff138'
+#      blue:    '#2e4bea'
+#      magenta: '#cc15ed'
+#      cyan:    '#54d9ff'
+#      white:   '#dbdbdb'
+
+#    # Dim colors
+#    dim:
+#      black:   '#676f78'
+#      red:     '#b55454'
+#      green:   '#78a670'
+#      yellow:  '#faf380'
+#      blue:    '#707fd0'
+#      magenta: '#c583d0'
+#      cyan:    '#8adaf1'
+#      white:   '#e0e3e7'
+#    # Normal colors
+#    normal:
+#      black:   '#3B4252'
+#      red:     '#BF616A'
+#      green:   '#A3BE8C'
+#      yellow:  '#EBCB8B'
+#      blue:    '#81A1C1'
+#      magenta: '#B48EAD'
+#      cyan:    '#88C0D0'
+#      white:   '#E5E9F0'
+
+#    # Bright colors
+#    bright:
+#      black:   '#4C566A'
+#      red:     '#BF616A'
+#      green:   '#A3BE8C'
+#      yellow:  '#EBCB8B'
+#      blue:    '#81A1C1'
+#      magenta: '#B48EAD'
+#      cyan:    '#8FBCBB'
+#      white:   '#ECEFF4'
 
 # Colors (Tomorrow Night)
-#colors:
+# colors:
   # Default colors
   #primary:
   #  background: '#1d1f21'
@@ -284,7 +566,7 @@
 # Bell
 #
 # The bell is rung every time the BEL control character is received.
-#bell:
+# bell:
   # Visual Bell Animation
   #
   # Animation effect for flashing the screen when the visual bell is rung.
@@ -300,14 +582,14 @@
   #   - EaseOutExpo
   #   - EaseOutCirc
   #   - Linear
-  #animation: EaseOutExpo
+  # animation: Linear
 
   # Duration of the visual bell flash in milliseconds. A `duration` of `0` will
   # disable the visual bell animation.
-  #duration: 0
+  # duration: 1
 
   # Visual bell animation color.
-  #color: '#ffffff'
+  # color: '#333333'
 
   # Bell Command
   #
@@ -646,7 +928,8 @@ cursor:
 #
 # If the same trigger is assigned to multiple actions, all of them are executed
 # in the order they were defined in.
-#key_bindings:
+key_bindings:
+  - { key: Return,     mods: Control|Shift,       action: SpawnNewInstance }
   #- { key: Paste,                                action: Paste          }
   #- { key: Copy,                                 action: Copy           }
   #- { key: L,         mods: Control,             action: ClearLogNotice }
@@ -707,7 +990,9 @@ cursor:
 
   # (Windows, Linux, and BSD only)
   #- { key: V,              mods: Control|Shift,           action: Paste            }
+  - { key: V,              mods: Alt,                     action: Paste            }
   #- { key: C,              mods: Control|Shift,           action: Copy             }
+  - { key: C,              mods: Alt,                     action: Copy             }
   #- { key: F,              mods: Control|Shift,           action: SearchForward    }
   #- { key: B,              mods: Control|Shift,           action: SearchBackward   }
   #- { key: C,              mods: Control|Shift, mode: Vi, action: ClearSelection   }
