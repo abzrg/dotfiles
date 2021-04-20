@@ -14,8 +14,8 @@ alias \
 
 # COLORIZE COMMANDS
 alias \
-	ls="ls -hNFX --color=auto --group-directories-first"	\
-	l="ls -ali"												\
+	l="ls -hNFX --color=auto --group-directories-first"	\
+	ll="ls -ali"												\
 	grep="grep --color=auto"								\
 	egrep="egrep --color=auto"								\
 	fgrep="fgrep --color=auto"								\
@@ -178,8 +178,8 @@ remove_with_fzf () {
 update_fzf(){
 	# A function for faster access of files and directories
 	# Update fzf files & directories
-	fd -t f -H -I . $HOME > ~/.local/share/files
-	fd -H -t d . $HOME    > ~/.local/share/directories 
+	fd -t f -H -E ~/.cache -I . $HOME > ~/.local/share/files
+	fd -H -t d -E ~/.cache . $HOME    > ~/.local/share/directories 
 }
 
 open_with_fzf() {
