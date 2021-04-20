@@ -65,9 +65,28 @@ esac
 # Git prompt script that should be sourced in arch distros
 source /usr/share/git/completion/git-prompt.sh
 
-# prompt
-export PS1='$(history -a)\[\e[1;31m\][\[\e[1;33m\]\u\[\e[1;32m\]@\[\e[1;34m\]\h \[\e[1;35m\]\W\[\e[1;36m\]$(__git_ps1)\[\e[1;31m\]]\[\e[0m\]⟩ '
-# export PS1='$(history -a)\[\e[1;34m\]\W$(__git_ps1) \[\e[0m\]⟩ '
+############
+## prompt ##
+############
+
+COLOR_RED="\033[0;31m"
+COLOR_YELLOW="\033[0;33m"
+COLOR_GREEN="\033[0;32m"
+COLOR_OCHRE="\033[38;5;95m"
+COLOR_BLUE="\033[0;34m"
+COLOR_WHITE="\033[0;37m"
+COLOR_RESET="\033[0m"
+
+PROMPT_DIRTRIM=2	# only show the last two entries
+
+# PS1="\$(history -a)\[$COLOR_GREEN\][\w]\[$COLOR_RED\]\$(__git_ps1)"
+# PS1+="\[$COLOR_BLUE\]\$\[$COLOR_RESET\] "
+
+# Luke Smith's propmt
+#PS1='$(history -a)\[\e[1;31m\][\[\e[1;33m\]\u\[\e[1;32m\]@\[\e[1;34m\]\h \[\e[1;35m\]\W\[\e[1;36m\]$(__git_ps1)\[\e[1;31m\]]\[\e[0m\]$ '
+
+# Note that you don't need to, and should not, export PS1, since it's a shell setting, not an environment variable. A bash PS1 setting wouldn't be understood by other shells.
+PS1='$(history -a)[\w]$(__git_ps1)\[\e[0m\]\$ '
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
@@ -83,9 +102,9 @@ source /usr/share/fzf/key-bindings.bash
 source /usr/share/fzf/completion.bash
 # functions are implemented in aliasrc
 # print function definition with: "declare -f <function>" or "type <function>
-bind '"\ec":"cd_with_fzf\r"'
+bind '"\ed":"cd_with_fzf\r"'
 bind '"\ex":"text_file_with_fzf\r"'
-bind '"\ey":"text_file_cur_dir_with_fzf\r"'
+bind '"\eh":"text_file_cur_dir_with_fzf\r"'
 bind '"\eo":"open_with_fzf\r"'
 bind '"\ep":"install_with_fzf\r"'
 bind '"\er":"remove_with_fzf\r"'
@@ -114,3 +133,9 @@ source ~/.local/share/git-completion.bash
 
 # z : tracks most used directories based on 'frequency'
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+        eval "$("$BASE16_SHELL/profile_helper.sh")"
