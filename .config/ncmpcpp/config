@@ -1,3 +1,5 @@
+# vim: filetype=conf
+
 browser_display_mode = "columns"
 autocenter_mode = "yes"
 follow_now_playing_lyrics = "yes"
