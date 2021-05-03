@@ -1,0 +1,10 @@
+#!/usr/bin/env dash
+
+# This script enables you to see the definition of the words under the cursor
+# using the terminal based dictionary utility, sdcv.
+
+# prerequisite: xclip, sdcv
+
+alacritty -e def $(xclip -o -sel clip)
+
+# vim: ft=sh

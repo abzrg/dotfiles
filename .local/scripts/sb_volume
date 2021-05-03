@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# This script prints the sound volume with an icon next to it, to the stdout
+# Reference: Luke Smith
+
+[ $(pamixer --get-mute) = true ] && echo 🔇 && exit
+
+vol="$(pamixer --get-volume | sed s/,//)"
+
+if [ "$vol" -gt "70" ]; then
+    icon="🔊"
+elif [ "$vol" -lt "30" ]; then
+    icon="🔈"
+else
+    icon="🔉"
+fi
+
+printf "%s" "$icon $vol%"

@@ -1,0 +1,5 @@
+#!/usr/bin/env dash
+
+# This scirpt prints the current keyboard layout to the stdout
+
+printf "%s" "$(setxkbmap -query | awk '/layout/ {print $2}')"

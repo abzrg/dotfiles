@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# This script prints the bightness percentage to the stdout
+# Reference: Luke Smith
+
+vol="$(xbacklight -get | cut -d'.' -f1)"
+
+if [ "$vol" -gt "70" ]; then
+    icon="🌞"
+elif [ "$vol" -lt "30" ]; then
+    icon="🌚"
+else
+    icon="🌗"
+fi
+
+printf "%s" "$icon $vol%"

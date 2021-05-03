@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# This script prints the battery percentage (if connected) to the stdout
+# If battery is unplugged then it prints the plug sign for that case
+# Referene: Luke Smith
+
+if acpi | grep -q Battery; then
+    printf "🔋 %s" "$(acpi | awk '{print $$}' | sed s/,//)"
+else
+    printf "🔌"
+fi

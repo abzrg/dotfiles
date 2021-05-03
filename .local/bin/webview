@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# From: Luke Smith's void rice
+# Feed script a url
+# If an image, it will view in feh,
+# if a video or gif, it will view in mpv,
+# if a music file or pdf, it will download,
+# otherwise it opens link in browser.
+
+ext="${1##*.}"
+vidFiles="mkv mp4 gif"
+imgFiles="png jpg jpeg jpe"
+wgetFiles="mp3 flac opus mp3?source=feed pdf"
+
+if echo $imgFiles | grep -w $ext > /dev/null; then
+		sxiv "$1" >/dev/null &
+elif echo $vidFiles | grep -w $ext > /dev/null; then
+		mpv --loop --quiet "$1" >/dev/null &
+elif echo $wgetFiles | grep -w $ext > /dev/null; then
+		mpv --loop --quiet "$1" >/dev/null &
+else
+		$BROWSER "$1" >/dev/null &
+fi

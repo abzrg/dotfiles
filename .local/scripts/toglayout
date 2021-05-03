@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# This script change the current keyboard layout to the one that is not active currently
+
+LAYOUT=$(setxkbmap -query | awk '/layout/ {print $2}')
+
+if [[ "$LAYOUT" == "ir" ]]; then
+   setxkbmap us
+else
+   setxkbmap ir
+fi
+

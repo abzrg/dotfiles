@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+ID=$(xinput --list | grep TouchPad | awk '{print $6}' | cut -d'=' -f2)
+
+xinput set-prop $ID 318 1 # Enable tapping
+xinput set-prop $ID 320 1 # Enable tapping drag
+xinput set-prop $ID 298 1 # Enable natural scrolling

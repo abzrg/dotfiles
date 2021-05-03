@@ -1,0 +1,6 @@
+#!/usr/bin/env dash
+
+# Displays number of unread news items and an loading icon if updating.
+# When clicked, brings up `newsboat`.
+
+echo "$(newsboat -x print-unread | awk '{print $1}' | sed 's/Error:/🔃/')"

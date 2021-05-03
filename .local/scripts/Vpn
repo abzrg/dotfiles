@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+VPN=$(cat <<EOF | dmenu -p "ProtonVPN"
+connect
+disconnect
+EOF
+)
+
+if [[ $VPN == "connect" ]]; then
+    notify-send "ProtonVPN" "Connecting..."
+    sudo protonvpn c -f && notify-send "ProtonVPN" "You are now connected"
+elif [[ $VPN == "disconnect" ]]; then
+    notify-send "ProtonVPN" "Disconnecting..."
+    sudo protonvpn d && notify-send "ProtonVPN" "You are now Disconnected"
+fi
