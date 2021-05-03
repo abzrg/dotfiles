@@ -16,22 +16,25 @@ XDG_SESSION_TYPE=x11
 
 # Keyboard
 ## Increase key speed via a rate change
-xset r rate 300 50
-setxkbmap -layout us,ir
-setxkbmap us
-setxkbmap -option 'ctrl:nocaps'
-xcape -e 'Control_L=Escape'
+# xset r rate 300 50
+# setxkbmap -layout us,ir
+# setxkbmap us
+# setxkbmap -option 'ctrl:nocaps'
+# xcape -e 'Control_L=Escape'
+keyboard-settings &
+sxhkd &
 
 ## sets pointer so that it's not just an X
 #xsetroot -cursor_name left_ptr
 # turns num lock on automatically
 # xdotool key Num_Lock
 #sxhkd &
-#emacs --daemon &
+# emacs --daemon &
 #xbacklight -set 50
 # xrdb -load ~/.Xresources &
 ~/.fehbg &
 ~/.local/bin/picomstart &
+unclutter &
 mpd &
 mpDris2 &
 dunst &
@@ -41,12 +44,12 @@ touchpad &
 xbanish &
 nm-applet &
 volumeicon &
-udiskie -t &
+udiskie &
 dwmblocks &
 
 # LOOP
 while true; do
-	dwm >/dev/null 2>&1
+    dwm >/dev/null 2>&1
 done
 exec dwm
 

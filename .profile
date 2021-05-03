@@ -16,7 +16,7 @@ export TERMINAL="alacritty"
 export BROWSER="brave"
 export READER="zathura"
 export PAGER="less"
-export FILE="ranger"
+export FILE="lf"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
@@ -28,21 +28,27 @@ export SUDO_ASKPASS="$HOME/.local/bin/dmenupass"
 export FZF_DEFAULT_OPTS="--layout=reverse --height 40%"
 export FZF_DEFAULT_COMMAND='fd -H -I' # Including hidden files in search
 export LESSOPEN='|/usr/bin/lesspipe.sh %s' # allow less to view non-text files
-export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
-export LESS_TERMCAP_md=$'\E[1;36m'     # begin blink
-export LESS_TERMCAP_me=$'\E[0m'        # reset bold/blink
-export LESS_TERMCAP_so=$'\E[01;42;30m' # begin reverse video
-export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
-export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
-export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
+# export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
+# export LESS_TERMCAP_md=$'\E[1;36m'     # begin blink
+# export LESS_TERMCAP_me=$'\E[0m'        # reset bold/blink
+# export LESS_TERMCAP_so=$'\E[01;42;30m' # begin reverse video
+# export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
+# export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
+# export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
 export LESS=-R
 export COLORTERM="truecolor"
+
+# set local location for libraries. If not set compilers cannot find the
+# libraries and give us the error:
+#   
+export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
     if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
+    . "$HOME/.bashrc"
     fi
 fi
 

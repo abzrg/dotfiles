@@ -27,7 +27,7 @@ URxvt*scrollTtyKeypress: true
 URxvt.saveline: 2048
 
 !! font -----------------------------------------------------------------
-URxvt.font: xft:Monospace:size=12,xft:Noto Color Emoji:size=14
+URxvt.font: xft:monaco:size=14,xft:Noto Color Emoji:size=14
 /* URxvt*skipBuiltinGlyphs:    true */
 /* URxvt.letterSpace: -1 */
 /* URxvt.lineSpace: 0 */
@@ -37,7 +37,7 @@ URxvt.font: xft:Monospace:size=12,xft:Noto Color Emoji:size=14
 !! Transparecny
 urxvt*depth: 32
 /* urxvt*background: rgba:0000/0000/0200/c800 */
-URxvt.background: [90]#000000
+/* URxvt.background: [90]#000000 */
 urxvt*shading: 10
 urxvt*tintColor: #000000
 /* urxvt*blurRadius: 5 */
@@ -85,36 +85,36 @@ urxvt*tintColor: #000000
 
 
 
-/* name		dark	light */
-/* black	0	8 */
-/* red		1	9 */
-/* green	2	10 */
-/* yellow	3	11 */
-/* blue		4	12 */
-/* purple	5	13 */
-/* cyan		6	14 */
-/* white	7	15 */
+/* name     dark    light */
+/* black    0   8 */
+/* red      1   9 */
+/* green    2   10 */
+/* yellow   3   11 */
+/* blue     4   12 */
+/* purple   5   13 */
+/* cyan     6   14 */
+/* white    7   15 */
 
 !! gruvbox:
 
-*.color0: #1d2021    
-*.color1: #cc241d    
-*.color2: #98971a    
-*.color3: #d79921    
-*.color4: #458588    
-*.color5: #b16286    
-*.color6: #689d6a    
-*.color7: #a89984    
-*.color8: #928374    
-*.color9: #fb4934    
-*.color10: #b8bb26   
-*.color11: #fabd2f   
-*.color12: #83a598   
-*.color13: #d3869b   
-*.color14: #8ec07c   
-*.color15: #ebdbb2   
-*.color256: #1d2021  
-*.color257: #ebdbb2  
+*.color0: #1d2021
+*.color1: #cc241d
+*.color2: #98971a
+*.color3: #d79921
+*.color4: #458588
+*.color5: #b16286
+*.color6: #689d6a
+*.color7: #a89984
+*.color8: #928374
+*.color9: #fb4934
+*.color10: #b8bb26
+*.color11: #fabd2f
+*.color12: #83a598
+*.color13: #d3869b
+*.color14: #8ec07c
+*.color15: #ebdbb2
+*.color256: #1d2021
+*.color257: #ebdbb2
 *.background: #282828
 *.foreground: #ebdbb2
 
@@ -183,22 +183,22 @@ urxvt*tintColor: #000000
 /* !! solarized */
 /* *.foreground: #93a1a1 */
 /* *.background: #141c21 */
-/* *.color0:	#073642 */
-/* *.color1:	#dc322f */
-/* *.color2:	#859900 */
-/* *.color3:	#b58900 */
-/* *.color4:	#268bd2 */
-/* *.color5:	#d33682 */
-/* *.color6:	#2aa198 */
-/* *.color7:	#eee8d5 */
-/* *.color9:	#cb4b16 */
-/* *.color8:	#fdf6e3 */
-/* *.color10:	#586e75 */
-/* *.color11:	#657b83 */
-/* *.color12:	#839496 */
-/* *.color13:	#6c71c4 */
-/* *.color14:	#93a1a1 */
-/* *.color15:	#fdf6e3 */
+/* *.color0:    #073642 */
+/* *.color1:    #dc322f */
+/* *.color2:    #859900 */
+/* *.color3:    #b58900 */
+/* *.color4:    #268bd2 */
+/* *.color5:    #d33682 */
+/* *.color6:    #2aa198 */
+/* *.color7:    #eee8d5 */
+/* *.color9:    #cb4b16 */
+/* *.color8:    #fdf6e3 */
+/* *.color10:   #586e75 */
+/* *.color11:   #657b83 */
+/* *.color12:   #839496 */
+/* *.color13:   #6c71c4 */
+/* *.color14:   #93a1a1 */
+/* *.color15:   #fdf6e3 */
 
 /* !! xterm */
 /* *.color0:   #000000 */
@@ -262,20 +262,20 @@ urxvt*tintColor: #000000
 
 /* *.background: .color0 */
 /* *.color256: 0#1d2021 */
-/* *.color257: 15#ebdbb2 */ 
+/* *.color257: 15#ebdbb2 */
 
 
 !! Extensions -----------------------------------------------------------
 URxvt.perl-ext-common: default,matcher,resize-font,url-select,keyboard-select
-URxvt.colorUL:		#00486B
+URxvt.colorUL:      #00486B
 
 !! matcher
 URxvt.url-launcher: /usr/bin/xdg-open
-! 	on first click do the url-launcher
+!   on first click do the url-launcher
 URxvt.matcher.button: 1
-!	different color for links
+!   different color for links
 URxvt.matcher.rend.0: Uline Bold fg5
-! 	open and list recent links
+!   open and list recent links
 URxvt.keysym.C-Delete: perl:matcher:last
 URxvt.keysym.M-Delete: perl:matcher:list
 
@@ -295,8 +295,8 @@ URxvt.keysym.M-v: perl:keyboard-select:activate
 
 !! resize-font
 URxvt.resize-font.step: 1
-URxvt.resize-font.smaller:	C-Down
-URxvt.resize-font.bigger:	C-Up
+URxvt.resize-font.smaller:  C-Down
+URxvt.resize-font.bigger:   C-Up
 
 !! disable iso ----------------------------------------------------------
 URxvt*iso14755        : false
@@ -321,10 +321,10 @@ URxvt.keysym.M-j: command:\033]721;1\007
 
 !!!! Help
 
-!Alt+u  !! 	Enter selection mode. The last URL on your screen will be selected. You can repeat Alt+u to select the next upward URL.
-!k 		!! 	Select next upward URL
-!j 		!! 	Select next downward URL
-!Return !! 	Open selected URL in browser and quit selection mode
-!o 		!! 	Open selected URL in browser without quitting selection mode
-!y 		!! 	Copy (yank) selected URL and quit selection mode
-!Esc 	!! 	Cancel URL selection mode
+!Alt+u  !!  Enter selection mode. The last URL on your screen will be selected. You can repeat Alt+u to select the next upward URL.
+!k      !!  Select next upward URL
+!j      !!  Select next downward URL
+!Return !!  Open selected URL in browser and quit selection mode
+!o      !!  Open selected URL in browser without quitting selection mode
+!y      !!  Copy (yank) selected URL and quit selection mode
+!Esc    !!  Cancel URL selection mode

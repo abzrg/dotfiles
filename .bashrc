@@ -77,16 +77,16 @@ COLOR_BLUE="\033[0;34m"
 COLOR_WHITE="\033[0;37m"
 COLOR_RESET="\033[0m"
 
-PROMPT_DIRTRIM=2	# only show the last two entries
+PROMPT_DIRTRIM=2    # only show the last two entries
 
 # PS1="\$(history -a)\[$COLOR_GREEN\][\w]\[$COLOR_RED\]\$(__git_ps1)"
 # PS1+="\[$COLOR_BLUE\]\$\[$COLOR_RESET\] "
 
 # Luke Smith's propmt
-#PS1='$(history -a)\[\e[1;31m\][\[\e[1;33m\]\u\[\e[1;32m\]@\[\e[1;34m\]\h \[\e[1;35m\]\W\[\e[1;36m\]$(__git_ps1)\[\e[1;31m\]]\[\e[0m\]$ '
+PS1='$(history -a)\[\e[1;31m\][\[\e[1;33m\]\u\[\e[1;32m\]@\[\e[1;34m\]\h \[\e[1;35m\]\w\[\e[1;36m\]$(__git_ps1)\[\e[1;31m\]]\[\e[0m\]$ '
 
 # Note that you don't need to, and should not, export PS1, since it's a shell setting, not an environment variable. A bash PS1 setting wouldn't be understood by other shells.
-PS1='$(history -a)[\w]$(__git_ps1)\[\e[0m\]\$ '
+# PS1='$(history -a)[\w]$(__git_ps1)\[\e[0m\]\$ '
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
@@ -120,9 +120,10 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# OpenFOAM7
+# OpenFOAM
 alias of7='source ~/OpenFOAM/OpenFOAM-7/etc/bashrc'
 alias of8='source ~/OpenFOAM/OpenFOAM-8/etc/bashrc'
+alias of8d='source ~/OpenFOAM/OpenFOAM-8-debug/etc/bashrc'
 alias fe40='source $HOME/foam/foam-extend-4.0/etc/bashrc'
 
 # aliasrc
@@ -134,8 +135,19 @@ source ~/.local/share/git-completion.bash
 # z : tracks most used directories based on 'frequency'
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 
-# Base16 Shell
-BASE16_SHELL="$HOME/.config/base16-shell/"
-[ -n "$PS1" ] && \
-    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-        eval "$("$BASE16_SHELL/profile_helper.sh")"
+# # Base16 Shell
+# BASE16_SHELL="$HOME/.config/base16-shell/"
+# [ -n "$PS1" ] && \
+#     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+#         eval "$("$BASE16_SHELL/profile_helper.sh")"
+
+# Broot
+source /home/ali/.config/broot/launcher/bash/br
+
+# lfcd
+LFCD="$HOME/.config/lf/lfcd.sh"
+if [ -f "$LFCD" ]; then
+    source "$LFCD"
+fi
+# change directory to the current directory
+bind '"\C-o":"lfcd\C-m"'  # bash
