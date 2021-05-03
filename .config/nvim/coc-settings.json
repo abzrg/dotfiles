@@ -1,0 +1,25 @@
+{
+  // snippets
+  "snippets.userSnippetsDirectory": "~/.config/nvim/snips",
+
+  // Python
+  "jedi.executable.command": "jedi-language-server",
+
+  // Clang
+  "languageserver": {
+    "clangd": {
+      "command": "clangd",
+      "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
+      "filetypes": ["c", "cpp", "objc", "objcpp"]
+    }
+  },
+
+  // Explorer
+  "explorer.width": 30,
+  "explorer.icon.enableNerdfont": true,
+  "explorer.previewAction.onHover": false,
+  "explorer.keyMappings.global": {
+    "<cr>": ["expandable?", "expand", "open"],
+    "v": "open:vsplit"
+  }
+}
