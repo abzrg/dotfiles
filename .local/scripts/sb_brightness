@@ -6,9 +6,9 @@
 vol="$(xbacklight -get | cut -d'.' -f1)"
 
 if [ "$vol" -gt "70" ]; then
-    icon="🌞"
+    icon="🌕"
 elif [ "$vol" -lt "30" ]; then
-    icon="🌚"
+    icon="🌑"
 else
     icon="🌗"
 fi

@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# Simple script that uses maim to take a screenshot
+output=$HOME/Pictures/screenshots/"$(date +%s_%h%d_%H:%M:%S).png"
+
+# Prompt user for how take screenshot
+OPT=$(cat <<EOF | dmenu -l 3 -p "Maim"
+active
+select
+full
+EOF
+)
+
+case "$OPT" in
+    "active") maim -i $(xdotool getactivewindow) "$output" || exit;;
+    "select") maim -s "$output" || exit ;;
+    "full") maim "$output" || exit ;;
+    "") exit ;;
+esac
+
+# Notify user that screenshot has been taken successfully
+notify-send "Maim" "Screenshot Taken"
