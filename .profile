@@ -40,7 +40,6 @@ export COLORTERM="truecolor"
 
 # set local location for libraries. If not set compilers cannot find the
 # libraries and give us the error:
-#   
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
 
