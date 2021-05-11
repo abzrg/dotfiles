@@ -36,11 +36,12 @@ shopt -s autocd # change to named directory
 shopt -s cdspell # autocorrects cd misspellings
 shopt -s cmdhist # save multi-line commands in history as single line
 shopt -s direxpand # If set, Bash replaces directory names with the results of word expansion when performing filename completion.
-shopt -s dotglob
+shopt -s dotglob # Wildcards match dotfiles ("*.sh" => "foo.sh")
 shopt -s histappend # append to the history file, do not overwrite history
 shopt -s expand_aliases # expand aliases. use C-A-e for expantion
 shopt -s no_empty_cmd_completion
-shopt -s globstar # ** in pathname match all files, zero or more dir and subdirs
+shopt -s globstar # Allow ** for recursive matches ('lib/**/*.sh' => 'lib/a/b/c.sh')
+shopt -s histverify # Don't execute expand result immediately
 stty -ixon # Disable ctrl-s and ctrl-q.
 
 # History
@@ -108,6 +109,9 @@ bind '"\eh":"text_file_cur_dir_with_fzf\r"'
 bind '"\eo":"open_with_fzf\r"'
 bind '"\ep":"install_with_fzf\r"'
 bind '"\er":"remove_with_fzf\r"'
+
+# Find man page easier with dman script
+bind '"\em":"dman\r"'
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile

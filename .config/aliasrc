@@ -36,6 +36,8 @@ alias \
     grp="grep -Rli"                     \
     SS="sudo systemctl"                 \
     free='free -m'                      \
+    chbin='chmod 755'                   \
+    chreg='chmod 644'                   \
     sdn="sudo shutdown -h now"          \
     trem="transmission-remote"          \
     merge='xrdb -merge ~/.Xresources'   \
@@ -47,7 +49,7 @@ alias \
     c='/usr/bin/git --git-dir=$HOME/repos/dotfiles/ --work-tree=$HOME' \
     alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# DIRECTORIES 
+# DIRECTORIES
 alias \
     cd..='cd ..'                                    \
     m="cd ${XDG_MUSIC_DIR:-$HOME/Music}"            \
@@ -97,52 +99,67 @@ alias \
 
 urxvt_launcher() { urxvt -geometry 80x3 -name 'bashrun' -e sh -c "/bin/bash -i -t"; }
 
+# Spell checker
+spell() {
+    echo $@ | hunspell -d en_US | grep '^&'
+}
+
 def() {
     # sdcv (stardict)
     # Data in ~/.local/share/stardict/dic/
     sdcv -n --utf8-output --color "$@" 2>&1 | \
-    fold --width=$(tput cols) | \
-    less -FRX
-}
+        fold --width=$(tput cols) | \
+        less -FRX
+    }
 
-tra(){ translte "$@" | less -R ;}
+# Commandline Google translate
+tra(){ trans -d -e aspell -noansi -bidi "$@" | less -R ;}
+alias enfa='tra en:fa' \
+    faen='tra fa:en' \
+    ende='tra en:de' \
+    enfr='tra en:fr' \
+    jaen='tra ja:en' \
+    enja='tra en:ja'
+
+# Pronounce a word using Google's Text-to-Speech engine
+prnc() { trans -speak book &>/dev/null ;}
 
 odef() {
     # dict network protocol
-    curl -s dict://dict.org/d:"$@" | less -F -X -R 
+    curl -s dict://dict.org/d:"$@" | less -F -X -R
 }
 
+# Extract everything
 ex ()
 {
     # -- ARCHIVE EXTRACTION
     # usage: ex <file>
-  if [ -f $1 ] ; then
-    case $1 in
-      *.tar.bz2)   tar xjf $1   ;;
-      *.tar.gz)    tar xzf $1   ;;
-      *.bz2)       bunzip2 $1   ;;
-      *.rar)       unrar x $1   ;;
-      *.gz)        gunzip $1    ;;
-      *.tar)       tar xf $1    ;;
-      *.tbz2)      tar xjf $1   ;;
-      *.tgz)       tar xzf $1   ;;
-      *.zip)       unzip $1     ;;
-      *.Z)         uncompress $1;;
-      *.7z)        7z x $1      ;;
-      *.deb)       ar x $1      ;;
-      *.tar.xz)    tar xf $1    ;;
-      *.tar.zst)   unzstd $1    ;;
-      *)           echo "'$1' cannot be extracted via ex()" ;;
-    esac
-  else
-    echo "'$1' is not a valid file"
-  fi
+    if [ -f $1 ] ; then
+        case $1 in
+            *.tar.bz2)   tar xjf $1   ;;
+            *.tar.gz)    tar xzf $1   ;;
+            *.bz2)       bunzip2 $1   ;;
+            *.rar)       unrar x $1   ;;
+            *.gz)        gunzip $1    ;;
+            *.tar)       tar xf $1    ;;
+            *.tbz2)      tar xjf $1   ;;
+            *.tgz)       tar xzf $1   ;;
+            *.zip)       unzip $1     ;;
+            *.Z)         uncompress $1;;
+            *.7z)        7z x $1      ;;
+            *.deb)       ar x $1      ;;
+            *.tar.xz)    tar xf $1    ;;
+            *.tar.zst)   unzstd $1    ;;
+            *)           echo "'$1' cannot be extracted via ex()" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
 }
 
-# shdl() { curl -O $(curl -s https://sci-hub.st/"$@" | grep location.href | grep -o https.*pdf) ;}
-
+# Download documents!
 shdl() { curl -O $(curl -s https://sci-hub.st/"$@" | grep location.href | grep -o http.*pdf) ;}
-
+# shdl() { curl -O $(curl -s https://sci-hub.st/"$@" | grep location.href | grep -o https.*pdf) ;}
 # shdl() { curl -O $(curl -s https://sci-hub.scihubtw.st/"$@" | grep location.href | grep -o https.*pdf) ;}
 
 se() {
@@ -166,7 +183,7 @@ se() {
 #   )
 # }
 
-# PACMAN
+# PACMAN-related Utilities
 install_with_fzf () {
     pacman -Slq | fzf --multi --preview 'pacman -Si {1}' | \
         xargs -ro sudo pacman -S
@@ -177,19 +194,20 @@ remove_with_fzf () {
         xargs -ro sudo pacman -Rns
 }
 
+# Navigate to any directory and open anything easier
 update_fzf(){
     # A function for faster access of files and directories
     # Update fzf files & directories
-    fd -t f -H -E ~/.cache -I . $HOME > ~/.local/share/files
-    fd -H -t d -E ~/.cache . $HOME    > ~/.local/share/directories 
+    fd -t f -H -E ~/.cache -I . $HOME > ~/.cache/files
+    fd -H -t d -E ~/.cache . $HOME    > ~/.cache/directories
 }
 
 open_with_fzf() {
-    cat ~/.local/share/files | fzf | xargs -ro -d "\n" xdg-open 2>&-
+    cat ~/.cache/files | fzf | xargs -ro -d "\n" xdg-open 2>&-
 }
 
 text_file_with_fzf() {
-     cat ~/.local/share/files  | fzf -m --height 100% --preview="less {}" | xargs -ro -d "\n" $EDITOR -p  2>&-
+    cat ~/.cache/files  | fzf -m --height 100% --preview="less {}" | xargs -ro -d "\n" $EDITOR -p  2>&-
 }
 
 text_file_cur_dir_with_fzf() {
@@ -198,7 +216,7 @@ text_file_cur_dir_with_fzf() {
 
 cd_with_fzf() {
     # cd $HOME && cd "$(fd -H -t d . $HOME | fzf --preview="tree -C -L 1 {}" --bind="ctrl-space:toggle-preview" --preview-window=:hidden)"
-    cd "$(cat ~/.local/share/directories | fzf --preview="tree -C -L 1 {}" --bind="ctrl-x:toggle-preview" --preview-window=:hidden)"
+    cd "$(cat ~/.cache/directories | fzf --preview="tree -C -L 1 {}" --bind="ctrl-x:toggle-preview" --preview-window=:hidden)"
 }
 
 # MISCELLANEOUS

@@ -65,6 +65,13 @@ set visible-stats On
 "\e[A": history-search-backward
 "\e[B": history-search-forward
 
+"\ew": copy-backward-word
+"\ea": alias-expand-line
+"\el": yank-last-arg
+
+"\e]": character-search
+"\e[": character-search-backward
+
 # Magic space
 $if Bash
   Space: magic-space
