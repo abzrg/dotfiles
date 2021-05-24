@@ -4,8 +4,25 @@
 # If battery is unplugged then it prints the plug sign for that case
 # Referene: Luke Smith
 
-if acpi | grep -q Battery; then
-    printf "🔋 %s" "$(acpi | awk '{print $$}' | sed s/,//)"
-else
-    printf "🔌"
-fi
+
+# Check if battery directories are detected
+[ ! -e /sys/class/power_supply/BAT?* ] && printf "🔌" && exit 1
+
+# Loop through all attached batteries and format the info
+for battery in /sys/class/power_supply/BAT?*
+do
+    # Sets up the status and capacity
+    status=$(cat "$battery/status")
+    case "$status" in
+        "Full") status="⚡" ;;
+        "Discharging") status="🔋" ;;
+        "Charging") status="🔌" ;;
+        "Not charging") status="🛑" ;;
+        "Unknown") status="♻️" ;;
+    esac
+    capacity=$(cat "$battery/capacity")
+    # Will make a warn variable if discharging and low
+    [ "$status" = "🔋" ] && [ "$capacity" -le 25 ] && warn="❗"
+    # Prints the info
+    printf "%s%s%d%%\n" "$status" "$warn" "$capacity"; unset warn
+done && return 0

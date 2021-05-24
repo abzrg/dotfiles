@@ -6,5 +6,6 @@
 # prerequisite: xclip, sdcv
 
 sdcv -n --utf8-output "$(xclip -o -sel clip)" 2>&1
+echo "$(xclip -o -sel clip)" >> ~/.words
 
 # vim: ft=sh

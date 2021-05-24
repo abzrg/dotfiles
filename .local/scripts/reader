@@ -3,7 +3,7 @@
 BOOK=$(fd -t f -E "*zip" . ~/Documents/Books/ | dmenu -l 5 -p "Books")
 
 if file "$BOOK" | grep -q text$; then
-    alacritty -e nvim -c "Goyo" -c "set nornu nonu" "$BOOK"
+    $TERMINAL -e nvim -c "Goyo" -c "set nornu nonu" -c "Limelight" "$BOOK"
 elif file "$BOOK" | grep -q -i pdf; then
     zathura "$BOOK"
 fi
