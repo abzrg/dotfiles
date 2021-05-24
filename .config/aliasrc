@@ -5,6 +5,7 @@ alias \
     cp="cp -iv"                         \
     mv="mv -iv"                         \
     rm="rm -vI"                         \
+    ln="ln -v"                          \
     mkd="mkdir -pv"                     \
     duh="du -h -d 0 [^.]*"              \
     yt="youtube-dl --add-metadata -i"   \
@@ -14,7 +15,7 @@ alias \
 
 # COLORIZE COMMANDS
 alias \
-    ls="ls -hNFX --color=auto --group-directories-first"    \
+    ls="ls -hNFXG --color=auto --group-directories-first"    \
     l='ls'                                                  \
     ll="ls -ali"                                            \
     grep="grep --color=auto"                                \
@@ -68,10 +69,11 @@ alias \
 
 # FILES
 alias \
-    inp="$EDITOR $HOME/.inputrc"    \
+    inp="$EDITOR $HOME/.config/inputrc"    \
     xre="$EDITOR $HOME/.Xresources" \
     xin="$EDITOR $HOME/.xinitrc"    \
     cfb="$EDITOR $HOME/.bashrc"     \
+    cfz="$EDITOR $HOME/.config/zsh/.zshrc"     \
     cfp="$EDITOR $HOME/.profile"    \
     cft="$EDITOR $HOME/.tmux.conf"      \
     cfa="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc"             \
@@ -89,6 +91,9 @@ alias \
     cfx="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/sxiv/exec/key-handler" \
     cfA="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/alacritty/alacritty.yml"
 
+# Pretty print the path
+alias path='echo $PATH | tr -s ":" "\n"'
+
 # libreoffice
 alias \
     writer="libreoffice --writer"   \
@@ -104,7 +109,7 @@ spell() {
     echo $@ | hunspell -d en_US | grep '^&'
 }
 
-def() {
+d() {
     # sdcv (stardict)
     # Data in ~/.local/share/stardict/dic/
     sdcv -n --utf8-output --color "$@" 2>&1 | \
@@ -113,7 +118,7 @@ def() {
     }
 
 # Commandline Google translate
-tra(){ trans -d -e aspell -noansi -bidi "$@" | less -R ;}
+tra(){ trans -d -e aspell -bidi "$@" | less -R ;}
 alias enfa='tra en:fa' \
     faen='tra fa:en' \
     ende='tra en:de' \
@@ -122,7 +127,7 @@ alias enfa='tra en:fa' \
     enja='tra en:ja'
 
 # Pronounce a word using Google's Text-to-Speech engine
-prnc() { trans -speak book &>/dev/null ;}
+prnc() { trans -speak "$@" &>/dev/null ;}
 
 odef() {
     # dict network protocol
@@ -225,3 +230,9 @@ alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/mas
 
 # Use nevim for vim if present.
 command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d"
+
+# OpenFOAM aliases
+alias of7='source $HOME/OpenFOAM/OpenFOAM-7/etc/bashrc'
+alias of8='source $HOME/OpenFOAM/OpenFOAM-8/etc/bashrc'
+alias of8d='source $HOME/OpenFOAM/OpenFOAM-8-debug/etc/bashrc'
+alias fe40='source $HOME/foam/foam-extend-4.0/etc/bashrc'
