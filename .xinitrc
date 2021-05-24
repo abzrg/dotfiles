@@ -49,6 +49,7 @@ dwmblocks &
 
 # Java gray window problem
 export AWT_TOOLKIT=MToolkit
+export _JAVA_AWT_WM_NONREPARENTING=1 # for matalab
 
 # LOOP
 while true; do
