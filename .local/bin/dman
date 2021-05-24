@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Dmenu prompt to easily search for a man page to open
+# Remember to update the man page index periodically using the command
+# `sudo mandb && mandb`
+
+man $(apropos --long "$1" | dmenu -l 10 | awk '{print $2, $1}' | tr -d '()')
