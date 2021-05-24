@@ -3,7 +3,7 @@
 $include /etc/inputrc
 
 # emacs, vi
-# set editing-mode vi
+set editing-mode vi
 
 $if mode=vi
     # mapping i to enter insert mode and jj to get back to normal mode
@@ -23,9 +23,9 @@ $if mode=vi
     "jj": vi-movement-mode
 
     # cursor shape. normal mode: block, insert mode: pipe
-    # set show-mode-in-prompt on
-    # set vi-cmd-mode-string "\1\e[2 q\2"
-    # set vi-ins-mode-string "\1\e[6 q\2"
+    set show-mode-in-prompt on
+    set vi-cmd-mode-string "\1\e[2 q\2"
+    set vi-ins-mode-string "\1\e[6 q\2"
 
     # Some emacs mode functionality
     "\e.": yank-last-arg
@@ -33,8 +33,8 @@ $if mode=vi
     "\C-a": beginning-of-line
     "\C-e": end-of-line
     "\C-l": clear-screen
-    "\C-n": next-history
-    "\C-p": previous-history
+    # "\C-n": next-history
+    # "\C-p": previous-history
     "\C-w": unix-word-rubout
     "\C-x": alias-expand-line
     "\C-b": backward-char
@@ -54,20 +54,23 @@ set mark-symlinked-directories On
 set show-all-if-ambiguous On
 set show-all-if-unmodified On
 set visible-stats On
+# Enable Readline not waiting for additional input when a key is pressed.
+# Needed for the mappings below.
+set keyseq-timeout 0
 
 # \C: ctrl
 "\C-p": history-search-backward
 "\C-n": history-search-forward
+
 # \e: alt
 "\ej": menu-complete
 "\ek": menu-complete-backward
-# [A: up, [B: down
+
+# Change up/down arrow key behaviour to navigate only similar commands
 "\e[A": history-search-backward
 "\e[B": history-search-forward
 
 "\ew": copy-backward-word
-"\ea": alias-expand-line
-"\el": yank-last-arg
 
 "\e]": character-search
 "\e[": character-search-backward
