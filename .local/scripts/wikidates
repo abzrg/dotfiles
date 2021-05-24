@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# This script generates plain text files consisting of events of all days of
+# the year -- Inspired by *nixcast youtube channel with some modification
+
+# A directory to store the information for days
+mkdir ~/.wikidates
+
+# Iterate over the days of the year starting from today
+for DAY in {1..365}
+do
+    # This will miss the leap day, Febuary 29th so we need to add it manually
+    # afterwards when the loop ends
+    DATE=$(date -d "now +$DAY days" +%B_%d)
+
+    # Dump the contents of the website to the stdout and consider 99999
+    # columns to avoid wraping a line. This is useful for further
+    # text manupulation with sed, as every event starts with the
+    # character `•`. Also remove reference numbers
+    w3m -cols 99999 -dump http://en.wikipedia.org/wiki/"$DATE" | \
+        sed -n '/Events/,/Births/ p' | \ sed -n 's/^.*• //p' | \
+        sed -n '1,2 d' | \ sed -e '/^"/,$ d' \ sed -e '/^Historical/,$ d' \
+        sed -e '/^BBC/,$ d' \ sed -e '/s/\^\[.\]//g' \ ~/.wikidates/"$DATE"
+done
+
+# Febuary 29th
+w3m -cols 99999 -dump http://en.wikipedia.org/wiki/Febuary_29 | \
+    sed -n '/Events/,/Births/ p' | \ sed -n 's/^.*• //p' | \
+    sed -n '1,2 d' | \ sed -e '/^"/,$ d' \ sed -e '/^Historical/,$ d' \
+    sed -e '/^BBC/,$ d' \ sed -e '/s/\^\[.\]//g' \ ~/.wikidates/Febuary_29
