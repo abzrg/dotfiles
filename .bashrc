@@ -1,18 +1,14 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
-
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
       *) return;;
 esac
 
-# environment variables
+# Environment variables
 export LANG="en_US.UTF-8"
 export EDITOR="nvim"
 export VISUAL="nvim"
-export TERMINAL="alacritty"
+export TERMINAL="st"
 export BROWSER="brave"
 export READER="zathura"
 export PAGER="less"
@@ -30,7 +26,11 @@ export LESS_TERMCAP_ue=$'\e[0m'         # reset underline
 export LESS=-R
 export COLORTERM="truecolor"
 
-# SHOPT
+
+#################
+# SHell OPTions #
+#################
+
 shopt -s checkwinsize # checks term size when bash regains control
 shopt -s autocd # change to named directory
 shopt -s cdspell # autocorrects cd misspellings
@@ -44,18 +44,38 @@ shopt -s globstar # Allow ** for recursive matches ('lib/**/*.sh' => 'lib/a/b/c.
 shopt -s histverify # Don't execute expand result immediately
 stty -ixon # Disable ctrl-s and ctrl-q.
 
-# History
-HISTCONTROL=ignoreboth:erasedups # ignore duplicate and line starting space
-HISTSIZE=10000
-HISTFILESIZE=10000
+
+###########
+# History #
+###########
+
+# Ignore duplicate and line starting space
+HISTCONTROL=ignoreboth:erasedups
+
+# Size of the history file
+HISTSIZE=""
+HISTFILESIZE=""
 export HISTFILE="${XDG_DATA_HOME:-$HOME/.local/share}/history"
 
-# Colored GCC warnings and errors
-export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+# NOTE: To mark the history file append only issue the following command:
+#    # chattr +a $HISTFILE
+
+# Safety measures
+readonly HISTFILE
+readonly HISTSIZE
+readonly HISTFILESIZE
+readonly HISTIGNORE
+readonly HISTCONTROL
+readonly HISTTIMEFORMAT
+
+
+####################
+# Prompt and title #
+####################
 
 # Change title of terminals
 case ${TERM} in
-  xterm*|rxvt*|Eterm*|aterm|kterm|gnome*|alacritty|st|konsole*)
+  xterm*|rxvt*|Eterm*|aterm|kterm|gnome*|alacritty|st*|konsole*)
     PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\007"'
         ;;
   screen*)
@@ -63,13 +83,7 @@ case ${TERM} in
     ;;
 esac
 
-# Git prompt script that should be sourced in arch distros
-source /usr/share/git/completion/git-prompt.sh
-
-############
-## prompt ##
-############
-
+# Define colors
 COLOR_RED="\033[0;31m"
 COLOR_YELLOW="\033[0;33m"
 COLOR_GREEN="\033[0;32m"
@@ -78,16 +92,29 @@ COLOR_BLUE="\033[0;34m"
 COLOR_WHITE="\033[0;37m"
 COLOR_RESET="\033[0m"
 
-PROMPT_DIRTRIM=2    # only show the last two entries
+# Only retain 2 trailing directory components when expanding \w prompt string escape. Characters are replaced with an ellipsis.
+PROMPT_DIRTRIM=2
 
-# PS1="\$(history -a)\[$COLOR_GREEN\][\w]\[$COLOR_RED\]\$(__git_ps1)"
-# PS1+="\[$COLOR_BLUE\]\$\[$COLOR_RESET\] "
+# NOTE:
+#   - `history -a`: append history lines from this session to the history file
+#   - you don't need to, and should not, export PS1, since it's a shell
+#   setting, not an environment variable. A bash PS1 setting wouldn't be
+#   understood by other shells.
 
-# Luke Smith's propmt
+# Git prompt script that should be sourced in arch based distributions in order
+# to be used in the prompt
+source /usr/share/git/completion/git-prompt.sh
+
+# A prompt inspired by Luke Smith's prompt
 PS1='$(history -a)\[\e[1;31m\][\[\e[1;33m\]\u\[\e[1;32m\]@\[\e[1;34m\]\h \[\e[1;35m\]\w\[\e[1;36m\]$(__git_ps1)\[\e[1;31m\]]\[\e[0m\]$ '
 
-# Note that you don't need to, and should not, export PS1, since it's a shell setting, not an environment variable. A bash PS1 setting wouldn't be understood by other shells.
-# PS1='$(history -a)[\w]$(__git_ps1)\[\e[0m\]\$ '
+# A very simple prompt
+# PS1='$(history -a)\w $ '
+
+# We can append strings to the PS1 prompt
+# PS1="\$(history -a)\[$COLOR_GREEN\][\w]\[$COLOR_RED\]\$(__git_ps1) "
+# PS1+="\[$COLOR_BLUE\]\$\[$COLOR_RESET\] "
+
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
@@ -98,24 +125,67 @@ xterm*|*rxvt*)
     ;;
 esac
 
-# fzf
+
+###############################
+# Sourcing Programms Settings #
+###############################
+
+#----[ Aliases ]---------------------------------------------------------------
+[ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
+
+#----[ Tab completion for git ]------------------------------------------------
+# source: https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
+source ~/.local/share/git-completion.bash
+
+#----[ z ]---------------------------------------------------------------------
+# Tracks most used directories based on 'frequency'
+[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+
+#----[ Broot ]-----------------------------------------------------------------
+source /home/ali/.config/broot/launcher/bash/br
+
+#----[ lfcd ]------------------------------------------------------------------
+LFCD="$HOME/.local/bin/lfcd.sh"
+if [ -f "$LFCD" ]; then
+    source "$LFCD" &>/dev/null
+fi
+# change directory to the current directory
+bind '"\C-o":"lfcd\C-m"'  # bash
+
+#----[ fzf ]-------------------------------------------------------------------
+# Source some default examples
 source /usr/share/fzf/key-bindings.bash
 source /usr/share/fzf/completion.bash
-# functions are implemented in aliasrc
-# print function definition with: "declare -f <function>" or "type <function>
-bind '"\ed":"cd_with_fzf\r"'
+
+# Functions are implemented in aliasrc
+# See function definitions with: "declare -f <function>" or "type <function>
+bind '"\ef":"cd_with_fzf\r"'
 bind '"\ex":"text_file_with_fzf\r"'
 bind '"\eh":"text_file_cur_dir_with_fzf\r"'
 bind '"\eo":"open_with_fzf\r"'
 bind '"\ep":"install_with_fzf\r"'
 bind '"\er":"remove_with_fzf\r"'
 
-# Find man page easier with dman script
-bind '"\em":"dman\r"'
+##---- Base16 Shell ----------------------------------------------------------
+#BASE16_SHELL="$HOME/.config/base16-shell/"
+#[ -n "$PS1" ] && \
+#    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+#        eval "$("$BASE16_SHELL/profile_helper.sh")"
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
+
+################
+# Miscellaneus #
+################
+
+#----[ Fix problems of delete key in terminal ]--------------------------------
+printf '\033[?1h\033=' >/dev/tty
+
+#----[ Colored GCC warnings and errors ]---------------------------------------
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+#----[ Enable programmable completion features ]-------------------------------
+# (you don't need to enable this, if it's already enabled in /etc/bash.bashrc
+# and /etc/profile sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
@@ -124,34 +194,5 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# OpenFOAM
-alias of7='source ~/OpenFOAM/OpenFOAM-7/etc/bashrc'
-alias of8='source ~/OpenFOAM/OpenFOAM-8/etc/bashrc'
-alias of8d='source ~/OpenFOAM/OpenFOAM-8-debug/etc/bashrc'
-alias fe40='source $HOME/foam/foam-extend-4.0/etc/bashrc'
-
-# aliasrc
-[ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
-
-# git tab-completion <https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash>
-source ~/.local/share/git-completion.bash
-
-# z : tracks most used directories based on 'frequency'
-[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
-
-# # Base16 Shell
-# BASE16_SHELL="$HOME/.config/base16-shell/"
-# [ -n "$PS1" ] && \
-#     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-#         eval "$("$BASE16_SHELL/profile_helper.sh")"
-
-# Broot
-source /home/ali/.config/broot/launcher/bash/br
-
-# lfcd
-LFCD="$HOME/.config/lf/lfcd.sh"
-if [ -f "$LFCD" ]; then
-    source "$LFCD"
-fi
-# change directory to the current directory
-bind '"\C-o":"lfcd\C-m"'  # bash
+#----[ Find man page easier with dman script ]---------------------------------
+bind '"\em":"dman\r"'
