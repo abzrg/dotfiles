@@ -196,3 +196,6 @@ fi
 
 #----[ Find man page easier with dman script ]---------------------------------
 bind '"\em":"dman\r"'
+
+# Random events of the day
+shuf -n1 ~/.wikidates/$(date +%B_%d)
