@@ -1,0 +1,20 @@
+alt + space
+    toglayout; pkill -RTMIN+2 dwmblocks
+
+super + shift + c
+    dmtpfs
+
+Print
+    screenshot
+
+alt + grave
+    reader
+
+Menu
+    dmenu_run
+
+super + shift + a
+    color
+
+ctrl + shift + Return
+    samedir
