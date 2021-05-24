@@ -1,5 +1,5 @@
 # Basic Settings
-#set previewer ~/scripts/lf/preview
+set previewer ~/.local/bin/preview
 set preview true
 # set hidden true       # Show hidden files
 set drawbox true
@@ -8,7 +8,7 @@ set ignorecase true
 
 # Custom Functions
 
-# 
+#
 cmd open ${{
     case $(file --mime-type "$f" -bL) in
         text/*|application/json) $EDITOR "$f";;
@@ -46,11 +46,11 @@ cmd sudomkfile ${{
   sudo $EDITOR $ans
 }}
 
-cmd setwallpaper %cp "$f" ~/.config/wall.png && xwallpaper --zoom "$f"
+cmd setwallpaper %cp "$f" ~/Pictures/wall.png && ~/.fehbg
 
 
 cmd fzf_jump ${{
-  res="$(cat ~/.local/share/directories | fzf --reverse --header='Jump to location')"
+  res="$(cat ~/.cache/directories | fzf --reverse --header='Jump to location')"
   if [ -f "$res" ]; then
     cmd="select"
   elif [ -d "$res" ]; then
@@ -72,7 +72,7 @@ cmd broot_jump ${{
 }}
 
 cmd open_config  ${{
-  $EDITOR $(bookmenu -b ~/.config/bookmenu/configs -f fzf -o)
+  $EDITOR ~/.config/lf/lfrc
 }}
 
 # cmd dragon %dragon-drag-and-drop -a -x $fx
@@ -160,7 +160,12 @@ map gp cd ~/Pictures
 map gw cd ~/Pictures/myWallPaper/Bing
 
 map gb cd ~/Documents/Books
-map gd cd ~/Documents
+
+map gd. cd ~/dev
+map gdc cd ~/dev/cs50
+map gdp cd ~/dev/securecpp
+map gdl cd ~/dev/latex
+map gdm cd ~/dev/manim
 
 map gD cd ~/Downloads
 map ge cd ~/Desktop
