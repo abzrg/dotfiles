@@ -21,7 +21,7 @@ XDG_SESSION_TYPE=x11
 # setxkbmap us
 # setxkbmap -option 'ctrl:nocaps'
 # xcape -e 'Control_L=Escape'
-keyboard-settings &
+keyboardsettings &
 sxhkd &
 
 ## sets pointer so that it's not just an X
@@ -31,7 +31,7 @@ sxhkd &
 #sxhkd &
 # emacs --daemon &
 #xbacklight -set 50
-# xrdb -load ~/.Xresources &
+xrdb -load ~/.Xresources &
 ~/.fehbg &
 ~/.local/bin/picomstart &
 unclutter &
@@ -43,9 +43,12 @@ xset -dpms &
 touchpad &
 xbanish &
 nm-applet &
-volumeicon &
+# volumeicon &
 udiskie &
 dwmblocks &
+
+# Java gray window problem
+export AWT_TOOLKIT=MToolkit
 
 # LOOP
 while true; do
