@@ -14,71 +14,28 @@ fi
 # By default this variable is set to tty
 XDG_SESSION_TYPE=x11
 
-# Keyboard
-## Increase key speed via a rate change
-# xset r rate 300 50
-# setxkbmap -layout us,ir
-# setxkbmap us
-# setxkbmap -option 'ctrl:nocaps'
-# xcape -e 'Control_L=Escape'
-keyboardsettings &
-sxhkd &
+# Java gray window problem
+export AWT_TOOLKIT=MToolkit
+export _JAVA_AWT_WM_NONREPARENTING=1 # For matalab
 
-## sets pointer so that it's not just an X
-#xsetroot -cursor_name left_ptr
-# turns num lock on automatically
-# xdotool key Num_Lock
-#sxhkd &
-# emacs --daemon &
-#xbacklight -set 50
-xrdb -load ~/.Xresources &
 ~/.fehbg &
 ~/.local/bin/picomstart &
+xrdb -load ~/.Xresources &
+keyboardsettings &
+sxhkd &
 unclutter &
 mpd &
 mpDris2 &
 dunst &
-# urxvtd -q -f -o &
 xset -dpms &
 touchpad &
 xbanish &
 nm-applet &
-# volumeicon &
 udiskie &
 dwmblocks &
-
-# Java gray window problem
-export AWT_TOOLKIT=MToolkit
-export _JAVA_AWT_WM_NONREPARENTING=1 # for matalab
 
 # LOOP
 while true; do
     dwm >/dev/null 2>&1
 done
 exec dwm
-
-# exec enlightenment_start
-# exec mate-session
-# exec xmonad
-# exec startlxqt
-# exec startlxde
-# exec awesome
-# exec gnome-session
-# exec gnome-session --session=gnome-classic
-# exec startplasma-x11
-# exec startplasma-wayland
-# exec startfluxbox
-# exec openbox-session
-# exec cinnamon-session
-# exec pekwm
-# exec catwm
-# exec startede
-# exec icewm-session
-# exec jwm
-# exec monsterwm
-# exec notion
-# exec startdde       # deepin-session
-# exec startxfce4
-# exec bspwm
-# exec i3 -V >> /var/log/i3/$(date +'%F-%k-%M-%S').log 2>&1
-# exec i3
