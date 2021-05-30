@@ -51,6 +51,7 @@ stty -ixon # Disable ctrl-s and ctrl-q.
 
 # Ignore duplicate and line starting space
 HISTCONTROL=ignoreboth:erasedups
+HISTIGNORE="clear:bg:fg:cd:cd -:cd ..:exit:date:w:* --help:ls:l:ll:lll"
 
 # Size of the history file
 HISTSIZE=""
@@ -66,7 +67,6 @@ readonly HISTSIZE
 readonly HISTFILESIZE
 readonly HISTIGNORE
 readonly HISTCONTROL
-readonly HISTTIMEFORMAT
 
 
 ####################
@@ -82,15 +82,6 @@ case ${TERM} in
     PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\033\\"'
     ;;
 esac
-
-# Define colors
-COLOR_RED="\033[0;31m"
-COLOR_YELLOW="\033[0;33m"
-COLOR_GREEN="\033[0;32m"
-COLOR_OCHRE="\033[38;5;95m"
-COLOR_BLUE="\033[0;34m"
-COLOR_WHITE="\033[0;37m"
-COLOR_RESET="\033[0m"
 
 # Only retain 2 trailing directory components when expanding \w prompt string escape. Characters are replaced with an ellipsis.
 PROMPT_DIRTRIM=2
@@ -110,11 +101,6 @@ PS1='$(history -a)\[\e[1;31m\][\[\e[1;33m\]\u\[\e[1;32m\]@\[\e[1;34m\]\h \[\e[1;
 
 # A very simple prompt
 # PS1='$(history -a)\w $ '
-
-# We can append strings to the PS1 prompt
-# PS1="\$(history -a)\[$COLOR_GREEN\][\w]\[$COLOR_RED\]\$(__git_ps1) "
-# PS1+="\[$COLOR_BLUE\]\$\[$COLOR_RESET\] "
-
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
@@ -198,4 +184,10 @@ fi
 bind '"\em":"dman\r"'
 
 # Random events of the day
-shuf -n1 ~/.wikidates/$(date +%B_%d)
+# shuf -n1 ~/.wikidates/$(date +%B_%d)
+
+#----[ OpenFOAM aliases ]----------------------------------------------------
+alias of7='source $HOME/OpenFOAM/OpenFOAM-7/etc/bashrc'
+alias of8='source $HOME/OpenFOAM/OpenFOAM-8/etc/bashrc'
+alias of8d='source $HOME/OpenFOAM/OpenFOAM-8-debug/etc/bashrc'
+alias fe40='source $HOME/foam/foam-extend-4.0/etc/bashrc'
