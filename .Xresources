@@ -1,10 +1,12 @@
-!! better font rendering ----------------------------------
-xft.antialias: 1
-xft.hinting: 1
-Xft.autohint: 0
-Xft.rgba: rgb
-Xft.hintstyle: hintslight
-Xft.lcdfilter: lcddefault
+!! better font rendering
+xft.antialias:  1
+xft.hinting:    1
+Xft.autohint:   0
+Xft.rgba:       rgb
+Xft.hintstyle:  hintslight
+Xft.lcdfilter:  lcddefault
+
+*font:          inconsolata-16
 
 !! Colors for st
 #include ".Xresources.d/color"
