@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# NOTE: you can change exposure with the following command
+# v4l2-ctl -d /dev/video0 --set-ctrl=exposure_absolute=500
+
+# With mpv
+mpv --demuxer-lavf-format=video4linux2 \
+    --demuxer-lavf-o-set=input_format=mjpeg \
+    --no-cache --no-osc --no-input-default-bindings \
+    --profile=low-latency --untimed \
+    --input-conf=/dev/null --title=webcam \
+    --vf=hflip \
+    av://v4l2:$(ls /dev/video[0,2,4,6,8] | tail -n 1)
+
+# With gst-launch
+#gst-launch-1.0 -v v4l2src device=/dev/video0 ! videoflip video-direction=horiz ! videoconvert ! videoscale ! video/x-raw,framerate=30/1,width=600 ! xvimagesink

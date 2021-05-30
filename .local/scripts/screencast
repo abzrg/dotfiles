@@ -1,0 +1,47 @@
+#!/bin/sh
+
+# The 'thread_queue_size' parameters ensure enough buffer space for the raw
+# input streams, and avoids packets being discarded, the default is 8, 512 is
+# probably too high but it works.
+
+# The 'aresample' filter ensures audio and video are synced. It actually means
+# streach and squeeze the audio to match the timestamps of the video,
+# 'first_pts' means that the first audio position starts at 0.
+
+# If there is any process using camera kill it
+pkill -f /dev/video0
+
+# Extention of the video
+container="mkv"
+
+# Use 'xrandr' to find your default resolution
+screen_size="1366x768"
+
+# You can find the audio devices with the command:
+# pactl list short sources
+audio_device="alsa_input.pci-0000_00_1b.0.analog-stereo" #/dev/dsp8
+
+case $container in
+    "mkv")
+        ffmpeg -video_size "$screen_size" \
+            -framerate 50 \
+            -thread_queue_size 512 -f x11grab -i :0.0+0,0 \
+            -thread_queue_size 512 -f pulse -i "$audio_device" \
+            -vcodec libx264rgb -crf 0 -preset:v ultrafast \
+            -acodec pcm_s16le \
+            -af aresample=async=1:first_pts=0 \
+            -y \
+            "$1".mkv
+    ;;
+    "mp4")
+        ffmpeg -video_size "$screen_size" \
+            -framerate 50 \
+            -thread_queue_size 512 -f x11grab -i :0.0+0,0 \
+            -thread_queue_size 512 -f \ pulse -i "$audio_device" \
+            -vcodec libx264rgb -crf 0 -preset:v ultrafast \
+            -acodec pcm_s16le \
+            -af aresample=async=1:first_pts=0 \
+            -y \
+            "$1".mkv
+    ;;
+esac
