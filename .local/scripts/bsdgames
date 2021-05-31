@@ -1,0 +1,25 @@
+#!/bin/sh
+
+GAME=$( cat <<EOF | dmenu -l 5 -p "BSD Games" | cut -d: -f1
+adventure: the original adventure by Crowther and Woods
+arithmetic: asks you to do simple calculations
+atc: air traffic control simulator
+battlestar: a tropical adventure
+caesar: performs rotated-alphabet cryptography (like rot13)
+cribbage: cribbage card game
+dab: dots and boxes
+drop4: tetromino packing game
+gofish: go fish card game
+gomoku: connect-5 version of tic-tac-toe
+hangman: guess the word before it is too late
+klondike: curses-based solitaire
+robots: avoid the evil robots
+sail: sail your ship into battle
+snake: grab the cash, avoid the snake, and exit
+spirhunt: hunt space pirates
+worm: eat the numbers without running into anything
+wump: hunt the wumpus
+EOF
+)
+
+st -e $GAME
