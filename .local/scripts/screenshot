@@ -1,9 +1,12 @@
 #!/bin/sh
 
 # Simple script that uses maim to take a screenshot
+# It adds shadow to the screenshots using imagemagick
+
+# Use the date and time for the output file
 output=$HOME/Pictures/screenshots/"$(date +%s_%h%d_%H:%M:%S).png"
 
-# Prompt user for how take screenshot
+# Prompt user for how to take screenshot
 OPT=$(cat <<EOF | dmenu -l 3 -p "Maim"
 active
 select
@@ -12,9 +15,15 @@ EOF
 )
 
 case "$OPT" in
-    "active") maim -i $(xdotool getactivewindow) "$output" || exit;;
-    "select") maim -s "$output" || exit ;;
-    "full") maim "$output" || exit ;;
+    "active") maim -i $(xdotool getactivewindow) | \
+        convert - \( +clone -background black -shadow 80x20+0+15 \) \
+        +swap -background none -layers merge +repage "$output" || exit;;
+    "select") maim -s | \
+        convert - \( +clone -background black -shadow 80x20+0+15 \) \
+        +swap -background none -layers merge +repage "$output" || exit;;
+    "full") maim | \
+        convert - \( +clone -background black -shadow 80x20+0+15 \) \
+        +swap -background none -layers merge +repage "$output" || exit;;
     "") exit ;;
 esac
 
