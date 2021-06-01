@@ -16,10 +16,7 @@ if [[ "$TERM" == (Eterm*|alacritty*|aterm*|gnome*|konsole*|kterm*|putty*|rxvt*|s
     add-zsh-hook -Uz preexec xterm_title_preexec
 fi
 
-# Enable colors and change prompt:
-autoload -U colors && colors    # Load colors
-# PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
-PS1="%% "
+# Misc.
 setopt autocd       # Automatically cd into typed directory.
 stty stop undef     # Disable ctrl-s to freeze terminal.
 setopt interactive_comments
@@ -190,3 +187,19 @@ alias of8d="source ${FOAM_INST_DIR}/OpenFOAM-8-debug/etc/bashrc"
 
 # Open files with neovim
 alias -s {c,cpp,cc,cxx,C,H,h,hpp,html,js,css,py,pl,md,txt,tex}=nvim
+
+# Faster navigation with z.lua
+eval "$(lua ~/.local/src/z.lua-1.8.13/z.lua --init zsh)"
+
+# Random events of the day
+shuf -n1 ~/.wikidates/$(date +%B_%d)
+
+# Prompt
+autoload -U colors && colors # Load colors
+autoload -Uz vcs_info # Load vcs_info function
+zstyle ':vcs_info:*' enable git hg
+zstyle ':vcs_info:*' disable bzr svn cdv darcs mtn svk tla # I don't use these VCSs
+zstyle ':vcs_info:*' formats '%F{green}(%b)%f'
+function precmd() { vcs_info } # Update each time new prompt is rendered
+setopt prompt_subst # Allow dynamic command prompt
+PS1='%B%F{magenta}%(3~|%2~|%~)%f%F{red}%(?..(%?%))%f ${vcs_info_msg_0_}%F{blue}%#%f%b '
