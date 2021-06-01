@@ -202,4 +202,4 @@ zstyle ':vcs_info:*' disable bzr svn cdv darcs mtn svk tla # I don't use these V
 zstyle ':vcs_info:*' formats '%F{green}(%b)%f'
 function precmd() { vcs_info } # Update each time new prompt is rendered
 setopt prompt_subst # Allow dynamic command prompt
-PS1='%B%F{magenta}%(3~|%2~|%~)%f%F{red}%(?..(%?%))%f ${vcs_info_msg_0_}%F{blue}%#%f%b '
+PS1='%B%F{magenta}%(3~|%2~|%~)%f ${vcs_info_msg_0_}%F{red}%(?..(%?%))%f%F{blue}%#%f%b '
