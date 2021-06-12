@@ -6,7 +6,7 @@ Xft.rgba:       rgb
 Xft.hintstyle:  hintslight
 Xft.lcdfilter:  lcddefault
 
-*font:          inconsolata-16
+*font:          mono-14
 
 !! Colors for st
 #include ".Xresources.d/color"
