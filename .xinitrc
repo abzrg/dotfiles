@@ -1,8 +1,4 @@
 #!/bin/sh
-#
-# ~/.xinitrc
-#
-# Executed by startx (run your window manager from here)
 
 if [ -d /etc/X11/xinit/xinitrc.d ]; then
   for f in /etc/X11/xinit/xinitrc.d/*; do
@@ -18,9 +14,9 @@ XDG_SESSION_TYPE=x11
 export AWT_TOOLKIT=MToolkit
 export _JAVA_AWT_WM_NONREPARENTING=1 # For matalab
 
-~/.fehbg &
-~/.local/bin/picomstart &
-xrdb -load ~/.Xresources &
+[ -f ~/.fehbg ] && ~/.fehbg &
+[ -f ~/.Xresources ] && xrdb -load ~/.Xresources &
+picomstart &
 keyboardsettings &
 sxhkd &
 unclutter &
@@ -33,6 +29,19 @@ xbanish &
 nm-applet &
 udiskie &
 dwmblocks &
+
+# Gpg stuff
+# source: https://forum.artixlinux.org/index.php/topic,2446.0.html
+
+# Automatically start the agent
+if [ -x /usr/bin/gpg-agent ]; then
+ eval "$(/usr/bin/gpg-agent --daemon)"
+fi
+
+# For shutdown the agent if needed
+if [ -n "${GPG_AGENT_INFO}" ]; then
+  kill $(echo ${GPG_AGENT_INFO} | cut -d':' -f 2) >/dev/null 2>&1
+fi
 
 # LOOP
 while true; do
