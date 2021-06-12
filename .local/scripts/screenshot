@@ -16,7 +16,7 @@ EOF
 
 case "$OPT" in
     "active") maim -i $(xdotool getactivewindow) | \
-        convert - \( +clone -background black -shadow 80x20+0+15 \) \
+        convert - \( +clone -background black -shadow 60x10+0+10 \) \
         +swap -background none -layers merge +repage "$output" || exit;;
     "select") maim -s | \
         convert - \( +clone -background black -shadow 80x20+0+15 \) \
