@@ -1,3 +1,5 @@
+alias sz='source ~/.config/zsh/.zshrc'
+
 # Xterm title (archwiki)
 autoload -Uz add-zsh-hook
 
@@ -26,7 +28,7 @@ HISTSIZE=10000000           # How many lines of history to keep in memory
 SAVEHIST=10000000           # Number of history entries to save to disk
 HISTFILE=~/.cache/zsh/history
 HISTDUP=erase               # Erase duplicates in the history file
-HISTORY_IGNORE='([bf]g *|cd ..|l[alsh]#( *)#|less *)'
+# HISTORY_IGNORE='([bf]g *|cd ..|l[alsh]#( *)#|less *)' # Does not seem to work
 setopt HIST_FIND_NO_DUPS    # When searching do not display duplicates of a line
                             # previously found, even if the duplicates are not contiguous
 setopt HIST_REDUCE_BLANKS   # Remove superfluous blanks
@@ -132,7 +134,7 @@ lfcd () {
         [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
     fi
 }
-bindkey -s '\eo' 'lfcd\n'
+bindkey -s '^o' 'lfcd\n'
 
 bindkey -s '\ea' 'bc -lq\n'
 bindkey -s '\em' 'dman\n'
@@ -180,7 +182,7 @@ source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.
 # Openfoam
 autoload bashcompinit
 bashcompinit
-alias fe41="source ~/foam/foam-extend-4.0/etc/bashrc"
+alias fe40='source $HOME/foam/foam-extend-4.0/etc/bashrc'
 alias of7="source ${FOAM_INST_DIR}/OpenFOAM-7/etc/bashrc"
 alias of8="source ${FOAM_INST_DIR}/OpenFOAM-8/etc/bashrc"
 alias of8d="source ${FOAM_INST_DIR}/OpenFOAM-8-debug/etc/bashrc"
@@ -194,12 +196,19 @@ eval "$(lua ~/.local/src/z.lua-1.8.13/z.lua --init zsh)"
 # Random events of the day
 shuf -n1 ~/.wikidates/$(date +%B_%d)
 
+# Gpg agent
+GPG_TTY=$(tty)
+export GPG_TTY
+
 # Prompt
 autoload -U colors && colors # Load colors
 autoload -Uz vcs_info # Load vcs_info function
 zstyle ':vcs_info:*' enable git hg
 zstyle ':vcs_info:*' disable bzr svn cdv darcs mtn svk tla # I don't use these VCSs
-zstyle ':vcs_info:*' formats '%F{green}(%b)%f'
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' unstagedstr '!' # Add ! for unstaged changes
+zstyle ':vcs_info:*' stagedstr '+' # Add + for staged changes
+zstyle ':vcs_info:*' formats '%F{cyan}(%m%b%F{red}%u%f%F{green}%c%f%F{cyan})%f'
 function precmd() { vcs_info } # Update each time new prompt is rendered
 setopt prompt_subst # Allow dynamic command prompt
 PS1='%B%F{magenta}%(3~|%2~|%~)%f ${vcs_info_msg_0_}%F{red}%(?..(%?%))%f%F{blue}%#%f%b '
