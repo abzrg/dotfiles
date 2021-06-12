@@ -8,9 +8,11 @@ alias \
     ln="ln -v"                          \
     mkd="mkdir -pv"                     \
     duh="du -h -d 0 [^.]*"              \
-    yt="youtube-dl --add-metadata -i"   \
+    yt="youtube-dl --add-metadata -ci"  \
     yta="yt -x -f bestaudio/best"       \
     ytb="yt -f bestvideo+bestaudio"     \
+    ytpl="yt -o '%(playlist_index)s-%(title)s.%(ext)s'" \
+    ytbpl="yt -f bestaudio/best -o '%(playlist_index)s-%(title)s.%(ext)s'"
     # ffmpeg="ffmpeg -hide_banner"      \
 
 # COLORIZE COMMANDS
@@ -32,7 +34,7 @@ alias \
     g="git"                             \
     o='xdg-open'                        \
     v="$VISUAL"                         \
-    z="zathura"                         \
+    p="zathura"                         \
     ka="killall"                        \
     grp="grep -Rli"                     \
     SS="sudo systemctl"                 \
@@ -48,7 +50,7 @@ alias \
     conda_a='source ~/bin/anaconda3/bin/activate' \
     conda_d='conda deactivate' \
     c='/usr/bin/git --git-dir=$HOME/repos/dotfiles/ --work-tree=$HOME' \
-    alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+    alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"' \
 
 # DIRECTORIES
 alias \
@@ -69,14 +71,17 @@ alias \
 
 # FILES
 alias \
-    inp="$EDITOR $HOME/.config/inputrc"    \
-    xre="$EDITOR $HOME/.Xresources" \
-    xin="$EDITOR $HOME/.xinitrc"    \
-    cfb="$EDITOR $HOME/.bashrc"     \
-    cfz="$EDITOR $HOME/.config/zsh/.zshrc"     \
-    cfp="$EDITOR $HOME/.profile"    \
-    cft="$EDITOR $HOME/.tmux.conf"      \
+    inp="$EDITOR $HOME/.config/inputrc"         \
+    xre="$EDITOR $HOME/.Xresources"             \
+    xin="$EDITOR $HOME/.xinitrc"                \
+    cfb="$EDITOR $HOME/.bashrc"                 \
+    cfz="$EDITOR $HOME/.config/zsh/.zshrc"      \
+    cfzp="$EDITOR $HOME/.zprofile"              \
+    cfp="$EDITOR $HOME/.profile"                \
+    cft="$EDITOR $HOME/.tmux.conf"              \
+    cfs="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/sxhkd/sxhkdrc"       \
     cfa="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc"             \
+    cfP="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/picom.conf"          \
     cfi="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/i3/config"           \
     cfib="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/i3blocks/config"    \
     cfl="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/lf/lfrc"             \
@@ -128,6 +133,7 @@ alias enfa='tra en:fa' \
 
 # Pronounce a word using Google's Text-to-Speech engine
 prnc() { trans -speak "$@" &>/dev/null ;}
+prncgb() { mpv --loop $(find ~/Documents/test/gb -type f | fzf) ;}
 
 odef() {
     # dict network protocol
@@ -203,8 +209,13 @@ remove_with_fzf () {
 update_fzf(){
     # A function for faster access of files and directories
     # Update fzf files & directories
-    fd -t f -H -E ~/.cache -I . $HOME > ~/.cache/files
-    fd -H -t d -E ~/.cache . $HOME    > ~/.cache/directories
+    find $HOME -type f 2>/dev/null | \
+        egrep -v ".cache|.git|.svn" \
+        > ~/.cache/files
+
+    find $HOME -type d 2>/dev/null | \
+        egrep -v ".cache|.git|.svn" \
+        > ~/.cache/directories
 }
 
 open_with_fzf() {
@@ -231,8 +242,7 @@ alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/mas
 # Use nevim for vim if present.
 command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d"
 
-# OpenFOAM aliases
-alias of7='source $HOME/OpenFOAM/OpenFOAM-7/etc/bashrc'
-alias of8='source $HOME/OpenFOAM/OpenFOAM-8/etc/bashrc'
-alias of8d='source $HOME/OpenFOAM/OpenFOAM-8-debug/etc/bashrc'
-alias fe40='source $HOME/foam/foam-extend-4.0/etc/bashrc'
+# Artixlinux
+enable() { [ -z "$1" ] && exit; sudo ln -s /etc/runit/sv/$1 /run/runit/service ;}
+disable() { [ -z "$1" ] && exit; sudo rm /run/runit/service/$1 ;}
+restart() { [ -z "$1" ] && exit; sudo sv restart $1 ;}
