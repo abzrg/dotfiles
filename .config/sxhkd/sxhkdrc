@@ -13,8 +13,14 @@ alt + grave
 Menu
     dmenu_run
 
-super + shift + a
+super + a
     color
 
 ctrl + shift + Return
     samedir
+
+super + shift + s
+    strm
+
+super + e
+    st -e neomutt
