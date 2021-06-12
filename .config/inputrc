@@ -20,7 +20,7 @@ $if mode=vi
     set keymap vi-command
     "gT": transpose-words
     set keymap vi-insert
-    "jj": vi-movement-mode
+    # "jj": vi-movement-mode
 
     # cursor shape. normal mode: block, insert mode: pipe
     set show-mode-in-prompt on
@@ -63,8 +63,8 @@ set keyseq-timeout 0
 "\C-n": history-search-forward
 
 # \e: alt
-"\ej": menu-complete
-"\ek": menu-complete-backward
+"\en": menu-complete
+"\eb": menu-complete-backward
 
 # Change up/down arrow key behaviour to navigate only similar commands
 "\e[A": history-search-backward
