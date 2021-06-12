@@ -1,10 +1,5 @@
-" Set the leader key to be space (default: \)
-let mapleader = ' '
-
-
-"====[ Plugin manager ]========================================================
-
-" Check if plugins are installed
+" # Plugin manager {{{1
+" ## Check if plugins are installed {{{2
 if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/plug.vim"'))
     echo "Downloading junegunn/vim-plug to manage plugins..."
     silent !mkdir -p ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/
@@ -12,69 +7,60 @@ if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autolo
     autocmd VimEnter * PlugInstall
 endif
 
-" Install plugins with Vim-plug plugin manager
+" ## Install plugins with Vim-plug plugin manager {{{2
 call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"'))
-" {{ Tim Pope's }}
+" ## ## Tim Pope's {{{3
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-rsi'
-" {{ Language releated }}
+" ## ## Language releated {{{3
     Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build' } " python
     Plug 'lervag/vimtex' " latex
     Plug 'mattn/emmet-vim' " html and css
-" {{ Snippets }}
-    Plug 'honza/vim-snippets'
-
-" {{ Find tools }}
+    Plug 'bfrg/vim-cpp-modern'
+" ## ## Find tools {{{3
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
-" {{ Auto Completion }}
+    Plug 'wsdjeg/vim-fetch' " Make Vim handle line and column numbers in file
+                            " names with a minimum of fuss
+" ## ## Auto Completion {{{3
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" {{ Git }}
+    Plug 'dhruvasagar/vim-table-mode'
+    Plug 'honza/vim-snippets'
+" ## ## Git {{{3
     Plug 'tpope/vim-fugitive'
-    Plug 'airblade/vim-gitgutter'
-" {{ Colors and syntax highlighting }}
+    " Plug 'airblade/vim-gitgutter'
+" ## ## Colors and syntax highlighting {{{3
     Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
     Plug 'lervag/vim-foam'
-    Plug 'chriskempson/base16-vim'
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-        " To isntall the highlghting features for a language (say python):
-        " `: TSInstall python`
-    Plug 'nvim-treesitter/playground'
-        " Install tree-sitter on system via package manager and update vim-plug
-" {{ Misc }}
+" ## ## Misc {{{3
     Plug 'junegunn/goyo.vim' " Easy reading
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
+    Plug 'itchyny/lightline.vim'
     Plug 'easymotion/vim-easymotion'
+    Plug 'junegunn/limelight.vim'
 call plug#end()
+"
+" # Some basic settings {{{1
 
-
-"====[ Some basic settings ]===================================================
-
-syntax on
+let mapleader = ' '
+" Setting python3 path
+let g:python3_host_prog = '/usr/bin/python3'
+syntax on"
 set nocompatible
-filetype plugin on
+filetype plugin on"
 
-" Base16 colors
-let base16colorspace=256
-let g:base16_shell_path="~/.config/base16-shell/scripts/"
-if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256
-  source ~/.vimrc_background
-endif
-
-set background=dark
-highlight Normal guibg=NONE
-highlight Comment guifg=gray
-"highlight MatchParen guibg=darkgray
+colo codedark
+hi Folded guifg=#969896
 
 " Add a virtual color-column at the 81th character
-highlight ColorColumn guibg=darkmagenta guifg=black ctermbg=darkmagenta ctermfg=black
+highlight ColorColumn ctermbg=darkmagenta ctermfg=black guibg=darkgrey guifg=black
 call matchadd('ColorColumn', '\%81v', 1)
 
-" Vim options
+" # Options {{{1
+
+set autoread " Always reload buffer when external changes detected
+set backspace=indent,eol,start " BS past autoindents, line boundaries, and even the start of insertion
 set clipboard+=unnamedplus
 set cpoptions+=$
 set encoding=utf-8
@@ -84,15 +70,18 @@ set hidden
 set hlsearch
 set ignorecase
 set incsearch
-set laststatus=2
+set laststatus=0
 set mouse=a
 set number relativenumber
+set numberwidth=5
 set nobackup
+set noequalalways
+set nojoinspaces
 set noshowmode
 set noswapfile
 set nowritebackup
-set scrolloff=5
-set shortmess+=I
+set scrolloff=3
+set shortmess=filnxtToOI
 set signcolumn=auto
 set smartcase
 set splitbelow splitright
@@ -100,29 +89,52 @@ set termguicolors
 set title
 set thesaurus+=~/.config/nvim/moby-words.txt
 
-" Indentation
+" ## Indentation{{{2
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
 
-" Some completion settings in command mode
-set wildignore=*.git/*,*.tags,tags,*.o,*.class  " What to ignore in completion
-set wildignorecase                              " Case insensitive copmpletion
-set wildmenu                                    " How completion is done
-set wildmode=longest,list,full                  " How completion is done
+" ## Fix smartindent stupidities {{{2
+set autoindent "Retain indentation on next line
+set smartindent "Turn on autoindenting of blocks
 
-" Append directories to vim's Path
+let g:vim_indent_cont = 0 " No magic shifts on Vim line continuations
+
+" And no shift magic on comments...
+nmap <silent>  >>  <Plug>ShiftLine
+nnoremap <Plug>ShiftLine :call ShiftLine()<CR>
+function! ShiftLine() range
+    set nosmartindent
+    exec "normal! " . v:count . ">>"
+    set smartindent
+    silent! call repeat#set( "\<Plug>ShiftLine" )
+endfunction
+
+" ## Some completion settings in command mode {{{2
+
+" What to ignore in completion
+    set wildignore=*.git/*,*.tags,tags,*.o,*.class
+" Case insensitive copmpletion
+    set wildignorecase
+" How completion is done
+    set wildmenu
+" How completion is done
+    set wildmode=longest,list,full
+"Adjust completions to match case
+    set infercase
+
+" ## Append directories to vim's Path {{{2
 set path+=**
 set path+=/home/ali/.config/nvim
 
-" Show those damn hidden characters
+" ## Show those damn hidden characters {{{2
 " Verbose: set listchars=nbsp:¬,eol:¶,extends:»,precedes:«,trail:•
-set listchars=nbsp:¬,extends:»,precedes:«,trail:•
+set listchars=nbsp:¬,extends:»,precedes:«,tab:▸\ ,trail:•,
 set list
 
 
-"====[ Key-bindings ]==========================================================
+" # Key-bindings {{{1
 
 " Easier edition and source of the neovim config
 "" M == Alt
@@ -130,6 +142,10 @@ set list
 "" nmap == normal mode mapping (only does what it suppose to do, when you are
 ""         in normal mode)
 "" nnoremap == n + nore (not recurssive) + map
+
+" Open and close folds with tab
+nnoremap <Tab> zi
+
 nnoremap <M-e> :e $MYVIMRC<CR>
 nnoremap <M-s> :source $MYVIMRC<CR>
 
@@ -146,6 +162,14 @@ nmap k gk
 " Fix the behaviour of `Y`, to be similar to behaviour of `C` and `D`
 nmap Y y$
 
+nnoremap H ^
+nnoremap L g_
+
+vnoremap K k
+
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+
 " Move the search item's position to the middle of the page
 "" zz => move the text around the cursor to the middle of the page
 "" zt =>                                        top
@@ -157,7 +181,7 @@ nnoremap N Nzzzv
 map ,w yiw <bar> :!vimdic<CR>
 
 " Easier regex search
-nnoremap / /\v
+" nnoremap / /\v
 
 " Throw away in to the black hole! (now, c does'nt put text into yank register)
 nnoremap c "_c
@@ -170,9 +194,8 @@ vmap > >gv
 " Toggle numbering
 map <F9> :set rnu! nu!<CR>
 
-" Toggle syntax highlighting (+ TreeSitter)
 map <silent> <F7> :if exists("g:syntax_on") <Bar>
-    \ syntax off <Bar> TSToggleAll highlight <CR>
+    \ syntax off <CR>
     \ else <Bar>
     \ syntax enable <Bar>
     \ endif <CR>
@@ -205,14 +228,16 @@ vnoremap . :normal .<CR>
 " Spell-check set to <leader>o, 'o' for 'orthography':
 map <leader>o :setlocal spell! spelllang=en_us<CR>
 
-
 " Save file as sudo on files that require root permission
 cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
 " Replace all instance of the word under the cursor with S
 nnoremap S yiw:%s///g<Left><Left><Left><C-r>"
 
-" Some Abbreviation for exiting vim
+" Get rid of accidental jump to ex mode and easily wrap text
+map Q gq
+
+" ## Some Abbreviation for exiting vim {{{2
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
 cnoreabbrev Qall qall
@@ -224,47 +249,92 @@ cnoreabbrev WQ wq
 cnoreabbrev W w
 cnoreabbrev Q q
 
-"---- Call to scripts and external programs -------------------------
-" Check shell scripts with shell check
-map ,s :!clear && shellcheck -x %<CR>
+" ## Symbol Shortcuts {{{2
+" Greek {{{3
+map! <C-v>GA Γ
+map! <C-v>DE Δ
+map! <C-v>TH Θ
+map! <C-v>LA Λ
+map! <C-v>XI Ξ
+map! <C-v>PI Π
+map! <C-v>SI Σ
+map! <C-v>PH Φ
+map! <C-v>PS Ψ
+map! <C-v>OM Ω
+map! <C-v>al α
+map! <C-v>be β
+map! <C-v>ga γ
+map! <C-v>de δ
+map! <C-v>ep ε
+map! <C-v>ze ζ
+map! <C-v>et η
+map! <C-v>th θ
+map! <C-v>io ι
+map! <C-v>ka κ
+map! <C-v>la λ
+map! <C-v>mu μ
+map! <C-v>xi ξ
+map! <C-v>pi π
+map! <C-v>rh ρ
+map! <C-v>si σ
+map! <C-v>ta τ
+map! <C-v>ps ψ
+map! <C-v>om ω
+map! <C-v>ph ϕ
+" Math {{{3
+map! <C-v>ll →
+map! <C-v>hh ⇌
+map! <C-v>kk ↑
+map! <C-v>jj ↓
+map! <C-v>= ∝
+map! <C-v>~ ≈
+map! <C-v>!= ≠
+map! <C-v>!> ⇸
+map! <C-v>~> ↝
+map! <C-v>>= ≥
+map! <C-v><= ≤
+map! <C-v>0  °
+map! <C-v>ce ¢
+map! <C-v>*  •
+map! <C-v>co #
 
-" Compile document, be it groff/LaTeX/markdown/etc.
-map ,c :w! \| !compiler "<c-r>%"<CR>
+" ## Make Visual modes work better {{{2
 
-" Open corresponding .pdf/.html or preview
-map ,p :!opout <c-r>%<CR><CR>
+" Visual Block mode is far more useful that Visual mode (so swap the commands)...
+nnoremap v <C-V>
+nnoremap <C-V> v
+xnoremap v <C-V>
+xnoremap <C-V> v
 
-" Runs a script that cleans out tex build files
-" whenever I close out of a .tex file.
-autocmd VimLeave *.tex !texclear %
+"Square up visual selections...
+set virtualedit=block
 
+" Make BS/DEL work as expected in visual modes (i.e. delete the selected text)...
+xmap <BS> x
 
-"====[ Auto Commands other stuff ]=============================================
-" This will jump to the last known cursor position
-" source: https://askubuntu.com/a/202077
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-endif
+" Make vaa select the entire file...
+xmap aa VGo1G
 
-" Ensure files are read as what I want:
-autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
-autocmd BufRead,BufNewFile *.ms,*.me,*.mom,*.man set filetype=groff
-autocmd BufRead,BufNewFile *.tex set filetype=tex
+" Make q extend to the surrounding string...
+xmap  q   "_y:call ExtendVisualString()<CR>
 
-" Run xrdb whenever Xdefaults or Xresources are updated.
-autocmd BufRead,BufNewFile xresources,xdefaults set filetype=xdefaults
-autocmd BufWritePost .Xresources,.Xdefaults,.xresources,.xdefaults !xrdb %
+let s:closematch = [ '', '', '}', ']', ')', '>', '/', "'", '"', '`' ]
+let s:ldelim = '\< \%(q [qwrx]\= \| [smy] \| tr \) \s* \%( \({\) \| \(\[\) \| \((\) \| \(<\) \| \(/\) \) \| \(''\) \| \("\) \| \(`\)'
+let s:ldelim = substitute(s:ldelim, '\s\+', '', 'g')
 
-" Recompile dwmblocks on config edit.
-autocmd BufWritePost ~/.local/src/dwmblocks/config.h !cd ~/.local/src/dwmblocks/; sudo make install && { killall -q dwmblocks;setsid -f dwmblocks }
+function! ExtendVisualString ()
+    let [lline, lcol, lmatch] = searchpos(s:ldelim, 'bWp')
+    if lline == 0
+        return
+    endif
+    let rdelim = s:closematch[lmatch]
+    normal `>
+    let rmatch = searchpos(rdelim, 'W')
+    normal! v
+    call cursor(lline, lcol)
+endfunction
 
-" Disables automatic commenting on newline:
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
-" Setting python3 path
-let g:python3_host_prog = '/usr/bin/python3'
-
-"---- Better help ------------------------------------------------------------
+" ## Better help {{{2
 "" Navigate through helpgrep's result with arrow keys
 nmap <silent> <RIGHT>           :cnext<CR>
 nmap <silent> <RIGHT><RIGHT>    :cnfile<CR><C-G>
@@ -284,10 +354,115 @@ function! HelpInNewTab()
     endif
 endfunction
 
+" ## Call to scripts and external programs{{{2
 
-"====[ Settings related to plugins ]===========================================
+" Check shell scripts with shell check
+map ,s :!clear && shellcheck -x %<CR>
 
-"---- HEXOKINASE --------------------------------------------------------------
+" Compile document, be it groff/LaTeX/markdown/etc.
+map ,c :w! \| !compiler "<c-r>%"<CR>
+
+" Open corresponding .pdf/.html or preview
+map ,p :!opout <c-r>%<CR><CR>
+
+" Runs a script that cleans out tex build files
+" whenever I close out of a .tex file.
+autocmd VimLeave *.tex !texclear %
+
+" # Auto Commands and the like {{{1
+
+" ## Jump to the last known cursor position {{{2
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+endif
+
+" ## Ensure files are read as what I want {{{2
+autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
+autocmd BufRead,BufNewFile *.ms,*.me,*.mom,*.man set filetype=groff
+autocmd BufRead,BufNewFile *.tex set filetype=tex
+
+" ## xrdb update on save {{{2
+autocmd BufRead,BufNewFile xresources,xdefaults set filetype=xdefaults
+autocmd BufWritePost .Xresources,.Xdefaults,.xresources,.xdefaults !xrdb %
+
+" ## Disables automatic commenting on newline {{{2
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+
+" ## Completion during search (via Command window) {{{2
+
+function! s:search_mode_start()
+    cnoremap <tab> <c-f>:resize 1<CR>a<c-n>
+    let s:old_complete_opt = &completeopt
+    let s:old_last_status = &laststatus
+    set completeopt-=noinsert
+    set laststatus=0
+endfunction
+
+function! s:search_mode_stop()
+    try
+        silent cunmap <tab>
+    catch
+    finally
+        let &completeopt = s:old_complete_opt
+        let &laststatus  = s:old_last_status
+    endtry
+endfunction
+
+augroup SearchCompletions
+    autocmd!
+    autocmd CmdlineEnter [/\?] call <SID>search_mode_start()
+    autocmd CmdlineLeave [/\?] call <SID>search_mode_stop()
+augroup end
+
+
+" # Settings related to plugins {{{1
+" ## FUGITIVE {{{2
+
+nnoremap <leader>gs :G<CR>
+
+" s :: stage
+" U :: unstage
+
+" :Gcommit :: commit canges
+" :Gpush :: to push the unpushed changes
+
+" Vim diff
+" dv :: go to diff mode to resolve conflicts
+" when cursor is on the <<<<<<< HEAD
+" get diff from the right window (b)
+nnoremap <leader>gl :diffget //3<CR>
+" get diff from the left window (a)
+nnoremap <leader>gh :diffget //2<CR>
+" do 'CTRL-w O' to jump back after the diff page
+
+
+" ## Netrw {{{2
+
+let g:netrw_sort_by        = 'time'
+let g:netrw_sort_direction = 'reverse'
+let g:netrw_banner         = 0
+let g:netrw_liststyle      = 3
+let g:netrw_browse_split   = 3
+let g:netrw_fastbrowse     = 1
+let g:netrw_sort_by        = 'name'
+let g:netrw_sort_direction = 'normal'
+
+
+" ## Limelight configuration {{{2
+
+" Color name (:help gui-colors) or RGB color
+let g:limelight_conceal_guifg = '#444444'
+
+" Default dimming: 0.5
+let g:limelight_default_coefficient = 0.7
+
+" Highlighting priority (default: 10)
+"   Set it to -1 not to overrule hlsearch
+let g:limelight_priority = -1
+
+
+" ## HEXOKINASE {{{2
 let g:Hexokinase_refreshEvents = ['InsertLeave']
 let g:Hexokinase_optInPatterns = [
 \     'full_hex',
@@ -304,80 +479,103 @@ let g:Hexokinase_highlighters = ['backgroundfull']
 let g:Hexokinase_ftEnabled = ['css', 'html', 'javascript']
 
 
-"---- FZF ---------------------------------------------------------------------
+" ## FZF {{{2
 nnoremap <M-f> :Files<CR>
 nnoremap <M-h> :Files ~<CR>
 nnoremap <M-g> :GFiles!<CR>
-nnoremap <C-f> :BLines<CR>
-nnoremap <C-l> :Buffers<CR>
+nnoremap <leader>s :BLines<CR>
+nnoremap <leader>l :Buffers<CR>
 let g:fzf_layout = { 'down': '~30%' }
+" ## Table-mode {{{2
+"let g:table_mode_corner                 = '|'
+"let g:table_mode_corner_corner          = '|'
+"let g:table_mode_header_fillchar        = '='
+"let g:table_mode_fillchar               = '-'
+"let g:table_mode_align_char             = ':'
+"let g:table_mode_cell_text_object_a_map = 'ac'
+"let g:table_mode_cell_text_object_i_map = 'ic'
+"let g:table_mode_syntax                 = 1
+"let g:table_mode_delimiter              = ' \{2,}'
+
+"nmap <TAB> :TableModeToggle<CR>
+"xmap <TAB> <ESC><TAB>gv
+"xmap <silent> T :<C-U>call ToggleTabularization()<CR>
+
+"function! ToggleTabularization ()
+"    let range = getpos('''<')[1] .','. getpos('''>')[1]
+"    if getline("'<") =~ '\\\@!|'
+"        silent TableModeEnable
+"        exec 'silent! ' . range . 's/[-= ]\@<=+\|+[-= ]\@=/  /g'
+"        exec 'silent! ' . range . 's/[-= ]|[-= ]\|[^\\]\zs|[-= ]\|[-= ]|/  /g'
+"        exec 'silent! ' . range . 's/\s\+$//'
+"        nohlsearch
+"        TableModeDisable
+"    else
+"        TableModeEnable
+"        '<,'>Tableize
+"    endif
+"    normal gv
+"endfunction
 
 
-"---- AIRLINE -----------------------------------------------------------------
-" Disable vim-airline integration with coc:
-    let g:airline#extensions#coc#enabled = 0
-" Change error symbol:
-    let airline#extensions#coc#error_symbol = 'Error:'
-" Change warning symbol:
-    let airline#extensions#coc#warning_symbol = 'Warning:'
-" Change error format:
-    let airline#extensions#coc#stl_format_err = '%E{[%e(#%fe)]}'
-" Change warning format:
-    let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
-"  Tabs
-    let airline#extensions#tabline#enabled=1
-    let airline#extensions#tabline#fnamemode=':t'
-
-    let g:airline#extensions#hunks#non_zero_only = 1
-    let g:airline#extensions#hunks#non_zero_only = 1
-
-
-"---- TREESITTER --------------------------------------------------------------
-" Trisitter: better syntax highlighting
-lua require'nvim-treesitter.configs'.setup { highlight = { enable = true } }
-au FileType foam TSToggleAll highlight
-
-
-"---- GOYO --------------------------------------------------------------------
+" ## GOYO {{{2
 " Goyo plugin makes text more readable when writing prose:
-map <leader>g :Goyo \| set linebreak<CR>
+map ,g :Goyo \| set linebreak<CR>
 
 
-"---- COMMENTARY --------------------------------------------------------------
+" ## COMMENTARY {{{2
 " Fix commentary for C and JSON files
 autocmd FileType  cpp setlocal commentstring=//\ %s
 autocmd FileType    c setlocal commentstring=//\ %s
 autocmd FileType foam setlocal commentstring=//\ %s
 autocmd FileType json setlocal commentstring=//\ %s
+autocmd FileType sql  setlocal commentstring=--\ %s
 
 
-"---- EASY MOTION -------------------------------------------------------------
-nmap f <Plug>(easymotion-overwin-f2)
+" ## EASY MOTION {{{2
+nmap <C-f> <Plug>(easymotion-overwin-f2)
 map <Space>m <Plug>(easymotion-bd-w)
-
-
-"---- EMMET -------------------------------------------------------------------
+" ## LIGHTLINE {{{2
+let g:lightline = {
+\   'colorscheme' : 'Tomorrow_Night',
+\   'active': {
+\   'left': [ [ 'mode', 'paste' ],
+\             [ 'gitbranch', 'readonly', 'filename', 'modified', 'charvaluehex' ] ]
+\   },
+\   'component': {
+\       'charvaluehex': '0x%B'
+\   },
+\   'mode_map': {
+\       'n' : 'N',
+\       'i' : 'I',
+\       'R' : 'R',
+\       'v' : 'V',
+\       'V' : 'VL',
+\       "\<C-v>": 'VB',
+\       'c' : 'C',
+\       's' : 'S',
+\       'S' : 'SL',
+\       "\<C-s>": 'SB',
+\       't': 'T',
+\   },
+\ }
+" ## EMMET {{{2
 let g:user_emmet_leader_key='<A-w>'
-
-
-"---- VIMTEX ------------------------------------------------------------------
+" ## VIMTEX {{{2
 " VimtexCompile: Start compiling the LaTex Code (in continuous mode
 "                since we set it above)
 " VimtexView: Open the compiled pdf using the
 " VimtexErrors: Display errors (if any) in the current file
 let g:vimtex_view_method = 'zathura'
-let g:tex_flavor  = 'latex'
+let g:tex_flavor  = 'xelatex'
 "let g:vimtex_quickfix_enabled = '0'
 let g:vimtex_compiler_progname = 'nvr'
 autocmd FileType tex map <leader>c :VimtexCompile<CR>
-
-
-"---- COC ---------------------------------------------------------------------
+" ## COC {{{2
 " Disable COC
 nnoremap <silent> <Space>c :CocDisable<CR>
 
 " Specify the coc-plugins here to be installed upon first run
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
 let g:coc_global_extensions = [
     \ 'coc-snippets',
     \ 'coc-pairs',
@@ -386,12 +584,16 @@ let g:coc_global_extensions = [
     \ 'coc-html',
     \ 'coc-css',
     \ 'coc-json',
+    \ 'coc-tsserver',
     \ 'coc-explorer',
-    \ 'coc-vimtex',
-    \ 'coc-sh',
+    \ 'coc-texlab',
     \ 'coc-markdownlint',
     \ 'coc-cmake',
+    \ 'coc-sql',
     \ ]
+
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+nnoremap <M-p> :Prettier<CR>
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -520,3 +722,4 @@ nnoremap <silent><nowait> <leader>cp  :<C-u>CocListResume<CR>
 " Explorer (file tree pane on the left similar to that in vscode)
 nnoremap <leader>f :CocCommand explorer<CR>
 autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
+"}}}
