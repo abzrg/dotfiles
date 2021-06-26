@@ -24,3 +24,6 @@ super + shift + s
 
 super + e
     st -e neomutt
+
+super + o
+    toglayout; pkill -RTMIN+2 dwmblocks
