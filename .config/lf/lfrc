@@ -1,8 +1,8 @@
 # Basic Settings
-set previewer ~/.local/bin/preview
+# set previewer ~/.local/bin/preview
 set preview true
 # set hidden true       # Show hidden files
-set drawbox true
+# set drawbox true
 set icons true
 set ignorecase true
 
@@ -46,30 +46,30 @@ cmd sudomkfile ${{
   sudo $EDITOR $ans
 }}
 
-cmd setwallpaper %cp "$f" ~/Pictures/wall.png && ~/.fehbg
+cmd setwallpaper %cp "$f" ~/Pictures/wall.png && feh --bg-scale ~/Pictures/wall.png
 
 
-cmd fzf_jump ${{
-  res="$(cat ~/.cache/directories | fzf --reverse --header='Jump to location')"
-  if [ -f "$res" ]; then
-    cmd="select"
-  elif [ -d "$res" ]; then
-    cmd="cd"
-  fi
-  lf -remote "send $id $cmd \"$res\""
-}}
+# cmd fzf_jump ${{
+#   res="$(cat ~/.cache/directories | fzf --reverse --header='Jump to location')"
+#   if [ -f "$res" ]; then
+#     cmd="select"
+#   elif [ -d "$res" ]; then
+#     cmd="cd"
+#   fi
+#   lf -remote "send $id $cmd \"$res\""
+# }}
 
-cmd broot_jump ${{
-  f=$(mktemp)
-  res="$(broot --outcmd $f && cat $f | sed 's/cd //')"
-  rm -f "$f"
-  if [ -f "$res" ]; then
-    cmd="select"
-  elif [ -d "$res" ]; then
-    cmd="cd"
-  fi
-  lf -remote "send $id $cmd \"$res\""
-}}
+# cmd broot_jump ${{
+#   f=$(mktemp)
+#   res="$(broot --outcmd $f && cat $f | sed 's/cd //')"
+#   rm -f "$f"
+#   if [ -f "$res" ]; then
+#     cmd="select"
+#   elif [ -d "$res" ]; then
+#     cmd="cd"
+#   fi
+#   lf -remote "send $id $cmd \"$res\""
+# }}
 
 cmd open_config  ${{
   $EDITOR ~/.config/lf/lfrc
@@ -82,21 +82,21 @@ cmd open_config  ${{
 # cmd mvdragon %mvdragon
 # cmd dlfile %dlfile
 
-# Archive bindings
-cmd unarchive ${{
-  case "$f" in
-      *.zip) unzip "$f" ;;
-      *.tar.gz) tar -xzvf "$f" ;;
-      *.tar.bz2) tar -xjvf "$f" ;;
-      *.tar) tar -xvf "$f" ;;
-      *) echo "Unsupported format" ;;
-  esac
-}}
+# # Archive bindings
+# cmd unarchive ${{
+#   case "$f" in
+#       *.zip) unzip "$f" ;;
+#       *.tar.gz) tar -xzvf "$f" ;;
+#       *.tar.bz2) tar -xjvf "$f" ;;
+#       *.tar) tar -xvf "$f" ;;
+#       *) echo "Unsupported format" ;;
+#   esac
+# }}
 
-cmd zip %zip -r "$f" "$f"
-cmd tar %tar cvf "$f.tar" "$f"
-cmd targz %tar cvzf "$f.tar.gz" "$f"
-cmd tarbz2 %tar cjvf "$f.tar.bz2" "$f"
+# cmd zip %zip -r "$f" "$f"
+# cmd tar %tar cvf "$f.tar" "$f"
+# cmd targz %tar cvzf "$f.tar.gz" "$f"
+# cmd tarbz2 %tar cjvf "$f.tar.bz2" "$f"
 
 # Bindings
 # Remove some defaults
@@ -114,15 +114,15 @@ map f
 map ee $$EDITOR "$f"
 map u $view "$f"
 
-# Archive Mappings
-map az zip
-map at tar
-map ag targz
-map ab targz
-map au unarchive
+# # Archive Mappings
+# map az zip
+# map at tar
+# map ag targz
+# map ab targz
+# map au unarchive
 
-# Fzf Mapping
-map f fzf_jump
+# # Fzf Mapping
+# map f fzf_jump
 
 # Basic Functions
 map . set hidden!
@@ -184,4 +184,4 @@ map gE cd /etc
 map gU. cd /usr
 map gUs cd /usr/share
 
-map \;j cd ~
+# map \;j cd ~
