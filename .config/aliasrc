@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# SENSIBLE DEFAULTS + VERBOSITY
+# --- SENSIBLE DEFAULTS + VERBOSITY
 alias \
     cp="cp -iv"                         \
     mv="mv -iv"                         \
@@ -12,10 +12,10 @@ alias \
     yta="yt -x -f bestaudio/best"       \
     ytb="yt -f bestvideo+bestaudio"     \
     ytpl="yt -o '%(playlist_index)s-%(title)s.%(ext)s'" \
-    ytbpl="yt -f bestaudio/best -o '%(playlist_index)s-%(title)s.%(ext)s'"
+    ytbpl="yt -f bestvideo/bestaudio -o '%(playlist_index)s-%(title)s.%(ext)s'"
     # ffmpeg="ffmpeg -hide_banner"      \
 
-# COLORIZE COMMANDS
+# --- COLORIZE COMMANDS
 alias \
     ls="ls -hNFXG --color=auto --group-directories-first"    \
     l='ls'                                                  \
@@ -25,7 +25,7 @@ alias \
     fgrep="fgrep --color=auto"                              \
     diff="diff --color=auto"
 
-# LONG COMMANDS
+# --- LONG COMMANDS
 alias \
     df='df -h'                          \
     a="sudo apt"                        \
@@ -52,7 +52,7 @@ alias \
     c='/usr/bin/git --git-dir=$HOME/repos/dotfiles/ --work-tree=$HOME' \
     alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"' \
 
-# DIRECTORIES
+# --- DIRECTORIES
 alias \
     cd..='cd ..'                                    \
     m="cd ${XDG_MUSIC_DIR:-$HOME/Music}"            \
@@ -64,12 +64,8 @@ alias \
     doc="cd ${XDG_DOCUMENTS_DIR:-$HOME/Documents}"  \
     pic="cd ${XDG_PICTURES_DIR:-$HOME/Pictures}"    \
     vid="cd ${XDG_VIDEOS_DIR:-$HOME/Videos}"        \
-    th="cd $HOME/Documents/project/Thesis/thesis"   \
-    art="cd $HOME/Documents/project/articles"       \
-    proj="cd $HOME/Documents/project/"              \
-    org="cd ${XDG_DOCUMENTS_DIR:-$HOME/Documents/OrgFiles}"
 
-# FILES
+# --- FILES
 alias \
     inp="$EDITOR $HOME/.config/inputrc"         \
     xre="$EDITOR $HOME/.Xresources"             \
@@ -82,48 +78,44 @@ alias \
     cfs="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/sxhkd/sxhkdrc"       \
     cfa="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc"             \
     cfP="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/picom.conf"          \
-    cfi="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/i3/config"           \
-    cfib="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/i3blocks/config"    \
     cfl="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/lf/lfrc"             \
-    cfL="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/lf/scope"            \
     cfm="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/mutt/muttrc"         \
     cfmb="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/ncmpcpp/bindings"   \
     cfmc="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/ncmpcpp/config"     \
-    cfr="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/ranger/"             \
     cfn="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/newsboat/config"     \
     cfu="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/newsboat/urls"       \
     cfv="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/init.vim"       \
     cfx="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/sxiv/exec/key-handler" \
-    cfA="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/alacritty/alacritty.yml"
 
-# Pretty print the path
+# --- Pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
 
-# libreoffice
+# --- Libreoffice
 alias \
     writer="libreoffice --writer"   \
     calc="libreoffice --calc"       \
     impress="libreoffice --impress"
 
-# FUNCTIONS
+# --- Use nevim for vim if present.
+command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d"
 
-urxvt_launcher() { urxvt -geometry 80x3 -name 'bashrun' -e sh -c "/bin/bash -i -t"; }
+# --- FUNCTIONS
 
 # Spell checker
 spell() {
     echo $@ | hunspell -d en_US | grep '^&'
 }
 
+# Dictionary (sdcv)
 d() {
-    # sdcv (stardict)
     # Data in ~/.local/share/stardict/dic/
     sdcv -n --utf8-output --color "$@" 2>&1 | \
         fold --width=$(tput cols) | \
         less -FRX
-    }
+}
 
 # Commandline Google translate
-tra(){ trans -d -e aspell -bidi "$@" | less -R ;}
+tra() { trans -d -e aspell -bidi "$@" | less -R ;}
 alias enfa='tra en:fa' \
     faen='tra fa:en' \
     ende='tra en:de' \
@@ -131,9 +123,11 @@ alias enfa='tra en:fa' \
     jaen='tra ja:en' \
     enja='tra en:ja'
 
-# Pronounce a word using Google's Text-to-Speech engine
-prnc() { trans -speak "$@" &>/dev/null ;}
-prncgb() { mpv --loop $(find ~/Documents/test/gb -type f | fzf) ;}
+# Pronounce a word (uses translate program)
+prnc() {
+    mpv --no-config ~/Documents/test/gb/"$@".mp3 1>/dev/null 2>&1 || \
+        trans -speak "$@" &>/dev/null
+}
 
 odef() {
     # dict network protocol
@@ -141,8 +135,7 @@ odef() {
 }
 
 # Extract everything
-ex ()
-{
+ex() {
     # -- ARCHIVE EXTRACTION
     # usage: ex <file>
     if [ -f $1 ] ; then
@@ -173,41 +166,24 @@ shdl() { curl -O $(curl -s https://sci-hub.st/"$@" | grep location.href | grep -
 # shdl() { curl -O $(curl -s https://sci-hub.st/"$@" | grep location.href | grep -o https.*pdf) ;}
 # shdl() { curl -O $(curl -s https://sci-hub.scihubtw.st/"$@" | grep location.href | grep -o https.*pdf) ;}
 
+# Search through the scripts
 se() {
-    # -- Search through the scripts
-    du -a ~/.config/* ~/.local/* | awk '{print $2}' | fzf | xargs -r $EDITOR
+    du -a ~/.local/{bin,scripts}/* | awk '{print $2}' | fzf | xargs -r $EDITOR
 }
 
-# APT
-# alias a="sudo apt"
-# install_with_fzf () {
-#   sudo apt install $( \
-#       apt list 2>/dev/null | \
-#       fzf \
-#             -m \
-#             --preview="echo {} | cut -d'/' -f1 | xargs -r apt show 2>/dev/null" \
-#             --preview-window=:hidden \
-#             --bind="ctrl-x:toggle-preview" \
-#             --height=100% | \
-#       cut -d/ -f1 |\
-#       tr '\n' ' ' \
-#   )
-# }
-
 # PACMAN-related Utilities
-install_with_fzf () {
+install_with_fzf() {
     pacman -Slq | fzf --multi --preview 'pacman -Si {1}' | \
         xargs -ro sudo pacman -S
 }
-
-remove_with_fzf () {
+remove_with_fzf() {
     pacman -Qq | fzf --multi --preview 'pacman -Qi {1}' | \
         xargs -ro sudo pacman -Rns
 }
 
-# Navigate to any directory and open anything easier
-update_fzf(){
-    # A function for faster access of files and directories
+# Create files containing list of all files and folders under the ~
+# These files are created for faster access in following functions
+update_fzf() {
     # Update fzf files & directories
     find $HOME -type f 2>/dev/null | \
         egrep -v ".cache|.git|.svn" \
@@ -217,30 +193,25 @@ update_fzf(){
         egrep -v ".cache|.git|.svn" \
         > ~/.cache/directories
 }
-
 open_with_fzf() {
     cat ~/.cache/files | fzf | xargs -ro -d "\n" xdg-open 2>&-
 }
-
 text_file_with_fzf() {
-    cat ~/.cache/files  | fzf -m --height 100% --preview="less {}" | xargs -ro -d "\n" $EDITOR -p  2>&-
+    cat ~/.cache/files  | fzf -m --height 100% --preview="less {}" | \
+        xargs -ro -d "\n" $EDITOR -p  2>&-
 }
-
 text_file_cur_dir_with_fzf() {
-    fd -t f -H -I  | fzf -m --no-height --preview="less {}" | xargs -ro -d "\n" $EDITOR -p  2>&-
+    fd -t f -H -I  | fzf -m --no-height --preview="less {}" | \
+        xargs -ro -d "\n" $EDITOR -p  2>&-
 }
-
 cd_with_fzf() {
     # cd $HOME && cd "$(fd -H -t d . $HOME | fzf --preview="tree -C -L 1 {}" --bind="ctrl-space:toggle-preview" --preview-window=:hidden)"
-    cd "$(cat ~/.cache/directories | fzf --preview="tree -C -L 1 {}" --bind="ctrl-x:toggle-preview" --preview-window=:hidden)"
+    cd "$(\
+        cat ~/.cache/directories | \
+        fzf --preview="tree -C -L 1 {}" \
+        --bind="ctrl-x:toggle-preview" --preview-window=:hidden \
+        )"
 }
-
-# MISCELLANEOUS
-# The terminal rickroll
-alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash'
-
-# Use nevim for vim if present.
-command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d"
 
 # Artixlinux
 enable() { [ -z "$1" ] && exit; sudo ln -s /etc/runit/sv/$1 /run/runit/service ;}

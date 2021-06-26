@@ -22,6 +22,9 @@ fi
 setopt autocd       # Automatically cd into typed directory.
 stty stop undef     # Disable ctrl-s to freeze terminal.
 setopt interactive_comments
+setopt rmstarsilent nonomatch
+setopt completeinword extendedglob
+zle_highlight+=(paste:none)
 
 # History in cache directory:
 HISTSIZE=10000000           # How many lines of history to keep in memory
@@ -37,6 +40,7 @@ setopt HIST_VERIFY          # perform history expansion and reload the line into
 setopt appendhistory        # Append history to the history file (no overwriting)
 # setopt    sharehistory    # Share history across terminals
 setopt incappendhistory     # Immediately append to the history file, not just when a term is killed
+setopt histexpiredupsfirst histreduceblanks
 
 # Load aliases and shortcuts if existent.
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc"
@@ -125,16 +129,16 @@ echo -ne '\e[5 q' # Use beam shape cursor on startup.
 precmd() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 # Use lf to switch directories and bind it to ctrl-o
-lfcd () {
-    tmp="$(mktemp)"
-    lf -last-dir-path="$tmp" "$@"
-    if [ -f "$tmp" ]; then
-        dir="$(cat "$tmp")"
-        rm -f "$tmp" >/dev/null
-        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
-    fi
-}
-bindkey -s '^o' 'lfcd\n'
+# lfcd () {
+#     tmp="$(mktemp)"
+#     lf -last-dir-path="$tmp" "$@"
+#     if [ -f "$tmp" ]; then
+#         dir="$(cat "$tmp")"
+#         rm -f "$tmp" >/dev/null
+#         [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+#     fi
+# }
+# bindkey -s '^o' 'lfcd\n'
 
 bindkey -s '\ea' 'bc -lq\n'
 bindkey -s '\em' 'dman\n'
@@ -160,6 +164,40 @@ bindkey "^B" backward-char
 bindkey "^F" forward-char
 bindkey "^Y" yank
 bindkey '\ew' push-line-or-edit
+bindkey -M viins ' ' magic-space
+
+# Escape shell characters in a url
+autoload -Uz url-quote-magic bracketed-paste-magic
+zle -N self-insert url-quote-magic
+zle -N bracketed-paste bracketed-paste-magic
+
+# Manage jobs
+fg-widget() {
+  if [[ $#BUFFER -eq 0 ]]; then
+    if jobs %- >/dev/null 2>&1; then
+      BUFFER='fg %-'
+    else
+      BUFFER='fg'
+    fi
+    zle accept-line
+  else
+    zle push-input
+    zle clear-screen
+  fi
+}
+zle -N fg-widget
+bindkey -M emacs "^Z" fg-widget
+bindkey -M vicmd "^Z" fg-widget
+bindkey -M viins "^Z" fg-widget
+
+# Increase a number
+autoload -Uz incarg
+zle -N incarg
+bindkey -M emacs "^X^A" incarg
+bindkey -M vicmd "^A" incarg
+
+# Get current cursor position
+bindkey -M vicmd ga what-cursor-position
 
 # Comment a line interactively
 setopt INTERACTIVE_COMMENTS
@@ -186,15 +224,19 @@ alias fe40='source $HOME/foam/foam-extend-4.0/etc/bashrc'
 alias of7="source ${FOAM_INST_DIR}/OpenFOAM-7/etc/bashrc"
 alias of8="source ${FOAM_INST_DIR}/OpenFOAM-8/etc/bashrc"
 alias of8d="source ${FOAM_INST_DIR}/OpenFOAM-8-debug/etc/bashrc"
+alias of20='source ~/OpenFOAM/OpenFOAM-v2012/etc/bashrc'
 
-# Open files with neovim
+# Open files with an appropriate handler
+# autoload -U zsh-mime-setup
+# zsh-mime-setup
 alias -s {c,cpp,cc,cxx,C,H,h,hpp,html,js,css,py,pl,md,txt,tex}=nvim
+alias -s pdf=zathura
 
 # Faster navigation with z.lua
 eval "$(lua ~/.local/src/z.lua-1.8.13/z.lua --init zsh)"
 
 # Random events of the day
-shuf -n1 ~/.wikidates/$(date +%B_%d)
+# shuf -n1 ~/.wikidates/$(date +%B_%d)
 
 # Gpg agent
 GPG_TTY=$(tty)

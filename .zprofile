@@ -25,6 +25,7 @@ export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME/java"
 
 # Other program settings
 export SUDO_ASKPASS="$HOME/.local/bin/dmenupass"
+export FLASK_APP="application.py"
 export FZF_DEFAULT_OPTS="--layout=reverse --height 40%"
 export FZF_DEFAULT_COMMAND='fd -H -I' # Including hidden files in search
 export LESSOPEN='|/usr/bin/lesspipe.sh %s' # allow less to view non-text files
@@ -42,6 +43,7 @@ export LF_ICONS="\
 fi=:\
 ln=:\
 or=:\
+*.pdf=:\
 ex=:\
 *.vimrc=:\
 *.viminfo=:\
@@ -196,9 +198,11 @@ ex=:\
 *.opus=:\
 *.spx=:\
 *.xspf=:\
-*.pdf=:\
 *.nix=:\
 "
+
+# Make tty font bigger/better
+setfont ter-p24b
 
 # set local location for libraries. If not set compilers cannot find the
 # libraries and give us the error:

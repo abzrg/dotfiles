@@ -197,6 +197,9 @@ ex=:\
 # libraries and give us the error:
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
+# Make tty font bigger/better
+setfont ter-p24b
+
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
