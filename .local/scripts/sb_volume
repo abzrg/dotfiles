@@ -3,7 +3,7 @@
 # This script prints the sound volume with an icon next to it, to the stdout
 # Reference: Luke Smith
 
-[ $(pamixer --get-mute) = true ] && echo 🔇 && exit
+[ $(pacmd list-sinks | awk '/muted/ { print $2 }' | head -n1) = "yes" ] && echo 🔇 && exit
 
 vol="$(pamixer --get-volume | sed s/,//)"
 
