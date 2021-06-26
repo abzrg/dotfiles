@@ -14,7 +14,8 @@ XDG_SESSION_TYPE=x11
 export AWT_TOOLKIT=MToolkit
 export _JAVA_AWT_WM_NONREPARENTING=1 # For matalab
 
-[ -f ~/.fehbg ] && ~/.fehbg &
+# [ -d ~/Pictures/Wallpapers ] && feh --randomize --bg-fill ~/Pictures/Wallpapers/* &
+feh --bg-fill ~/Pictures/gray.png
 [ -f ~/.Xresources ] && xrdb -load ~/.Xresources &
 picomstart &
 keyboardsettings &
