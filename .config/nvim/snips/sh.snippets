@@ -26,3 +26,12 @@
 snippet als "snippet for creating an alias" b
 alias ${1:alias}='${2:command}'
 endsnippet
+
+snippet sh "POSIX shell minimal starter" b
+#!/bin/sh
+set -e
+set -u
+
+# Stop if the script is incorrect syntactically
+sh -n \$0
+endsnippet
