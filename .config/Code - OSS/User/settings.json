@@ -1,6 +1,9 @@
 {
     "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
     "vscode-neovim.neovimInitVimPaths.linux": "$HOME/.config/nvim/init.vim",
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },
     "editor.fastScrollSensitivity": 3,
     "editor.scrollbar.horizontal": "hidden",
     "editor.scrollbar.vertical": "hidden",
