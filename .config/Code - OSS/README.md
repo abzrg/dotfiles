@@ -1,0 +1,14 @@
+## All the plugin I use:
+- advanced-new-file
+- Bracket Pair Colorizer
+- C/C++
+- clangd
+- Docker
+- GitLens
+- Python
+- Pylance
+- Jupyter
+- Live Server
+- Prettier
+- Quokka.js
+- VSCode Neovim
