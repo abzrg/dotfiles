@@ -1,57 +1,53 @@
-!! better font rendering
+!! Better font rendering
 xft.antialias:  1
 xft.hinting:    1
 Xft.autohint:   0
 Xft.rgba:       rgb
 Xft.hintstyle:  hintslight
 Xft.lcdfilter:  lcddefault
+! Font
+*font: mono-14
 
-*font:          mono-14
 
-!! Colors for st
-/* #include ".Xresources.d/color" */
+! \\\\\\\\\\\\\\\\\\\
+! VSCode dark termial
+! ///////////////////
 
-/* ! */
-/* ! Generated with : */
-/* ! XRDB2Xreources.py */
-/* ! */
-/* *.foreground:  #bbbbbb */
-/* *.background:  #000000 */
-/* *.cursorColor: #bbbbbb */
-/* ! */
-/* ! Black */
-/* *.color0:      #000000 */
-/* *.color8:      #555555 */
-/* ! */
-/* ! Red */
-/* *.color1:      #bb0000 */
-/* *.color9:      #ff5555 */
-/* ! */
-/* ! Green */
-/* *.color2:      #00bb00 */
-/* *.color10:     #55ff55 */
-/* ! */
-/* ! Yellow */
-/* *.color3:      #bbbb00 */
-/* *.color11:     #ffff55 */
-/* ! */
-/* ! Blue */
-/* *.color4:      #0000bb */
-/* *.color12:     #5555ff */
-/* ! */
-/* ! Magenta */
-/* *.color5:      #bb00bb */
-/* *.color13:     #ff55ff */
-/* ! */
-/* ! Cyan */
-/* *.color6:      #00bbbb */
-/* *.color14:     #55ffff */
-/* ! */
-/* ! White */
-/* *.color7:      #bbbbbb */
-/* *.color15:     #ffffff */
-/* ! */
-/* ! Bold, Italic, Underline */
-/* *.colorBD:     #ffffff */
-/* !*.colorIT: */
-/* !*.colorUL: */
+*.foreground:  #cccccc
+*.background:  #1E1E1E
+*.cursorColor: #ffffff
+!
+! Black
+*.color0:      #000000
+*.color8:      #666666
+!
+! Red
+*.color1:      #cd3131
+*.color9:      #f14c4c
+!
+! Green
+*.color2:      #0dbc79
+*.color10:     #23d18b
+!
+! Yellow
+*.color3:      #e5e510
+*.color11:     #f5f543
+!
+! Blue
+*.color4:      #2472c8
+*.color12:     #3b8eea
+!
+! Magenta
+*.color5:      #bc3fbc
+*.color13:     #d670d6
+!
+! Cyan
+*.color6:      #11a8cd
+*.color14:     #29b8db
+!
+! White
+*.color7:      #e5e5e5
+*.color15:     #e5e5e5
+!
+! Bold, Italic, Underline
+*.colorBD:     #ffffff
