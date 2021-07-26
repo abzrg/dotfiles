@@ -25,6 +25,7 @@ setopt interactive_comments
 setopt rmstarsilent nonomatch
 setopt completeinword extendedglob
 zle_highlight+=(paste:none)
+# unsetopt PROMPT_SP # fix % showing up upon starting st
 
 # History in cache directory:
 HISTSIZE=10000000           # How many lines of history to keep in memory
@@ -129,16 +130,16 @@ echo -ne '\e[5 q' # Use beam shape cursor on startup.
 precmd() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 # Use lf to switch directories and bind it to ctrl-o
-# lfcd () {
-#     tmp="$(mktemp)"
-#     lf -last-dir-path="$tmp" "$@"
-#     if [ -f "$tmp" ]; then
-#         dir="$(cat "$tmp")"
-#         rm -f "$tmp" >/dev/null
-#         [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
-#     fi
-# }
-# bindkey -s '^o' 'lfcd\n'
+lfcd () {
+    tmp="$(mktemp)"
+    lf -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        rm -f "$tmp" >/dev/null
+        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+    fi
+}
+bindkey -s '^o' 'lfcd\n'
 
 bindkey -s '\ea' 'bc -lq\n'
 bindkey -s '\em' 'dman\n'
@@ -250,7 +251,7 @@ zstyle ':vcs_info:*' disable bzr svn cdv darcs mtn svk tla # I don't use these V
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' unstagedstr '!' # Add ! for unstaged changes
 zstyle ':vcs_info:*' stagedstr '+' # Add + for staged changes
-zstyle ':vcs_info:*' formats '%F{cyan}(%m%b%F{red}%u%f%F{green}%c%f%F{cyan})%f'
+zstyle ':vcs_info:*' formats '%f%F{cyan}(%m%b%F{red}%u%f%F{green}%c%f%F{cyan})%f'
 function precmd() { vcs_info } # Update each time new prompt is rendered
 setopt prompt_subst # Allow dynamic command prompt
-PS1='%B%F{magenta}%(3~|%2~|%~)%f ${vcs_info_msg_0_}%F{red}%(?..(%?%))%f%F{blue}%#%f%b '
+PS1='%F{magenta}%(3~|%2~|%~)%f ${vcs_info_msg_0_}%F{red}%(?..(%?%))%f%F{blue}%#%f '
