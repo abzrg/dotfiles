@@ -1,14 +1,18 @@
 #!/bin/sh
 
+set -eu
+
+
 # If there is any process using camera kill it
-pkill -f /dev/video0
+# [ pkill -f /dev/video0 ] && :
 
 # Use 'xrandr' to find your default resolution
-SCREEN_SIZE="1366x768"
+SCREEN_SIZE="$(xdpyinfo | grep dimensions | perl -pe 's/.* ([0-9]+x[0-9]+) .*/$1/g')"
 
 # You can find the audio devices with the command:
 # pactl list short sources
-AUDIO_DEVICE="alsa_input.pci-0000_00_1b.0.analog-stereo" #/dev/dsp8
+__input_mic__="vmic"
+__output_monitor__="$(pacmd list-sources | grep -PB 1 "analog.*monitor>" | head -n 1 | perl -pe 's/.* //g')"
 
 # Variables to create the output file name
 DATE=$(date +"%F")
@@ -29,11 +33,17 @@ usage ()
     -x        Format of output (default=mkv)"
 }    # --- end of function usage ---
 
+MUTE=false
+
 # Handle command line arguments
-while getopts "h:n:p:x:" opt
+# (if a character is followed by a colon, the option is expected to have an
+# argument; Remove the colons from the options that don't require arguments)
+while getopts "h:mn:p:x:" opt
 do
     case $opt in
         h) usage; exit 0
+            ;;
+        m) MUTE=true
             ;;
         n) NAME="$OPTARG"
             ;;
@@ -41,11 +51,11 @@ do
             ;;
         x) EXT="$OPTARG"
             ;;
-        ?) echo; echo "Option does not exist : OPTARG"; echo
+        ?) echo; echo "Option does not exist : $OPTARG"; echo
             usage; exit 1
             ;;
     esac    # --- end of case ---
-done
+done    # --- end of while ---
 shift "$((OPTIND-1))"
 
 FILE=$HOME/Videos/"$PROJECT"/"$NAME"."$EXT"
@@ -58,17 +68,35 @@ else
     mkdir -p "$HOME"/Videos/"$PROJECT"
 fi
 
-ffmpeg -video_size "$SCREEN_SIZE" \
-    -framerate 50 \
-    -thread_queue_size 512 -f x11grab -i :0.0+0,0 \
-    -thread_queue_size 512 -f pulse -i "$AUDIO_DEVICE" \
-    -vcodec libx264rgb -crf 0 -preset:v ultrafast \
-    -acodec pcm_s16le \
-    -af aresample=async=1:first_pts=0 \
-    -y \
-    "$FILE"
+if $MUTE
+then
+    # Screen cast without sound
+    ffmpeg -video_size "$SCREEN_SIZE" \
+        -framerate 50 \
+        -thread_queue_size 512 -f x11grab -i :0.0+0,0 \
+        -vcodec libx264rgb -crf 0 -preset:v ultrafast \
+        -y \
+        "$FILE"
+else
+    # Screen cast with video
+    ffmpeg -video_size "$SCREEN_SIZE" \
+        -framerate 50 \
+        -thread_queue_size 512 -f x11grab -i :0.0+0,0 \
+        -thread_queue_size 512 -f pulse -i "$__input_mic__" \
+        -thread_queue_size 512 -f pulse  -i "$__output_monitor__" \
+        -filter_complex "aformat=[1]aresample=async=1:first_pts=0[a];aformat=[2]aresample=async=1:first_pts=0[b];[a][b]amerge" \
+        -vcodec libx264rgb -crf 0 -preset:v ultrafast \
+        -acodec pcm_s16le \
+        -vsync 2 \
+        -y \
+        "$FILE"
+fi
 
+        # -af aresample=async=1:first_pts=0 \
+        # -filter_complex amerge \
+        # -ac 2 \
 
+        # -filter_complex amix=inputs=2 \
                                    #'*'*'*'*'#
                                   #'* NOTES *'#
                                    #'*'*'*'*'#

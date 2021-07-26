@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 VPN=$(cat <<EOF | dmenu -p "ProtonVPN"
 connect
@@ -6,10 +6,10 @@ disconnect
 EOF
 )
 
-if [[ $VPN == "connect" ]]; then
+if [ $VPN = "connect" ]; then
     notify-send "ProtonVPN" "Connecting..."
-    sudo protonvpn c -f && notify-send "ProtonVPN" "You are now connected"
-elif [[ $VPN == "disconnect" ]]; then
+    sudo protonvpn c -f >/dev/null 2>&1 && notify-send "ProtonVPN" "You are now connected"
+elif [ $VPN = "disconnect" ]; then
     notify-send "ProtonVPN" "Disconnecting..."
-    sudo protonvpn d && notify-send "ProtonVPN" "You are now Disconnected"
+    sudo protonvpn d >/dev/null 2>&1 && notify-send "ProtonVPN" "You are now Disconnected"
 fi
