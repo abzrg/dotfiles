@@ -12,13 +12,14 @@ alias \
     yta="yt -x -f bestaudio/best"       \
     ytb="yt -f bestvideo+bestaudio"     \
     ytpl="yt -o '%(playlist_index)s-%(title)s.%(ext)s'" \
-    ytbpl="yt -f bestvideo/bestaudio -o '%(playlist_index)s-%(title)s.%(ext)s'"
+    ytbpl="yt -f bestvideo+bestaudio -o '%(playlist_index)s-%(title)s.%(ext)s'"
     # ffmpeg="ffmpeg -hide_banner"      \
 
 # --- COLORIZE COMMANDS
 alias \
-    ls="ls -hNFXG --color=auto --group-directories-first"    \
+    ls="ls -hNFG --color=auto --group-directories-first"    \
     l='ls'                                                  \
+    la='ls -a'                                              \
     ll="ls -ali"                                            \
     grep="grep --color=auto"                                \
     egrep="egrep --color=auto"                              \
@@ -30,26 +31,35 @@ alias \
     df='df -h'                          \
     a="sudo apt"                        \
     e="$EDITOR"                         \
+    em="neomutt"                        \
     f="$FILE"                           \
+    fp='fontpreview'                    \
     g="git"                             \
     o='xdg-open'                        \
+    open='xdg-open'                     \
     v="$VISUAL"                         \
+    vi="/bin/vim -N -u NONE"            \
     p="zathura"                         \
     ka="killall"                        \
     grp="grep -Rli"                     \
     SS="sudo systemctl"                 \
+    duh="du -h -d 0 [^.]*"              \
     free='free -m'                      \
     chbin='chmod 755'                   \
     chreg='chmod 644'                   \
     sdn="sudo shutdown -h now"          \
     trem="transmission-remote"          \
     merge='xrdb -merge ~/.Xresources'   \
-    slc="make clean && rm -f config.h"     \
+    slc="make clean && rm -f config.h"  \
     myip="curl http://myip.dnsomatic.com && echo ''" \
     visudo='sudo EDITOR=nvim visudo -f /etc/sudoers.d/ali' \
     conda_a='source ~/bin/anaconda3/bin/activate' \
     conda_d='conda deactivate' \
+    scrsize="xrandr | grep ' connected ' | cut -d' ' -f4 | cut -d'+' -f1" \
+    rcp="rsync --archive --human-readable --progress --verbose --whole-file" \
+    scp="rsync --archive --checksum --compress --human-readable --itemize-changes --rsh=ssh --stats --verbose" \
     c='/usr/bin/git --git-dir=$HOME/repos/dotfiles/ --work-tree=$HOME' \
+    syms="find . -maxdepth 1 -type l -print | while read line; do ls -alc "\$line"; done" \
     alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"' \
 
 # --- DIRECTORIES
@@ -77,6 +87,7 @@ alias \
     cft="$EDITOR $HOME/.tmux.conf"              \
     cfs="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/sxhkd/sxhkdrc"       \
     cfa="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc"             \
+    cfA="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/alacritty"           \
     cfP="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/picom.conf"          \
     cfl="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/lf/lfrc"             \
     cfm="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/mutt/muttrc"         \
@@ -180,6 +191,15 @@ remove_with_fzf() {
     pacman -Qq | fzf --multi --preview 'pacman -Qi {1}' | \
         xargs -ro sudo pacman -Rns
 }
+pacman-purge() {
+   sudo paccache -r
+   sudo pacman -Rsn $(pacman -Qqdt)
+}
+pacsize() {
+   sudo pacman -Qi | \
+      awk 'BEGIN{sort="sort -k2 -n"} /Name/ {name=$3} /Size/ {size=$4/1024;print name":",size,"Mb"|sort}' | \
+      less
+}
 
 # Create files containing list of all files and folders under the ~
 # These files are created for faster access in following functions
@@ -209,7 +229,7 @@ cd_with_fzf() {
     cd "$(\
         cat ~/.cache/directories | \
         fzf --preview="tree -C -L 1 {}" \
-        --bind="ctrl-x:toggle-preview" --preview-window=:hidden \
+        --bind="ctrl-x:toggle-preview" --preview-window=:right \
         )"
 }
 
@@ -217,3 +237,22 @@ cd_with_fzf() {
 enable() { [ -z "$1" ] && exit; sudo ln -s /etc/runit/sv/$1 /run/runit/service ;}
 disable() { [ -z "$1" ] && exit; sudo rm /run/runit/service/$1 ;}
 restart() { [ -z "$1" ] && exit; sudo sv restart $1 ;}
+
+# A function to show git statistics
+gstat() {
+    cat ~/.cache/zsh/history | awk '/^git/ { print $1, $2 }' | \
+        sort | uniq -dc | sort | \
+        gnuplot -p -e 'set terminal x11; set xtics rotate 180; set key off;
+            plot [:][:] "< cat -" using 1: xtic(3) with histogram' | \
+        feh - >/dev/null 2>&1
+}
+
+# Replace openfoam headers
+repheader() {
+sed -i s/'.*C++.*'/'\/\*---------------------------------------------------------------------------\*\\'/g "$1"
+}
+
+# List processes and thier id of a given pattern
+lsid() {
+    pgrep -af "$1" | while read -r pid cmd; do echo "$pid => $cmd"; done
+}
