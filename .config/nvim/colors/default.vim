@@ -20,8 +20,10 @@ endif
 
 let colors_name = "default"
 
-highlight Comment guifg=green ctermfg=green
-highlight Pmenu guifg=black guibg=LightMagenta
-highlight PmenuThumb ctermbg=0 guibg=Black
+highlight Comment     guifg=#6A9955
+highlight Pmenu       guifg=Silver  guibg=Grey7
+highlight PmenuSel    guifg=White   guibg=Maroon
+highlight Visual      guifg=None  guibg=#264F78
+
 
 " vim: sw=2
