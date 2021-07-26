@@ -1,3 +1,5 @@
+set selection-clipboard clipboard
+
 set statusbar-h-padding 0
 set statusbar-v-padding 0
 
@@ -12,8 +14,3 @@ map K zoom in
 map J zoom out
 map i recolor
 map p print
-
-# This will map `m` to open the input bar you would normally open
-# with `:` and input there that text. You can then press Enter to
-# launch the command.
-map m focus_inputbar ":exec zathuradic"
