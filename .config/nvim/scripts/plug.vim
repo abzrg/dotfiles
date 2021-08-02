@@ -16,19 +16,23 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-fugitive'
-Plug 'wsdjeg/vim-fetch'
+Plug 'wsdjeg/vim-fetch' | " vim .bashrc:23 -- goes to line 23 when enter the file
 Plug 'junegunn/goyo.vim'
 Plug 'mattn/emmet-vim'
 Plug 'cohama/lexima.vim'
 Plug 'alvan/vim-closetag'
-Plug 'dhruvasagar/vim-table-mode'
-Plug 'honza/vim-snippets'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
-Plug 'lervag/vim-foam'
 Plug 'junegunn/limelight.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'rhysd/committia.vim' | " A Vim plugin for more pleasant editing on commit messages
+Plug 'honza/vim-snippets'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'pangloss/vim-javascript'
+Plug 'lervag/vim-foam'
+Plug 'thinca/vim-localrc' | " Enable configuration file of each directory
 
-if (!exists('g:vscode')) && has("nvim")
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+if !has("vscode") && has("nvim")
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 endif
 
 if has("nvim")
@@ -36,6 +40,7 @@ if has("nvim")
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'kyazdani42/nvim-web-devicons'
+    Plug 'mhartington/formatter.nvim'
 endif
 
 call plug#end()

@@ -29,14 +29,14 @@ set fileformat=unix
 
 " Fold Settings {{{
 " -----------------------------------------------------------------------------
-set foldmethod=marker
-function! MyFoldText()
-    let line = getline(v:foldstart)
-    let foldedlinecount = v:foldend - v:foldstart + 1
-    return '  '. foldedlinecount . line
-endfunction
-set foldtext=MyFoldText()
-set fillchars=fold:\ 
+" set foldmethod=marker
+" function! MyFoldText()
+"     let line = getline(v:foldstart)
+"     let foldedlinecount = v:foldend - v:foldstart + 1
+"     return '  '. foldedlinecount . line
+" endfunction
+" set foldtext=MyFoldText()
+" set fillchars=fold:\ 
 "}}}
 
 " Misc. {{{
@@ -47,12 +47,13 @@ set clipboard+=unnamedplus
 " set cursorline
 " Add asterisks in block comments
 set formatoptions+=r
-set cmdheight=1
+set cmdheight=2
 set hidden
 set hlsearch
 set ignorecase
 set incsearch
 set infercase
+set isfname-== | " Avoid recognizing = as part of file name
 set laststatus=2
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
@@ -79,8 +80,10 @@ set path+=/home/ali/.config/nvim
 set scrolloff=3
 set sidescrolloff=5
 set shell=dash
-set shortmess=filnxtToOI
-set signcolumn=auto
+set shortmess=filnxtToOIc
+" Allow show signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved. (yes/auto/no)
+set signcolumn=yes
 set smartcase
 set splitbelow splitright
 set termguicolors

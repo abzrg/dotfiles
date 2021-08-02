@@ -8,7 +8,7 @@ runtime ./scripts/help.vim
 runtime ./scripts/indentation.vim
 runtime ./scripts/hooks.vim
 runtime ./scripts/maps.vim
-runtime ./scripts/abbr.vim
+runtime ./scripts/abbreviations.vim
 
 " if has("unix")
 "   let s:uname = system("uname -s")
@@ -49,6 +49,5 @@ set exrc " consider this file as the main init script
 " Emmet variable should be loaded here!
 let g:user_emmet_leader_key='<A-w>'
 
-set completeopt=menuone,noinsert,noselect
-
-" vim: foldmethod=marker foldlevel=0
+" set completeopt+=menu,preview,menuone,noinsert
+" set completeopt=menuone,noinsert

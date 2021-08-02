@@ -1,30 +1,22 @@
-" Pandoc and Notes
-command! -nargs=1 Ngrep lvimgrep "<args>" $NOTES_DIR/**/*.txt
-nnoremap <leader>[ :Ngrep 
-
-command! -range=% Rst :'<,'>!pandoc -f markdown -t rst
-
-nnoremap <leader>n :exe "e $NOTES_DIR/Scratch/stash/".strftime("%F-%H%M%S").".md"<cr>
+" More Convinience!
 nnoremap <leader>q :q!<cr>
 nnoremap <leader>w :w<cr>
-nnoremap <leader>x :sign unplace *<cr>
 nnoremap <leader>z :wq!<cr>
 vnoremap <M-q> <esc>:q!<cr>
 
 inoremap <M-t> <C-r>=strftime('%D %l:%M%P')<cr>
 inoremap <M-T> <C-r>=strftime('%D')<cr>
 
-" Make script executable and run it
-nnoremap <leader>\ :!chmod 755 %<cr>:!%:p<cr>
+" Make script executable
+nnoremap <leader>\ :!chmod 755 %<cr>
 
 " toggle last buffer
 nnoremap ''  :b#<cr>
-"-----------------------------------------------^connermcd
 
 " Open the current directory
 nnoremap - :e %:h<CR>
 cabbr <expr> %% expand('%:p:h')
-nnoremap <Leader>e :e <C-R>=expand('%:p:h') . '/'<CR>
+" nnoremap <Leader>e :e <C-R>=expand('%:p:h') . '/'<CR>
 
 " CDC = Change to directory of current file
 nnoremap cd :cd %:p:h<CR>:pwd<CR>
@@ -44,12 +36,17 @@ nnoremap <silent> <M-Tab> :b#<CR>
 
 " Even more convinience (use ; to go to the command mode)
 nnoremap ; :
+vnoremap ; :
+
+" Add space bellow or above without leaving normal mode
+nnoremap <silent> [<space>  :<c-u>put!=repeat([''],v:count)<bar>']+1<cr>
+nnoremap <silent> ]<space>  :<c-u>put =repeat([''],v:count)<bar>'[-1<cr>
 
 " Better vertical line-by-line navigation
 nmap j gj
 nmap k gk
 
-" Fix the behaviour of `Y`, to be similar to behaviour of `C` and `D`
+" Fix the behavior of `Y`, to be similar to behavior of `C` and `D`
 nmap Y y$
 
 nnoremap H ^
@@ -60,9 +57,30 @@ vnoremap K k
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 
-" Move the search item's position to the middle of the page
+" Keep it centered
 nnoremap n nzzzv
 nnoremap N Nzzzv
+nnoremap J mzJ`z
+nnoremap <C-j> :cnext<CR>zzzv
+nnoremap <C-k> :cprevious<CR>zzzv
+
+" Undo break points
+inoremap , ,<C-g>U
+inoremap . .<C-g>U
+inoremap ! !<C-g>U
+inoremap ? ?<C-g>U
+
+" Moving text
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+inoremap <A-C-j> <esc>:m .+1<CR>==a
+inoremap <A-C-k> <esc>:m .-2<CR>==a
+nnoremap <A-C-k> :m .-2<CR>==
+nnoremap <A-C-j> :m .+1<CR>==
+
+" Search and replace with dot
+nnoremap cn *``cgn
+nnoremap cN *``cgN
 
 " Access to the meaning of the word via sdcv
 map ,w yiw <bar> :!vimdic<CR>
@@ -88,7 +106,7 @@ map <leader>o :setlocal spell! spelllang=en_us<CR>
 
 " Save file as sudo on files that require root permission
 if has('nvim')
-    cnoremap w!! execute 'silent! write !SUDO_ASKPASS=dmenupass sudo tee % >/dev/null' <bar> edit!
+    cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 else
     cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 endif
@@ -153,3 +171,7 @@ function! ToggleHiddenAll()
     endif
 endfunction
 nnoremap <leader>b :call ToggleHiddenAll()<CR>
+
+" Disable clangd diagnostics
+nnoremap <silent> <leader>d :echo 'Disabled Diagnostics' <bar> :call coc#config('languageserver.clangd.disableDiagnostics', v:true) <Bar> :silent! CocRestart<CR>
+

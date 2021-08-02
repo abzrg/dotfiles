@@ -40,3 +40,13 @@ augroup SearchCompletions
     autocmd CmdlineEnter [/\?] call <SID>search_mode_start()
     autocmd CmdlineLeave [/\?] call <SID>search_mode_stop()
 augroup end
+
+" File types
+au BufNewFile,BufRead *.es6 setf javascript
+au BufNewFile,BufRead *.tsx setf typescriptreact
+au BufNewFile,BufRead *.md set filetype=markdown
+au BufNewFile,BufRead *.flow set filetype=javascript
+set suffixesadd=.js,.es,.jsx,.json,.css,.less,.sass,.styl,.php,.py,.md
+au FileType coffee setlocal shiftwidth=2 tabstop=2
+au FileType ruby setlocal shiftwidth=2 tabstop=2
+au FileType yaml setlocal shiftwidth=2 tabstop=2
