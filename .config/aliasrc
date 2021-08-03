@@ -87,7 +87,6 @@ alias \
     cft="$EDITOR $HOME/.tmux.conf"              \
     cfs="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/sxhkd/sxhkdrc"       \
     cfa="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc"             \
-    cfA="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/alacritty"           \
     cfP="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/picom.conf"          \
     cfl="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/lf/lfrc"             \
     cfm="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/mutt/muttrc"         \
@@ -97,6 +96,7 @@ alias \
     cfu="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/newsboat/urls"       \
     cfv="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/init.vim"       \
     cfx="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/sxiv/exec/key-handler" \
+    cfA="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/alacritty/alacritty.yml"
 
 # --- Pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
@@ -249,7 +249,8 @@ gstat() {
 
 # Replace openfoam headers
 repheader() {
-sed -i s/'.*C++.*'/'\/\*---------------------------------------------------------------------------\*\\'/g "$1"
+sed -i s/'\/\*-*\*\\'/'*--------------------------------*- C++ -*----------------------------------*\'/g "$1"
+
 }
 
 # List processes and thier id of a given pattern
