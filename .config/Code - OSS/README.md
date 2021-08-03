@@ -1,4 +1,7 @@
-## All the plugin I use:
+# VSCode Settings
+
+## All the plugin I use
+
 - Add jsdoc comments
 - advanced-new-file
 - Bracket Pair Colorizer
@@ -15,7 +18,8 @@
 - Quokka.js
 - VSCode Neovim
 
-## Some of the keybindings I use:
+## Some of the keybindings I use
+
 - `alt-tab`: switch between the terminal and editor
 - `alt-v`: toggle visibility of the bottom stuff (Terminal, Problems,...)
 - `alt-p`: toggle Problems
@@ -34,7 +38,8 @@
 - `ctrl-p`: fuzzy search files (insert `>` to go to command pallet mode)
 - `ctrl-shift-p`: command pallet
 - `ctrl-shift-b`: build the project
-- `alt-s`: list all the symbol in to the file in order to navigate to them. (use `ctrl-j/k` to navigate the list)
+- `alt-s`: list all the symbol in to the file in order to navigate to them.
+  (use `ctrl-j/k` to navigate the list)
 
 - `alt-n`: go to next tab
 - `alt-b`: go to previous tab
@@ -53,11 +58,13 @@
 - `alt-i`: go to implementation
 - `alt-shitf-p`: peek implementation
 - `alt-r`: go/peek to reference
-    - `ctrl-j/k`: go to next/prev ref
+
+  - `ctrl-j/k`: go to next/prev ref
 
 - `alt-r`: in ctrl-f search: toggle regex mode
 
-## Some tips:
+## Some tips
+
 - Local symbols: type `@` in command pallet (clear `>` and type `@`) and search for
   the desired symbol in the code. The alternative is Ctrl-shift-. which I bound
   it to alt-s for symbols The alternative is `ctrl-shift-.` which I bound it to

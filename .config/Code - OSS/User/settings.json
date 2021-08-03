@@ -31,7 +31,7 @@
     "terminal.integrated.fontSize": 15,
     "terminal.integrated.fontFamily": "'monospace','menlo'",
     "editor.fontSize": 17,
-    "editor.fontFamily": "'fira code','mono','monaco','Consolas','monospace','menlo','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "editor.fontFamily": "'mono','monaco','Consolas','monospace','menlo','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
     "[javascript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
@@ -51,6 +51,5 @@
     "clangd.path": "/usr/bin/clangd",
     "workbench.editorAssociations": {
         "*.pdf": "default"
-    },
-    "workbench.colorTheme": "Nord"
+    }
 }
