@@ -14,17 +14,19 @@ function! Splash()
     silent %>>
 
     " Insert Wikidates under banner
-    read ! shuf -n1 ~/.local/share/wikidates/$(date +\%B_\%d) | fold -s -w 80
+    if isdirectory(expand("$HOME") . '/.local/share/wikidates')
+        read ! shuf -n1 ~/.local/share/wikidates/$(date +\%B_\%d) | fold -s -w 80
 
-    " syn match Wikidates /^.*[0-9]* –.*\(\n.*\|$\)/
-    " syn match Wikidates /[a-zA-Z0-9_,–.'"`!]/
-    syn match Wikidates /^\s*[^█╚]*/
-    hi Wikidates guifg=#C58D76
-
+        " syn match Wikidates /^.*[0-9]* –.*\(\n.*\|$\)/
+        " syn match Wikidates /[a-zA-Z0-9_,–.'"`!]/
+        syn match Wikidates /^\s*[^█╚]*/
+        hi Wikidates guifg=#C58D76
+    endif
 
     " Centeralize
     let &textwidth = winwidth(0)
     silent 0,$center
+    let &textwidth = 0
 
     " Go to line 1
     :1

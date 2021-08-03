@@ -11,7 +11,7 @@ inoremap <M-T> <C-r>=strftime('%D')<cr>
 nnoremap <leader>\ :!chmod 755 %<cr>
 
 " toggle last buffer
-nnoremap ''  :b#<cr>
+nnoremap ''  :b#<cr>zz
 
 " Open the current directory
 nnoremap - :e %:h<CR>
