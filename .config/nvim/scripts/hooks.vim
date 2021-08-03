@@ -1,3 +1,9 @@
+" Auto source when writing to init.vm alternatively you can run :source $MYVIMRC
+au! BufWritePost $MYVIMRC source %
+
+" Auto resize splits upon window resize
+autocmd vimResized * execute "normal! \<C-w>="
+
 " Turn off paste mode when leaving insert
 autocmd InsertLeave * set nopaste
 
@@ -14,7 +20,7 @@ autocmd BufRead,BufNewFile xresources,xdefaults set filetype=xdefaults
 autocmd BufWritePost .Xresources,.Xdefaults,.xresources,.xdefaults !xrdb %
 
 " Disables automatic commenting on newline
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+autocmd FileType * setlocal formatoptions-=c formatoptions-=o
 
 " Completion during search (via Command window)
 function! s:search_mode_start()

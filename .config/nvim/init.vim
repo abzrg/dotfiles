@@ -36,8 +36,8 @@ if exists("&termguicolors") && exists("&winblend")
 endif
 
 " Add a virtual color-column at the 81th character
-highlight ColorColumn ctermbg=darkmagenta ctermfg=black guibg=darkmagenta guifg=black
-call matchadd('ColorColumn', '\%81v', 1)
+" highlight ColorColumn ctermbg=darkmagenta ctermfg=black guibg=darkmagenta guifg=black
+" call matchadd('ColorColumn', '\%81v', 1)
 
 
 

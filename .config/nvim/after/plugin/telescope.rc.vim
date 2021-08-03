@@ -2,6 +2,8 @@
 nnoremap <silent> ;r <Cmd>Telescope live_grep<CR>
 nnoremap <silent> \\ <Cmd>Telescope buffers<CR>
 nnoremap <silent> ;; <Cmd>Telescope help_tags<CR>
+nnoremap <silent> ;h <Cmd>Telescope man_pages<CR>
+nnoremap <silent> ;o <Cmd>Telescope oldfiles<CR>
 
 lua << EOF
 local telescope = require('telescope')
@@ -11,6 +13,12 @@ local utils = require('telescope.utils')
 
 -- Map q to close the window (in normal mode)
 telescope.setup {
+    extensions = {
+        fzy_native = {
+            override_generic_sorter = false,
+            override_file_sorter = true,
+        }
+    },
     defaults = {
         vimgrep_arguments = {
             "rg",
@@ -50,6 +58,8 @@ telescope.setup {
         },
     }
 }
+
+require('telescope').load_extension('fzy_native')
 
 -- Custom functions (in lua/ali/telescope)
 custom_functions = require('ali.telescope')
@@ -94,6 +104,13 @@ vim.api.nvim_set_keymap(
   { noremap = true, silent = true }
 )
 
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>nb",
+  [[<Cmd>lua custom_functions.browse_notes()<CR>]],
+  { noremap = true, silent = true }
+)
+
 -- Find notes files
 vim.api.nvim_set_keymap(
   "n",
@@ -105,16 +122,24 @@ vim.api.nvim_set_keymap(
 -- Search through notes
 vim.api.nvim_set_keymap(
   "n",
-  "<leader>ns",
+  "<leader>ng",
   [[<Cmd>lua custom_functions.grep_notes()<CR>]],
   { noremap = true, silent = true }
 )
 
--- Find or create neovim configs
+-- Find neovim configs
 vim.api.nvim_set_keymap(
   "n",
-  "<leader>v",
+  "<leader>vf",
   [[<Cmd>lua custom_functions.find_nvim_config()<CR>]],
+  { noremap = true, silent = true }
+)
+
+-- Grep neovim configs
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>vg",
+  [[<Cmd>lua custom_functions.grep_nvim_config()<CR>]],
   { noremap = true, silent = true }
 )
 

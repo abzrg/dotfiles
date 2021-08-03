@@ -16,7 +16,6 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-fugitive'
-Plug 'wsdjeg/vim-fetch' | " vim .bashrc:23 -- goes to line 23 when enter the file
 Plug 'junegunn/goyo.vim'
 Plug 'mattn/emmet-vim'
 Plug 'cohama/lexima.vim'
@@ -24,12 +23,19 @@ Plug 'alvan/vim-closetag'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'junegunn/limelight.vim'
 Plug 'itchyny/lightline.vim'
-Plug 'rhysd/committia.vim' | " A Vim plugin for more pleasant editing on commit messages
 Plug 'honza/vim-snippets'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'pangloss/vim-javascript'
 Plug 'lervag/vim-foam'
-Plug 'thinca/vim-localrc' | " Enable configuration file of each directory
+Plug 'wsdjeg/vim-fetch'        | " -- vim .bashrc:23 -- goes to line 23 when enter the file.
+Plug 'rhysd/committia.vim'     | " A Vim plugin for more pleasant editing on commit messages.
+Plug 'thinca/vim-localrc'      | " -- Enable configuration file of each directory.
+Plug 'szw/vim-maximizer'       | " Maximizes and restores the current window in Vim.
+Plug 'Yggdroot/indentLine'     | " A vim plugin to display the indention levels with thin vertical lines
+Plug 'junegunn/vim-easy-align' | " A Vim alignment plugin
+" Plug 'mhinz/vim-startify' , {'branch': 'center'}  | " The fancy start screen for Vim.
+Plug 'pbrisbin/vim-mkdir'      | " Automatically create any non-existent directories before writing the buffer.
+Plug 'arp242/startscreen.vim'
 
 if !has("vscode") && has("nvim")
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
@@ -39,6 +45,7 @@ if has("nvim")
     Plug 'nvim-lua/popup.nvim'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
+    Plug 'nvim-telescope/telescope-fzy-native.nvim' | " FZY style sorter that is compiled.
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'mhartington/formatter.nvim'
 endif

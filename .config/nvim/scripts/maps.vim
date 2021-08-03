@@ -16,7 +16,7 @@ nnoremap ''  :b#<cr>
 " Open the current directory
 nnoremap - :e %:h<CR>
 cabbr <expr> %% expand('%:p:h')
-" nnoremap <Leader>e :e <C-R>=expand('%:p:h') . '/'<CR>
+nnoremap <Leader>e :e <C-R>=expand('%:p:h') . '/'<CR>
 
 " CDC = Change to directory of current file
 nnoremap cd :cd %:p:h<CR>:pwd<CR>
@@ -33,6 +33,9 @@ nnoremap <M-i> :PlugInstall<CR>
 
 " Easier jump between two files
 nnoremap <silent> <M-Tab> :b#<CR>
+
+" Toggle folds with tab
+nnoremap <silent> <Tab> za
 
 " Even more convinience (use ; to go to the command mode)
 nnoremap ; :
@@ -61,8 +64,12 @@ cnoremap <C-n> <Down>
 nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap J mzJ`z
+
+" Quick Fix List mappings + Centered
 nnoremap <C-j> :cnext<CR>zzzv
 nnoremap <C-k> :cprevious<CR>zzzv
+nnoremap <C-l> :cnf<CR>zzzv
+nnoremap <C-h> :cpf<CR>zzzv
 
 " Undo break points
 inoremap , ,<C-g>U

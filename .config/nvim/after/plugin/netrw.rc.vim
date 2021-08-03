@@ -2,7 +2,7 @@ let g:netrw_http_cmd = "brave"
 let g:netrw_browsex_viewer = "xdg-open"
 let g:netrw_banner         = 0
 let g:netrw_liststyle      = 3
-let g:netrw_browse_split   = 4
+let g:netrw_browse_split   = 2
 let g:netrw_fastbrowse     = 1
 let g:netrw_altv           = 1
 let g:netrw_silent         = 1
@@ -39,4 +39,4 @@ function! ToggleNetrw()
         silent Lexplore
     endif
 endfunction
-noremap <silent> <M-f> :call ToggleNetrw()<CR>
+" noremap <silent> <M-f> :call ToggleNetrw()<CR>

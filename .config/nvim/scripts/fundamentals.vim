@@ -27,26 +27,30 @@ set encoding=utf-8
 set fileformat=unix
 " }}}
 
-" Fold Settings {{{
-" -----------------------------------------------------------------------------
-" set foldmethod=marker
-" function! MyFoldText()
-"     let line = getline(v:foldstart)
-"     let foldedlinecount = v:foldend - v:foldstart + 1
-"     return '  '. foldedlinecount . line
-" endfunction
-" set foldtext=MyFoldText()
-" set fillchars=fold:\ 
-"}}}
+ " Fold Settings {{{
+ " -----------------------------------------------------------------------------
+ set foldmethod=marker
+ " set foldlevelstart=1
+ function! MyFoldText()
+     let line = getline(v:foldstart)
+     let foldedlinecount = v:foldend - v:foldstart + 1
+     return '  '. foldedlinecount . line
+ endfunction
+ set foldtext=MyFoldText()
+ set fillchars=fold:\ 
+" }}}
 
 " Misc. {{{
 " -----------------------------------------------------------------------------
 set autoread
 set cpoptions+=$
 set clipboard+=unnamedplus
-" set cursorline
-" Add asterisks in block comments
-set formatoptions+=r
+
+if !exists('g:vscode')
+    set cursorline
+endif
+
+set formatoptions+=r | " Add asterisks in block comments
 set cmdheight=2
 set hidden
 set hlsearch
