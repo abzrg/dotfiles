@@ -16,8 +16,8 @@ Menu
 super + a
     color
 
-ctrl + shift + Return
-    samedir
+/* ctrl + shift + Return */
+/*     samedir */
 
 super + shift + s
     strm
