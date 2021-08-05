@@ -34,7 +34,7 @@ set fileformat=unix
  function! MyFoldText()
      let line = getline(v:foldstart)
      let foldedlinecount = v:foldend - v:foldstart + 1
-     return '  '. foldedlinecount . line
+     return '  ' . line . ' '
  endfunction
  set foldtext=MyFoldText()
  set fillchars=fold:\ 
@@ -83,7 +83,7 @@ set path+=**
 set path+=/home/ali/.config/nvim
 set scrolloff=3
 set sidescrolloff=5
-set shell=dash
+set shell=zsh
 set shortmess=filnxtToOIc
 " Allow show signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved. (yes/auto/no)

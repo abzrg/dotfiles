@@ -1,20 +1,18 @@
-" Disable COC
-" nnoremap <silent> <Space>c :CocDisable<CR>
-
 " Specify the coc-plugins here to be installed upon first run
 let g:coc_global_extensions = [
     \ 'coc-snippets',
     \ 'coc-prettier',
     \ 'coc-pyright',
+    \ 'coc-json',
     \ 'coc-html',
     \ 'coc-css',
-    \ 'coc-json',
     \ 'coc-tsserver',
     \ 'coc-lua',
     \ 'coc-texlab',
     \ 'coc-markdownlint',
     \ 'coc-cmake',
     \ 'coc-sql',
+    \ 'coc-vimlsp',
     \ ]
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile

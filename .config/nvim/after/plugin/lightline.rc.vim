@@ -2,7 +2,10 @@ let g:lightline = {
 \   'colorscheme' : 'wombat',
 \   'active': {
 \   'left': [ [ 'mode', 'paste' ],
-\             [ 'gitbranch', 'readonly', 'filename', 'modified'] ]
+\             [ 'gitbranch', 'readonly', 'filename', 'modified'] ],
+\   'right': [ [ 'lineinfo' ],
+\              [ 'percent' ],
+\              [ 'fileformat', 'fileencoding', 'filetype'] ]
 \   },
 \   'mode_map': {
 \       'n' : 'N',
@@ -17,9 +20,18 @@ let g:lightline = {
 \       "\<C-s>": 'SB',
 \       't': 'T',
 \   },
+\ 'component_function': {
+\      'gstatus': 'LightLineGitStatus'
+\    }
 \ }
 
-" left:   " , 'charvaluehex' 
+" function! LightLineGitStatus() abort
+"   let blame = get(b:,'gitsigns_status','')
+"   " return blame
+"   return winwidth(0) > 120 ? blame : ''
+" endfunction
+
+" left:   " , 'charvaluehex'
 
 " mode_map:
 " 'component': {

@@ -4,11 +4,27 @@ nnoremap <leader>w :w<cr>
 nnoremap <leader>z :wq!<cr>
 vnoremap <M-q> <esc>:q!<cr>
 
+" Notes
+nnoremap <leader>n :exe "e $NOTES_DIR/Scratch/stash/".strftime("%F-%H%M%S").".md"<cr>
+
+" Insert Current Time/Date
 inoremap <M-t> <C-r>=strftime('%D %l:%M%P')<cr>
 inoremap <M-T> <C-r>=strftime('%D')<cr>
 
+" Type lang<C-Y> for shebang line
+inoremap <C-y> <Esc>:sil exe ".!which <cWORD>" <bar> s/^/#!/ <bar> filetype detect <bar> nohlsearch <cr>o
+
+" New tab like in browsers
+nnoremap <C-t> :tabnew<cr>
+
+" nnoremap <RightMouse> "+]p
+
+" Add a virtual color-column at the 81th character
+highlight ColorColumn ctermbg=darkmagenta ctermfg=black guibg=darkmagenta guifg=black
+nnoremap <leader>l :call matchadd('ColorColumn', '\%81v', 1)<CR>
+
 " Make script executable
-nnoremap <leader>\ :!chmod 755 %<cr>
+nnoremap <silent> <leader>\ :silent! exe '!chmod 755 %' <bar> redraw <bar> echomsg 'Converted to an executable'<cr>
 
 " toggle last buffer
 nnoremap ''  :b#<cr>zz
@@ -34,8 +50,12 @@ nnoremap <M-i> :PlugInstall<CR>
 " Easier jump between two files
 nnoremap <silent> <M-Tab> :b#<CR>
 
-" Toggle folds with tab
-nnoremap <silent> <Tab> za
+" Navigate between tabs easily
+nnoremap <silent> <Tab> gt
+nnoremap <silent> <s-Tab> gT
+
+" if this is a normal buffer use <CR> to toggle folding
+nmap <expr> <CR> &buftype ==# '' ? 'za' : "\<CR>"
 
 " Even more convinience (use ; to go to the command mode)
 nnoremap ; :
@@ -71,6 +91,35 @@ nnoremap <C-k> :cprevious<CR>zzzv
 nnoremap <C-l> :cnf<CR>zzzv
 nnoremap <C-h> :cpf<CR>zzzv
 
+" Toggle quickfixlist
+function! GetBufferList()
+  redir =>buflist
+  silent! ls!
+  redir END
+  return buflist
+endfunction
+
+function! ToggleList(bufname, pfx)
+  let buflist = GetBufferList()
+  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
+    if bufwinnr(bufnum) != -1
+      exec(a:pfx.'close')
+      return
+    endif
+  endfor
+  if a:pfx == 'l' && len(getloclist(0)) == 0
+      echohl ErrorMsg
+      echo "Location List is Empty."
+      return
+  endif
+  let winnr = winnr()
+  exec(a:pfx.'open')
+  if winnr() != winnr
+    wincmd p
+  endif
+endfunction
+nnoremap <silent> <c-q> :call ToggleList("Quickfix List", 'c')<CR>
+
 " Undo break points
 inoremap , ,<C-g>U
 inoremap . .<C-g>U
@@ -93,7 +142,10 @@ nnoremap cN *``cgN
 map ,w yiw <bar> :!vimdic<CR>
 
 " Easier regex search
-nnoremap / /\v
+" nnoremap / /\v
+
+" mark position before search (Get back where you were with 's)
+nnoremap / mszv/
 
 " Throw away in to the black hole! (now, c does'nt put text into yank register)
 nnoremap c "_c
@@ -123,7 +175,7 @@ nnoremap S yiw:%s///g<Left><Left><Left><C-r>"<Right>
 vnoremap S <Esc>yiw:%s///g<Left><Left><Left><C-r>"<Right>
 
 " Search in visually selected area
-vnoremap <M-/> <Esc>/\%V
+vnoremap / <Esc>/\%V
 
 " Get rid of accidental jump to ex mode and easily wrap text
 map Q gq

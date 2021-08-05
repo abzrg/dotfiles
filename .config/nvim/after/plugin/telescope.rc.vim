@@ -13,53 +13,59 @@ local utils = require('telescope.utils')
 
 -- Map q to close the window (in normal mode)
 telescope.setup {
-    extensions = {
-        fzy_native = {
-            override_generic_sorter = false,
-            override_file_sorter = true,
-        }
-    },
-    defaults = {
-        vimgrep_arguments = {
-            "rg",
-            "--color=never",
-            "--no-heading",
-            "--with-filename",
-            "--line-number",
-            "--column",
-            "--smart-case",
-            "--hidden",
-        },
-        prompt_prefix = "❯ ",
-        selection_caret = "❯ ",
-        sorting_strategy = "ascending",
-        color_devicons = true,
-        layout_config = {
-            prompt_position = "bottom",
-            horizontal = {
-                width_padding = 0.04,
-                height_padding = 0.1,
-                preview_width = 0.6,
-            },
-            vertical = {
-                width_padding = 0.05,
-                height_padding = 1,
-                preview_height = 0.5,
-                },
-        },
-        mappings = {
-            i = {
-                ["<C-j>"] = actions.move_selection_next,
-                ["<C-k>"] = actions.move_selection_previous,
-            },
-            n = {
-                ["q"] = actions.close
-            },
-        },
+  extensions = {
+    fzf = {
+      fuzzy = true, -- false will only do exact matching
+      override_generic_sorter = false, -- override the generic sorter
+      override_file_sorter = true, -- override the file sorter
+      case_mode = "smart_case" -- or "ignore_case" or "respect_case"
+      -- the default case_mode is "smart_case"
     }
+  },
+  defaults = {
+    vimgrep_arguments = {
+      "rg",
+      "--color=never",
+      "--no-heading",
+      "--with-filename",
+      "--line-number",
+      "--column",
+      "--smart-case",
+      "--hidden"
+    },
+    prompt_prefix = "❯ ",
+    selection_caret = "❯ ",
+    sorting_strategy = "ascending",
+    color_devicons = true,
+    layout_config = {
+      prompt_position = "top",
+      horizontal = {
+        width_padding = 0.04,
+        height_padding = 0.1,
+        preview_width = 0.6
+      },
+      vertical = {
+        width_padding = 0.05,
+        height_padding = 1,
+        preview_height = 0.5
+      }
+    },
+    mappings = {
+      i = {
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
+        ["<Esc>"] = actions.close
+      },
+      n = {
+        ["q"] = actions.close
+      }
+    }
+  },
 }
 
-require('telescope').load_extension('fzy_native')
+-- To get fzf loaded and working with telescope, you need to call
+-- load_extension, somewhere after setup function:
+telescope.load_extension('fzf')
 
 -- Custom functions (in lua/ali/telescope)
 custom_functions = require('ali.telescope')

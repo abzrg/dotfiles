@@ -1,6 +1,3 @@
-" Auto source when writing to init.vm alternatively you can run :source $MYVIMRC
-au! BufWritePost $MYVIMRC source %
-
 " Auto resize splits upon window resize
 autocmd vimResized * execute "normal! \<C-w>="
 
@@ -14,6 +11,18 @@ autocmd VimLeave *.tex !texclear %
 if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 endif
+
+" Automatically quit Vim if quickfix window is the last
+au BufEnter * call QuitIfQuickfixIsLastWindow()
+function! QuitIfQuickfixIsLastWindow()
+  " if the window is quickfix go on
+  if &buftype=="quickfix"
+    " if this window is last on screen quit without warning
+    if winnr('$') < 2
+      quit
+    endif
+  endif
+endfunction
 
 " xrdb update on save
 autocmd BufRead,BufNewFile xresources,xdefaults set filetype=xdefaults

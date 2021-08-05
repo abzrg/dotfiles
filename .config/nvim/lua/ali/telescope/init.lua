@@ -5,6 +5,13 @@ local M = {}
 
 -- Repo File Finder
 function M.project_files()
+  -- If you're in home directory don't do anything
+  local curr_dir = vim.api.nvim_exec("echo getcwd()", true)
+  if curr_dir == os.getenv("HOME") then
+    vim.api.nvim_command('Files')
+    return
+  end
+
   local _, ret, stderr = utils.get_os_command_output({"git", "rev-parse", "--is-inside-work-tree"})
   local gitopts = {}
   local fileopts = {}
@@ -15,7 +22,6 @@ function M.project_files()
   fileopts.hidden = true
   fileopts.file_ignore_patterns = {
     ".vim/",
-    "~",
     ".local/",
     ".cache/",
     "Downloads/",
@@ -40,7 +46,7 @@ function M.grep_notes()
   opts.hidden = true
   -- opts.file_ignore_patterns = { 'thesaurus/'}
   opts.search_dirs = {
-    "~/Notes/",
+    "~/Documents/Notes/"
   }
   opts.prompt_prefix = "   "
   opts.prompt_title = " Grep Notes"
@@ -51,7 +57,7 @@ end
 -- Find Note Files
 function M.find_notes()
   local opts = {
-    cwd = "~/Notes",
+    cwd = "~/Documents/Notes",
     prompt_title = " Find Notes",
     path_display = {"shorten"},
     layout_strategy = "horizontal",
@@ -65,7 +71,7 @@ function M.browse_notes()
   builtin.file_browser {
     prompt_title = " Browse Notes",
     prompt_prefix = " ﮷ ",
-    cwd = "~/Notes/",
+    cwd = "~/Documents/Notes/",
     layout_strategy = "horizontal",
     layout_config = {preview_width = 0.65, width = 0.75}
   }
@@ -99,9 +105,9 @@ end
 function M.grep_nvim_config()
   local opts = {}
   opts.hidden = true
-  opts.file_ignore_patterns = { 'moby-words.txt'}
+  opts.file_ignore_patterns = {"moby-words.txt"}
   opts.search_dirs = {
-    "~/.config/nvim",
+    "~/.config/nvim"
   }
   opts.prompt_prefix = "   "
   opts.prompt_title = " Grep NVim config"

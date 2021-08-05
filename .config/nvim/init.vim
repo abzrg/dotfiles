@@ -1,4 +1,4 @@
-" Imports
+" Imports {{{
 " -----------------------------------------------------------------------------
 
 runtime ./scripts/plug.vim
@@ -17,10 +17,8 @@ runtime ./scripts/abbreviations.vim
 "     runtime ./linux.vim
 "   endif
 " endif
-
-
-
-" Syntax Theme
+" }}}
+" Syntax Theme {{{
 " -----------------------------------------------------------------------------
 
 " true colors
@@ -34,16 +32,9 @@ if exists("&termguicolors") && exists("&winblend")
     " Use nord
     colorscheme codedark
 endif
-
-" Add a virtual color-column at the 81th character
-" highlight ColorColumn ctermbg=darkmagenta ctermfg=black guibg=darkmagenta guifg=black
-" call matchadd('ColorColumn', '\%81v', 1)
-
-
-
-" Extras
-" -----------------------------------------------------------------------------
-
+" }}}
+" Extras {{{
+" ----------------------------------------------------------------------------
 set exrc " consider this file as the main init script
 
 " Emmet variable should be loaded here!
@@ -51,3 +42,4 @@ let g:user_emmet_leader_key='<A-w>'
 
 " set completeopt+=menu,preview,menuone,noinsert
 " set completeopt=menuone,noinsert
+" }}}

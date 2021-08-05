@@ -6,11 +6,11 @@ lua << EOF
 require 'nvim-treesitter.configs'.setup {
     highlight = {
         enable = true,
-        disable = {"html", "css", "foam", "cpp"},
+        disable = {"bash","foam", "cpp"},
     },
     indent = {
         enable = false,
-        disable = {"cpp", "foam"},
+        disable = {"bash","cpp", "foam"},
     },
     ensure_installed = {
         "c",
