@@ -3,6 +3,14 @@ local utils = require("telescope.utils")
 
 local M = {}
 
+function M.old_files()
+  local fileopts = {}
+  fileopts.file_ignore_patterns = {
+    "splash.txt",
+  }
+  builtin.oldfiles(fileopts)
+end
+
 -- Repo File Finder
 function M.project_files()
   -- If you're in home directory don't do anything

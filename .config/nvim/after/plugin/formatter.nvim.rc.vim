@@ -51,4 +51,4 @@ require('formatter').setup({
 })
 EOF
 
-nnoremap <silent> <leader>f :Format<CR>
+nnoremap <silent> <M-f> :Format<CR>

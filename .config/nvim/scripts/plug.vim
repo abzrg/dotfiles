@@ -29,7 +29,6 @@ Plug 'junegunn/limelight.vim'
 Plug 'mattn/emmet-vim'
 Plug 'cohama/lexima.vim'
 Plug 'alvan/vim-closetag'
-Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'honza/vim-snippets'
 " Plug 'pangloss/vim-javascript'
 Plug 'lervag/vim-foam'
@@ -40,7 +39,8 @@ Plug 'szw/vim-maximizer'       | " Maximizes and restores the current window in 
 Plug 'Yggdroot/indentLine'     | " A vim plugin to display the indention levels with thin vertical lines
 Plug 'junegunn/vim-easy-align' | " A Vim alignment plugin
 Plug 'pbrisbin/vim-mkdir'      | " Automatically create any non-existent directories before writing the buffer.
-Plug 'arp242/startscreen.vim'
+Plug 'arp242/startscreen.vim'  | " Customize Vim's start screen.
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } | " Asynchronously displaying the colours in the file
 
 if !has("vscode") && has("nvim")
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
@@ -57,6 +57,8 @@ if has("nvim")
     Plug 'lewis6991/gitsigns.nvim'
     Plug 'hoob3rt/lualine.nvim'
     Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+    Plug 'tamago324/lir.nvim'
+    Plug 'NTBBloodbath/color-converter.nvim'
 endif
 
 call plug#end()

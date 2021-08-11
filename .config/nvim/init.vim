@@ -1,6 +1,5 @@
 " Imports {{{
 " -----------------------------------------------------------------------------
-
 runtime ./scripts/plug.vim
 runtime ./scripts/fundamentals.vim
 runtime ./scripts/visual.vim
@@ -20,7 +19,6 @@ runtime ./scripts/abbreviations.vim
 " }}}
 " Syntax Theme {{{
 " -----------------------------------------------------------------------------
-
 " true colors
 if exists("&termguicolors") && exists("&winblend")
     syntax enable

@@ -10,6 +10,9 @@ nnoremap 'g  :Rg
 " Fix linger/delay exiting with ESC
 autocmd! FileType fzf tnoremap <buffer> <Esc> <C-c>
 
+" Fix linger/delay exiting with ESC
+tnoremap <leader><Esc> <C-\><C-n>
+
 " Replace the default dictionary completion with fzf-based fuzzy completion
 inoremap <expr> <c-x><c-k> fzf#vim#complete('cat /usr/share/dict/words')
 

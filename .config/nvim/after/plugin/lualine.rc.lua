@@ -108,7 +108,7 @@ ins_left {
     vim.api.nvim_command(
         'hi! LualineMode guifg=' .. mode_color[vim.fn.mode()] .. " guibg=" ..
             colors.bg)
-    return ''
+    return ''
   end,
   color = "LualineMode",
   left_padding = 0
@@ -177,9 +177,18 @@ ins_left {function() return '%=' end}
 --   color = {fg = '#ffffff', gui = 'bold'}
 -- }
 
-ins_right {'filetype', colored = true}
 
 -- Add components to right sections
+
+ins_right {
+  'branch',
+  icon = '',
+  condition = conditions.check_git_workspace,
+  color = {fg = colors.violet, gui = 'bold'}
+}
+
+ins_right {'filetype', colored = true}
+
 ins_right {
   'o:encoding', -- option component same as &encoding in viml
   upper = true, -- I'm not sure why it's upper case either ;)
@@ -192,13 +201,6 @@ ins_right {
   upper = true,
   icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
   color = {fg = colors.green, gui = 'bold'}
-}
-
-ins_right {
-  'branch',
-  icon = '',
-  condition = conditions.check_git_workspace,
-  color = {fg = colors.violet, gui = 'bold'}
 }
 
 ins_right {

@@ -3,7 +3,6 @@ nnoremap <silent> ;r <Cmd>Telescope live_grep<CR>
 nnoremap <silent> \\ <Cmd>Telescope buffers<CR>
 nnoremap <silent> ;; <Cmd>Telescope help_tags<CR>
 nnoremap <silent> ;h <Cmd>Telescope man_pages<CR>
-nnoremap <silent> ;o <Cmd>Telescope oldfiles<CR>
 
 lua << EOF
 local telescope = require('telescope')
@@ -116,6 +115,15 @@ vim.api.nvim_set_keymap(
   [[<Cmd>lua custom_functions.browse_notes()<CR>]],
   { noremap = true, silent = true }
 )
+
+-- oldfiles
+vim.api.nvim_set_keymap(
+  "n",
+  ";o",
+  [[<Cmd>lua custom_functions.old_files()<CR>]],
+  { noremap = true, silent = true }
+)
+
 
 -- Find notes files
 vim.api.nvim_set_keymap(

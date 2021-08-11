@@ -5,14 +5,14 @@ nnoremap <leader>z :wq!<cr>
 vnoremap <M-q> <esc>:q!<cr>
 
 " Notes
-nnoremap <leader>n :exe "e $NOTES_DIR/Scratch/stash/".strftime("%F-%H%M%S").".md"<cr>
+nnoremap <leader>N :exe "e $NOTES_DIR/Scratch/stash/".strftime("%F-%H%M%S").".md"<cr>
 
 " Insert Current Time/Date
 inoremap <M-t> <C-r>=strftime('%D %l:%M%P')<cr>
 inoremap <M-T> <C-r>=strftime('%D')<cr>
 
-" Type lang<C-Y> for shebang line
-inoremap <C-y> <Esc>:sil exe ".!which <cWORD>" <bar> s/^/#!/ <bar> filetype detect <bar> nohlsearch <cr>o
+" Type lang<C-l> for shebang line
+inoremap <C-l> <Esc>:sil exe ".!which <cWORD>" <bar> s/^/#!/ <bar> filetype detect <bar> nohlsearch <cr>o
 
 " New tab like in browsers
 nnoremap <C-t> :tabnew<cr>
@@ -72,11 +72,7 @@ nmap k gk
 " Fix the behavior of `Y`, to be similar to behavior of `C` and `D`
 nmap Y y$
 
-nnoremap H ^
-nnoremap L g_
-
-vnoremap K k
-
+" Make the behaviour of arrow key and C-n/p the same
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 
@@ -119,6 +115,23 @@ function! ToggleList(bufname, pfx)
   endif
 endfunction
 nnoremap <silent> <c-q> :call ToggleList("Quickfix List", 'c')<CR>
+
+" C style comment with pressing Ctrl-/
+inoremap <C-_> /**/<Left><Left>
+
+" Comment (C-style) visually selected area
+" ref: https://vi.stackexchange.com/a/18170/30665
+xnoremap # s/* <c-r>" */<esc>
+
+" Easily surround stuff in visual mode
+vmap * S*
+vmap _ S_
+vmap ' S'
+vmap " S"
+vmap ` S`
+vmap ( S(
+vmap [ S[
+vmap { S{
 
 " Undo break points
 inoremap , ,<C-g>U
@@ -170,9 +183,8 @@ else
     cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 endif
 
-" Replace all instance of the word under the cursor with S
-nnoremap S yiw:%s///g<Left><Left><Left><C-r>"<Right>
-vnoremap S <Esc>yiw:%s///g<Left><Left><Left><C-r>"<Right>
+" Search & Replace (\<\> is word boundary)
+nnoremap S :%s/\<<C-r><C-w>\>//g<Left><Left>
 
 " Search in visually selected area
 vnoremap / <Esc>/\%V
