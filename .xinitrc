@@ -14,8 +14,8 @@ XDG_SESSION_TYPE=x11
 export AWT_TOOLKIT=MToolkit
 export _JAVA_AWT_WM_NONREPARENTING=1 # For matalab
 
-# [ -d ~/Pictures/Wallpapers ] && feh --randomize --bg-fill ~/Pictures/Wallpapers/* &
-feh --bg-fill ~/Pictures/gray.png
+[ -d ~/Pictures/Wallpapers ] && feh --randomize --bg-fill ~/Pictures/Wallpapers/* &
+# feh --bg-fill ~/Pictures/gray.png
 [ -f ~/.Xresources ] && xrdb -load ~/.Xresources &
 picomstart &
 keyboardsettings &
@@ -31,14 +31,16 @@ nm-applet &
 udiskie &
 dwmblocks &
 
-# Gpg stuff
-# source: https://forum.artixlinux.org/index.php/topic,2446.0.html
+# Keeps screen on
+xset -dpms
+xset s off
 
+# Gpg stuff (only ask password once)
+# source: https://forum.artixlinux.org/index.php/topic,2446.0.html
 # Automatically start the agent
 if [ -x /usr/bin/gpg-agent ]; then
  eval "$(/usr/bin/gpg-agent --daemon)"
 fi
-
 # For shutdown the agent if needed
 if [ -n "${GPG_AGENT_INFO}" ]; then
   kill $(echo ${GPG_AGENT_INFO} | cut -d':' -f 2) >/dev/null 2>&1
