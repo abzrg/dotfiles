@@ -112,14 +112,20 @@ font:
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
     # family: sf mono
+    # family: ubuntu mono
     family: hack
+    # family: jetbrains mono
+    # family: inconsolata
+    # family: monaco
     # family: source code pro
     # family: fira code
-    # family: monaco
+    # family: consolas
 
   # Point size
-  size: 13
-  # size: 12.0
+  # size: 14.5
+  # size: 15
+  size: 13.0
+  # size: 12.5
 
     # The `style` can be specified to pick a specific face.
     #style: Regular
@@ -343,6 +349,60 @@ font:
 #      magenta: '#B48EAD'
 #      cyan:    '#8FBCBB'
 #      white:   '#ECEFF4'
+
+# # Colors (Seoul256)
+# colors:
+#   # Default colors
+#   primary:
+#     background: '#252525'
+#     foreground: '#d0d0d0'
+#   # Normal colors
+#   normal:
+#     black:   '#4e4e4e'
+#     red:     '#d68787'
+#     green:   '#5f865f'
+#     yellow:  '#d8af5f'
+#     blue:    '#85add4'
+#     magenta: '#d7afaf'
+#     cyan:    '#87afaf'
+#     white:   '#d0d0d0'
+#   # Bright colors
+#   bright:
+#     black:   '#626262'
+#     red:     '#d75f87'
+#     green:   '#87af87'
+#     yellow:  '#ffd787'
+#     blue:    '#add4fb'
+#     magenta: '#ffafaf'
+#     cyan:    '#87d7d7'
+#     white:   '#e4e4e4'
+
+# # Colors (Seoul256-light)
+# colors:
+#   # Default colors
+#   primary:
+#     background: '#dadada'
+#     foreground: '#4e4e4e'
+#   # Normal colors
+#   normal:
+#     black:   '#4e4e4e'
+#     red:     '#af5f5f'
+#     green:   '#5f885f'
+#     yellow:  '#af8760'
+#     blue:    '#5f87ae'
+#     magenta: '#875f87'
+#     cyan:    '#5f8787'
+#     white:   '#e4e4e4'
+#   # Bright colors
+#   bright:
+#     black:   '#3a3a3a'
+#     red:     '#870100'
+#     green:   '#005f00'
+#     yellow:  '#d8865f'
+#     blue:    '#0087af'
+#     magenta: '#87025f'
+#     cyan:    '#008787'
+#     white:   '#eeeeee'
 
 # VSCode's integrated terminal default colors
 # Primary and dimmed colors needed
@@ -570,9 +630,9 @@ cursor:
 #
 # Terminal hints can be used to find text in the visible part of the terminal
 # and pipe it to other applications.
-#hints:
+hints:
   # Keys used for the hint labels.
-  #alphabet: "jfkdls;ahgurieowpq"
+  # alphabet: "jfkdls;ahgurieowpq"
 
   # List with all available hints
   #
@@ -598,17 +658,38 @@ cursor:
   #       Select the hint's text.
   #   - MoveViModeCursor
   #       Move the vi mode cursor to the beginning of the hint.
-  #enabled:
-  # - regex: "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)\
-  #           [^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
-  #   command: xdg-open
-  #   post_processing: true
-  #   mouse:
-  #     enabled: true
-  #     mods: None
-  #   binding:
-  #     key: U
-  #     mods: Control|Shift
+  enabled:
+  # go to url
+  - regex: "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)\
+            [^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
+    command: brave
+    post_processing: true
+    mouse:
+      enabled: true
+      mods: None
+    binding:
+      key: U
+      mods: Alt
+
+  # copy url
+  - regex: "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)\
+            [^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
+    action: Copy
+    post_processing: true
+    mouse:
+      enabled: true
+      mods: None
+    binding:
+      key: Y
+      mods: Alt
+
+  # paste git commit hash
+  - regex: " [0-9a-f]{5,40} "
+    action: Copy
+    post_processing: true
+    binding:
+      key: L
+      mods: Alt
 
 # Mouse bindings
 #
