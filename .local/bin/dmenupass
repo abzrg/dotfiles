@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# https://unix.stackexchange.com/questions/463773/hide-password-in-dmenu
+
 # This script is the SUDO_ASKPASS variable, meaning that it will be used as a
 # password prompt if needed.
 

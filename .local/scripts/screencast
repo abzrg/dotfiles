@@ -11,7 +11,8 @@ SCREEN_SIZE="$(xdpyinfo | grep dimensions | perl -pe 's/.* ([0-9]+x[0-9]+) .*/$1
 
 # You can find the audio devices with the command:
 # pactl list short sources
-__input_mic__="vmic"
+# __input_mic__="vmic"
+__input_mic__="alsa_input.pci-0000_00_1b.0.analog-stereo"
 __output_monitor__="$(pacmd list-sources | grep -PB 1 "analog.*monitor>" | head -n 1 | perl -pe 's/.* //g')"
 
 # Variables to create the output file name
@@ -84,7 +85,8 @@ else
         -thread_queue_size 512 -f x11grab -i :0.0+0,0 \
         -thread_queue_size 512 -f pulse -i "$__input_mic__" \
         -thread_queue_size 512 -f pulse  -i "$__output_monitor__" \
-        -filter_complex "aformat=[1]aresample=async=1:first_pts=0[a];aformat=[2]aresample=async=1:first_pts=0[b];[a][b]amerge" \
+        -af aresample=async=1:first_pts=0 \
+        -filter_complex amerge \
         -vcodec libx264rgb -crf 0 -preset:v ultrafast \
         -acodec pcm_s16le \
         -vsync 2 \
@@ -92,10 +94,8 @@ else
         "$FILE"
 fi
 
-        # -af aresample=async=1:first_pts=0 \
-        # -filter_complex amerge \
-        # -ac 2 \
 
+        # -filter_complex "aformat=[1]aresample=async=1:first_pts=0[a];aformat=[2]aresample=async=1:first_pts=0[b];[a][b]amerge" \
         # -filter_complex amix=inputs=2 \
                                    #'*'*'*'*'#
                                   #'* NOTES *'#

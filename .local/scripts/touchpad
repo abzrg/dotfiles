@@ -2,6 +2,10 @@
 
 ID=$(xinput --list | grep TouchPad | awk '{print $6}' | cut -d'=' -f2)
 
-xinput set-prop $ID 318 1 # Enable tapping
-xinput set-prop $ID 320 1 # Enable tapping drag
-xinput set-prop $ID 298 1 # Enable natural scrolling
+TAP=$(xinput list-props $ID | grep 'Tapping Enabled (' | cut -d'(' -f2 | cut -d')' -f1)
+DRAG=$(xinput list-props $ID | grep 'Tapping Drag Enabled (' | cut -d'(' -f2 | cut -d')' -f1)
+NATSCROLL=$(xinput list-props $ID | grep 'Natural Scrolling Enabled (' | cut -d'(' -f2 | cut -d')' -f1)
+
+xinput set-prop $ID $TAP 1 # Enable tapping
+xinput set-prop $ID $DRAG 1 # Enable tapping drag
+xinput set-prop $ID $NATSCROLL 1 # Enable natural scrolling

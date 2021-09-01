@@ -6,11 +6,18 @@
 
 
 # Check if battery directories are detected
-[ ! -e /sys/class/power_supply/BAT?* ] && printf "🔌" && exit 1
+BAT_EXIST=false
+for battery in /sys/class/power_supply/BAT?*; do
+    [ -e $battery ] && BAT_EXIST=true
+done
+test $BAT_EXIST = false && printf "🔌" && exit
+
+# [ ! -e /sys/class/power_supply/BAT?* ] && printf "🔌" && exit 1
 
 # Loop through all attached batteries and format the info
-for battery in /sys/class/power_supply/BAT?*
-do
+for battery in /sys/class/power_supply/BAT?*; do
+	# If non-first battery, print a space separator.
+	[ -n "${capacity+x}" ] && printf " "
     # Sets up the status and capacity
     status=$(cat "$battery/status")
     case "$status" in
@@ -20,9 +27,9 @@ do
         "Not charging") status="🛑" ;;
         "Unknown") status="♻️" ;;
     esac
-    capacity=$(cat "$battery/capacity")
+    capacity=$(cat "$battery/capacity" 2>&1)
     # Will make a warn variable if discharging and low
     [ "$status" = "🔋" ] && [ "$capacity" -le 25 ] && warn="❗"
     # Prints the info
-    printf "%s%s%d%%\n" "$status" "$warn" "$capacity"; unset warn
-done && return 0
+    printf "%s%s%d%%" "$status" "$warn" "$capacity"; unset warn
+done && printf "\\n"
