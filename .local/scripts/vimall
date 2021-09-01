@@ -1,0 +1,6 @@
+#!/usr/bin/sh
+
+# Open all files with name of first argument with vim
+# Thanks to martin clayton on sed part: https://stackoverflow.com/a/1616589/13041067
+
+find . -name "$1" -print | sed -e "s/'/'\\\\''/g;s/\(.*\)/'\1'/" | xargs nvim

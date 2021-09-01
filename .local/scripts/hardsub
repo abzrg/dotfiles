@@ -1,0 +1,10 @@
+#!/usr/bin/sh
+
+# $1: subtitles file
+# $2: audio codec: mp3, aac, (sony doesn't support vorbis)
+# $3: input video file
+# $4: name + format (extention: mkv, mp4) of the output file
+
+# use media info to check for the audio codec of the video
+
+ffmpeg -vf subtitles="$1" -acodec "$2" -i "$3" "$4"

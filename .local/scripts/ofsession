@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Quickly create an OpenFOAM session for my development
+
+if ! tmux has-session -t 'of' 2>/dev/null; then
+    # Create a session and immediately detach
+    tmux new -s 'of' -d
+        tmux rename-window 'solver'
+        tmux send-key -t of:1 'of7' Enter
+        tmux send-key -t of:1 'usol; cd cdiFoam; clear' Enter
+
+        tmux new-window -n 'case' -t of:2
+        tmux send-key -t of:2 'of7' Enter
+        tmux send-key -t of:2 'run; cd cdi; clear' Enter
+        # tmux split-window \
+        #     -t of:2 -v # Split second window vertically into two panes
+fi

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# I use this script to fix changed permission of files in my external hard drive
+# which is not formatted with unix file system (So permissions are gone)
+
+echo -n "Are you sure? (yN) "
+read REPLY
+
+echo    # (optional) move to a new line
+
+if expr "$REPLY" : '^[Yy]$' 1>/dev/null
+then
+    find . -type f -exec chmod 644 {} \;
+fi

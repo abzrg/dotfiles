@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -eu
+
+ffmpeg -n -hide_banner  \
+    -i "$1" \
+    -s hd480 -c:v libx264 -crf 23 -c:a aac -strict -2 \
+    "$2"
+
+for f in "$1"/*mp4; do
+    __to_lower_quality "$f"
+done

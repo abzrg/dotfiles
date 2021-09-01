@@ -1,0 +1,17 @@
+#!/bin/sh
+set -e
+set -u
+
+# Google stuff right from the commandline
+
+# Stop if the script is incorrect syntactically
+sh -n "$0"
+
+# BROWSER=surf
+
+if [ $# -eq 0 ]; then
+    $BROWSER https://www.google.com
+else
+    params=$(echo "$@" | tr ' ' '+')
+    $BROWSER https://www.google.com/search?q="$params"
+fi

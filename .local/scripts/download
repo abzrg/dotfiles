@@ -1,0 +1,67 @@
+#!/bin/sh
+
+# A script for download stuff between 2am to 8am (when Internet is cheaper).
+# This script basically checks if the current time is in that interval,
+# if so it starts executing the quoted command that downloads the stuff.
+# if not it draws an spinner indicating that it is waiting for that time
+# interval.
+# After the download has been started it checks for the current time whether it
+# is equal to 8am or not,
+# if so it stops the downalod and shuts down the computer. You can customize the
+# last part and change it what ever command you want.
+
+set -eu
+
+# https://stackoverflow.com/a/22644006
+trap "exit" INT TERM
+trap "kill 0" EXIT
+
+
+
+# Start download at 2am
+while [ $(date +%H) -lt "02" -o $(date +%H) -gt "08" ]; do
+    # for _item in '|' '/' '-' '\' '|' '/' '-' '\'
+    for _item in '🌑' '🌒' '🌓' '🌔' '🌕' '🌖' '🌗' '🌘'
+    # for _item in '.' 'o' '0' '@' '*'
+    do
+        # echo -ne "\r$_item" # -ne is not posix compliant
+        printf "Waiting %s %s\r" `date +%T` "$_item"
+        sleep 0.2
+    done
+done && notify-send "starting download"; eval $1 & _PID=$!
+
+# Finish Download at 8pm
+while [ $(date +%H) != "08" ]; do
+    echo "waiting for 8am. The current time:" `date +%I:%M%p`
+    if [ $(ps -p $_PID | wc -l) != "2" ]; then notify-send "download is finished!"; fi
+    sleep 60s
+done; echo "Stopping the download"; kill $_PID; notify-send shutting down; sudo poweroff;
+    
+
+
+################
+### SPINNERS ###
+################
+
+# Lots of choices with Unicode, including ⌚ and ⌛!
+
+# ← ↖ ↑ ↗ → ↘ ↓ ↙
+# ▁ ▂ ▃ ▄ ▅ ▆ ▇ █ ▇ ▆ ▅ ▄ ▃ ▁
+
+# ▉▊▋▌▍▎▏▎▍▌▋▊▉
+
+# ▖ ▘ ▝ ▗
+
+# ┤ ┘ ┴ └ ├ ┌ ┬ ┐
+
+# ◢ ◣ ◤ ◥
+
+# ◰ ◳ ◲ ◱
+
+# ◴ ◷ ◶ ◵
+
+# ◐ ◓ ◑ ◒
+
+# ◡◡ ⊙⊙ ◠◠
+
+# ⣾⣽⣻⢿⡿⣟⣯⣷ ⠁⠂⠄⡀⢀⠠⠐⠈ The entire braille block, even in random order http://www.fileformat.info/info/unicode/block/braille_patterns/images.htm

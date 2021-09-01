@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# from Brodie Robertson (with some minor modification)
+
+colorpicker --one-shot --short --preview | xclip -selection clipboard
