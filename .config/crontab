@@ -8,6 +8,15 @@
 # │ │ │ │ │
 # * * * * * command
 
-*/30 * * * * export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u $USER)/bus; export DISPLAY=:0; . $HOME/.zprofile; $HOME/.local/scripts/cron-news
-*/5 * * * * /usr/bin/rsync -av --delete $HOME/Documents/Notes /srv/rsync/backups/Notes
-0 * * * * env SHELL=/bin/zsh PATH=$PATH:/usr/bin DISPLAY=:0 XDG_RUNTIME_DIR=/run/user/1000 DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/dbus-1" /usr/bin/dwall -s catalina
+# run the following two commands only ONCE when you have installed the system:
+    # dbus UUID must be generated for Artix runit.
+    #dbus-uuidgen > /var/lib/dbus/machine-id
+    # Use system notifications for Brave on Artix
+    #echo "export \$(dbus-launch)" > /etc/profile.d/dbus.sh
+# source: https://github.com/LukeSmithxyz/LARBS/blob/672d1321a81bd00830e25053af88b46a65560117/larbs.sh
+
+
+*/30 * * * * export DISPLAY=:0; . $HOME/.zprofile; env DBUS_SESSION_BUS_ADDRESS=$(grep -z DBUS_SESSION_BUS_ADDRESS /proc/$(pidof dwm)/environ|cut -d= -f2-) $HOME/.local/scripts/cron-news
+*/30 * * * * /usr/bin/rsync -av --delete $HOME/Documents/Notes /srv/rsync/backups/
+0 * * * * env SHELL=/bin/zsh PATH=$PATH:/usr/bin DISPLAY=:0 XDG_RUNTIME_DIR=/run/user/1000 /usr/bin/dwall -s catalina
+# 0 * * * * env SHELL=/bin/zsh PATH=$PATH:/usr/bin DISPLAY=:0 XDG_RUNTIME_DIR=/run/user/1000 DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/dbus-1" /usr/bin/dwall -s catalina
