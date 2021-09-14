@@ -6,48 +6,117 @@ Xft.rgba:       rgb
 Xft.hintstyle:  hintslight
 Xft.lcdfilter:  lcddefault
 ! Font
-*font: mono-14
+/* *font: DejaVuSansMono Nerd Font Mono-14 */
+/* *font: terminus-16 */
+*font: hack nf-14
+/* *font: cascadia code-14 */
+
+/* *font: hack nf-14 */
+/* *font: monacob nerd font mono-14 */
+/* emacs.font: monacob nerd font mono-14 */
 
 
-! \\\\\\\\\\\\\\\\\\\
-! VSCode dark termial
-! ///////////////////
+/* ! \\\\\\\\\\\\\\\\\\\ */
+/* ! VSCode dark termial */
+/* ! /////////////////// */
+/* *.foreground:  #cccccc */
+/* *.background:  #1E1E1E */
+/* *.cursorColor: #ffffff */
+/* ! Black */
+/* *.color0:      #000000 */
+/* *.color8:      #666666 */
+/* ! Red */
+/* *.color1:      #cd3131 */
+/* *.color9:      #f14c4c */
+/* ! Green */
+/* *.color2:      #0dbc79 */
+/* *.color10:     #23d18b */
+/* ! Yellow */
+/* *.color3:      #e5e510 */
+/* *.color11:     #f5f543 */
+/* ! Blue */
+/* *.color4:      #2472c8 */
+/* *.color12:     #3b8eea */
+/* ! Magenta */
+/* *.color5:      #bc3fbc */
+/* *.color13:     #d670d6 */
+/* ! Cyan */
+/* *.color6:      #11a8cd */
+/* *.color14:     #29b8db */
+/* ! White */
+/* *.color7:      #e5e5e5 */
+/* *.color15:     #e5e5e5 */
+/* ! Bold, Italic, Underline */
+/* *.colorBD:     #ffffff */
 
-*.foreground:  #cccccc
-*.background:  #1E1E1E
-*.cursorColor: #ffffff
-!
-! Black
-*.color0:      #000000
-*.color8:      #666666
-!
-! Red
-*.color1:      #cd3131
-*.color9:      #f14c4c
-!
-! Green
-*.color2:      #0dbc79
-*.color10:     #23d18b
-!
-! Yellow
-*.color3:      #e5e510
-*.color11:     #f5f543
-!
-! Blue
-*.color4:      #2472c8
-*.color12:     #3b8eea
-!
-! Magenta
-*.color5:      #bc3fbc
-*.color13:     #d670d6
-!
-! Cyan
-*.color6:      #11a8cd
-*.color14:     #29b8db
-!
-! White
-*.color7:      #e5e5e5
-*.color15:     #e5e5e5
-!
-! Bold, Italic, Underline
-*.colorBD:     #ffffff
+
+/* ! \\\\\\\\\\\\\\\\\\\ */
+/* ! Seoul 256 */
+/* ! /////////////////// */
+/* *background: #252525 */
+/* *foreground: #d0d0d0 */
+/* *color0: #4e4e4e */
+/* *color1: #d68787 */
+/* *color2: #5f865f */
+/* *color3: #d8af5f */
+/* *color4: #85add4 */
+/* *color5: #d7afaf */
+/* *color6: #87afaf */
+/* *color7: #d0d0d0 */
+/* *color8: #626262 */
+/* *color9: #d75f87 */
+/* *color10: #87af87 */
+/* *color11: #ffd787 */
+/* *color12: #add4fb */
+/* *color13: #ffafaf */
+/* *color14: #87d7d7 */
+/* *color15: #e4e4e4 */
+/* *cursorColor: #d0d0d0 */
+/* *cursorColor2: #3a3a3a */
+/* *colorBD: #e4e4e4 */
+
+
+! Tomorrow Night
+*background: #1d1f21
+*foreground: #c5c8c6
+! Normal colors
+*color0: #1d1f21
+*color1: #cc6666
+*color2: #b5bd68
+*color3: #f0c674
+*color4: #81a2be
+*color5: #b294bb
+*color6: #8abeb7
+*color7: #c5c8c6
+! Bright colors
+*color8:  #666666
+*color9:  #d54e53
+*color10: #b9ca4a
+*color11: #e7c547
+*color12: #7aa6da
+*color13: #c397d8
+*color14: #70c0b1
+*color15: #eaeaea
+
+/* ! Nightfox colors for Xresources */
+/* ! Style: nightfox */
+/* ! Upstream: https://github.com/edeneast/nightfox.nvim/raw/main/extra/nightfox/nightfox_xresources.Xresources */
+/* *background: #192330 */
+/* *foreground: #cdcecf */
+/* *color0:  #393b44 */
+/* *color1:  #c94f6d */
+/* *color2:  #81b29a */
+/* *color3:  #dbc074 */
+/* *color4:  #719cd6 */
+/* *color5:  #9d79d6 */
+/* *color6:  #63cdcf */
+/* *color7:  #dfdfe0 */
+/* *color8:  #7f8c98 */
+/* *color9:  #d6616b */
+/* *color10: #58cd8b */
+/* *color11: #ffe37e */
+/* *color12: #84cee4 */
+/* *color13: #b8a1e3 */
+/* *color14: #59f0ff */
+/* *color15: #f2f2f2 */
+

@@ -112,20 +112,31 @@ font:
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
     # family: sf mono
-    # family: ubuntu mono
-    family: hack
-    # family: jetbrains mono
+    # family: noto sans mono
+    # family: menlo
+    # family: jetbrainsmononl nerd font mono
+    # family: dejavu sans mono
+    # family: DejaVuSansMono Nerd Font Mono
     # family: inconsolata
-    # family: monaco
-    # family: source code pro
+    # family: source code pro Medium
+    # family: andale mono
     # family: fira code
     # family: consolas
+    # family: monacob semi
+    family: hack nf
+    # family: roboto mono
+    # family: cascadia code
+    # family: liberation mono
+    # family: terminus
+    # family: ubuntu mono
+
 
   # Point size
-  # size: 14.5
-  # size: 15
-  size: 13.0
+  # size: 12.0
   # size: 12.5
+  size: 13.0
+  # size: 14.5
+  # size: 15.5
 
     # The `style` can be specified to pick a specific face.
     #style: Regular
@@ -166,7 +177,7 @@ font:
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
   # spacing.
-  #offset:
+  # offset:
   #  x: 0
   #  y: 0
 
@@ -350,6 +361,36 @@ font:
 #      cyan:    '#8FBCBB'
 #      white:   '#ECEFF4'
 
+# # github Alacritty Colors
+# colors:
+#   # Default colors
+#   primary:
+#     background: '0x24292e'
+#     foreground: '0xd1d5da'
+#   # Normal colors
+#   normal:
+#     black:   '0x24292e'
+#     red:     '0xf14c4c'
+#     green:   '0x23d18b'
+#     yellow:  '0xe2e210'
+#     blue:    '0x3b8eea'
+#     magenta: '0xbc3fbc'
+#     cyan:    '0x29b7da'
+#     white:   '0xd1d5da'
+#   # Bright colors
+#   bright:
+#     black:   '0x666666'
+#     red:     '0xf14c4c'
+#     green:   '0x23d18b'
+#     yellow:  '0xf5f543'
+#     blue:    '0x3b8eea'
+#     magenta: '0xd670d6'
+#     cyan:    '0x29b7da'
+#     white:   '0xd1d5da'
+#   indexed_colors:
+#     - { index: 16, color: '0xd18616' }
+#     - { index: 17, color: '0xf14c4c' }
+
 # # Colors (Seoul256)
 # colors:
 #   # Default colors
@@ -404,37 +445,70 @@ font:
 #     cyan:    '#008787'
 #     white:   '#eeeeee'
 
-# VSCode's integrated terminal default colors
-# Primary and dimmed colors needed
-colors:
-  # Default colors
-  primary:
-    background: '#1e1e1e' #Background from Dark Theme
-    foreground: '#cccccc'
-  # Selection colors
-  selection:
-    text: CellForeground
-    background: '#565656'
-  # Normal colors
-  normal:
-    black:   '#000000'
-    red:     '#cd3131'
-    green:   '#0dbc79'
-    yellow:  '#e5e510'
-    blue:    '#2472c8'
-    magenta: '#bc3fbc'
-    cyan:    '#11a8cd'
-    white:   '#e5e5e5'
-  # Bright colors
-  bright:
-    black:   '#666666'
-    red:     '#f14c4c'
-    green:   '#23d18b'
-    yellow:  '#f5f543'
-    blue:    '#3b8eea'
-    magenta: '#d670d6'
-    cyan:    '#29b8db'
-    white:   '#e5e5e5'
+# # Nightfox Alacritty Colors
+# # Style: nightfox
+# # Upstream: https://github.com/edeneast/nightfox.nvim/raw/main/extra/nightfox/nightfox_alacritty.yml
+# colors:
+#   # Default colors
+#   primary:
+#     background: '0x192330'
+#     foreground: '0xcdcecf'
+#   # Normal colors
+#   normal:
+#     black:   '0x393b44'
+#     red:     '0xc94f6d'
+#     green:   '0x81b29a'
+#     yellow:  '0xdbc074'
+#     blue:    '0x719cd6'
+#     magenta: '0x9d79d6'
+#     cyan:    '0x63cdcf'
+#     white:   '0xdfdfe0'
+#   # Bright colors
+#   bright:
+#     black:   '0x7f8c98'
+#     red:     '0xd6616b'
+#     green:   '0x58cd8b'
+#     yellow:  '0xffe37e'
+#     blue:    '0x84cee4'
+#     magenta: '0xb8a1e3'
+#     cyan:    '0x59f0ff'
+#     white:   '0xf2f2f2'
+#   indexed_colors:
+#     - { index: 16, color: '0xf4a261' }
+#     - { index: 17, color: '0xd67ad2' }
+
+# # VSCode's integrated terminal default colors
+# # Primary and dimmed colors needed
+# colors:
+#   # Default colors
+#   primary:
+#     background: '#1e1e1e' #Background from Dark Theme
+#     # background: '#232731'
+#     foreground: '#cccccc'
+#   # Selection colors
+#   selection:
+#     text: CellForeground
+#     background: '#565656'
+#   # Normal colors
+#   normal:
+#     black:   '#000000'
+#     red:     '#cd3131'
+#     green:   '#0dbc79'
+#     yellow:  '#e5e510'
+#     blue:    '#2472c8'
+#     magenta: '#bc3fbc'
+#     cyan:    '#11a8cd'
+#     white:   '#e5e5e5'
+#   # Bright colors
+#   bright:
+#     black:   '#666666'
+#     red:     '#f14c4c'
+#     green:   '#23d18b'
+#     yellow:  '#f5f543'
+#     blue:    '#3b8eea'
+#     magenta: '#d670d6'
+#     cyan:    '#29b8db'
+#     white:   '#e5e5e5'
 
 # # Colors (Hyper)
 # colors:
@@ -493,10 +567,69 @@ colors:
 #     cyan:    '#99faf2'
 #     white:   '#ffffff'
 
+# # Colors (Dracula)
+# colors:
+#   # Default colors
+#   primary:
+#     background: '#282a36'
+#     foreground: '#f8f8f2'
+#   # Normal colors
+#   normal:
+#     black:   '#000000'
+#     red:     '#ff5555'
+#     green:   '#50fa7b'
+#     yellow:  '#f1fa8c'
+#     blue:    '#caa9fa'
+#     magenta: '#ff79c6'
+#     cyan:    '#8be9fd'
+#     white:   '#bfbfbf'
+#   # Bright colors
+#   bright:
+#     black:   '#575b70'
+#     red:     '#ff6e67'
+#     green:   '#5af78e'
+#     yellow:  '#f4f99d'
+#     blue:    '#caa9fa'
+#     magenta: '#ff92d0'
+#     cyan:    '#9aedfe'
+#     white:   '#e6e6e6'
+
+
+# # Colors (Solarized Dark)
+# colors:
+#   # Default colors
+#   primary:
+#     background: '#002b36' # base03
+#     foreground: '#839496' # base0
+#   # Cursor colors
+#   cursor:
+#     text:   '#002b36' # base03
+#     cursor: '#839496' # base0
+#   # Normal colors
+#   normal:
+#     black:   '#073642' # base02
+#     red:     '#dc322f' # red
+#     green:   '#859900' # green
+#     yellow:  '#b58900' # yellow
+#     blue:    '#268bd2' # blue
+#     magenta: '#d33682' # magenta
+#     cyan:    '#2aa198' # cyan
+#     white:   '#eee8d5' # base2
+#   # Bright colors
+#   bright:
+#     black:   '#002b36' # base03
+#     red:     '#cb4b16' # orange
+#     green:   '#586e75' # base01
+#     yellow:  '#657b83' # base00
+#     blue:    '#839496' # base0
+#     magenta: '#6c71c4' # violet
+#     cyan:    '#93a1a1' # base1
+#     white:   '#fdf6e3' # base3
+
 # Bell
 #
 # The bell is rung every time the BEL control character is received.
-#bell:
+# bell:
   # Visual Bell Animation
   #
   # Animation effect for flashing the screen when the visual bell is rung.
@@ -512,14 +645,14 @@ colors:
   #   - EaseOutExpo
   #   - EaseOutCirc
   #   - Linear
-  #animation: EaseOutExpo
+  # animation: EaseOutExpo
 
   # Duration of the visual bell flash in milliseconds. A `duration` of `0` will
   # disable the visual bell animation.
-  #duration: 0
+  # duration: 10
 
   # Visual bell animation color.
-  #color: '#ffffff'
+  # color: '#ffffff'
 
   # Bell Command
   #
@@ -574,7 +707,7 @@ cursor:
   # the style of the active value of the normal cursor.
   #
   # See `cursor.style` for available options.
-  #vi_mode_style: None
+  vi_mode_style: block
 
   # Cursor blinking interval in milliseconds.
   #blink_interval: 750
@@ -632,7 +765,7 @@ cursor:
 # and pipe it to other applications.
 hints:
   # Keys used for the hint labels.
-  # alphabet: "jfkdls;ahgurieowpq"
+  alphabet: "jfkdls;ahgurieowpq"
 
   # List with all available hints
   #
@@ -684,12 +817,25 @@ hints:
       mods: Alt
 
   # paste git commit hash
-  - regex: " [0-9a-f]{5,40} "
+  - regex: "[a-f0-9]{40}|[a-f0-9]{7,8}"
     action: Copy
     post_processing: true
     binding:
-      key: L
+      key: H
       mods: Alt
+
+    # multi regex for different purposes:
+    # 1. Kubernetes Resources
+    # 2. UUIDs
+    # 3. hex (for example signatures)
+    # 4. IP addresses
+    # - regex:
+    #   '((deployment.app|binding|componentstatuse|configmap|endpoint|event|limitrange|namespace|node|persistentvolumeclaim|persistentvolume|pod|podtemplate|replicationcontroller|resourcequota|secret|serviceaccount|service|mutatingwebhookconfiguration.admissionregistration.k8s.io|validatingwebhookconfiguration.admissionregistration.k8s.io|customresourcedefinition.apiextension.k8s.io|apiservice.apiregistration.k8s.io|controllerrevision.apps|daemonset.apps|deployment.apps|replicaset.apps|statefulset.apps|tokenreview.authentication.k8s.io|localsubjectaccessreview.authorization.k8s.io|selfsubjectaccessreviews.authorization.k8s.io|selfsubjectrulesreview.authorization.k8s.io|subjectaccessreview.authorization.k8s.io|horizontalpodautoscaler.autoscaling|cronjob.batch|job.batch|certificatesigningrequest.certificates.k8s.io|events.events.k8s.io|daemonset.extensions|deployment.extensions|ingress.extensions|networkpolicies.extensions|podsecuritypolicies.extensions|replicaset.extensions|networkpolicie.networking.k8s.io|poddisruptionbudget.policy|clusterrolebinding.rbac.authorization.k8s.io|clusterrole.rbac.authorization.k8s.io|rolebinding.rbac.authorization.k8s.io|role.rbac.authorization.k8s.io|storageclasse.storage.k8s.io)[[:alnum:]_#$%&+=/@-]+)|([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})|([0-9a-f]{12,128})|([[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3})'
+    #   action: Copy
+    #   post_processing: false
+    #   binding:
+    #     key: U
+    #     mods: Control|Shift
 
 # Mouse bindings
 #
