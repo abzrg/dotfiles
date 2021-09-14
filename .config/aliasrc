@@ -11,16 +11,28 @@ alias \
     yt="youtube-dl --add-metadata -ci"  \
     yta="yt -x -f bestaudio/best"       \
     ytb="yt -f bestvideo+bestaudio"     \
+    yts="youtube-dl --all-subs --skip-download" \
     ytpl="yt -o '%(playlist_index)s-%(title)s.%(ext)s'" \
     ytbpl="yt -f bestvideo+bestaudio -o '%(playlist_index)s-%(title)s.%(ext)s'"
     # ffmpeg="ffmpeg -hide_banner"      \
 
 # --- COLORIZE COMMANDS
+
+# alias \
+#     ls="ls -hNFG --color=auto --group-directories-first"    \
+#     l='ls'                                                  \
+#     la='ls -a'                                              \
+#     ll="ls -ali"                                            \
+
+# exa: a modern replacement for ‘ls’.
 alias \
-    ls="ls -hNFG --color=auto --group-directories-first"    \
-    l='ls'                                                  \
-    la='ls -a'                                              \
-    ll="ls -ali"                                            \
+    l='lsd -hFA --group-dirs first' \
+    ls='exa --icons --group-directories-first' \
+    la='ls -a' \
+    ll='ls -l --git' \
+    sl='ls'
+
+alias \
     grep="grep --color=auto"                                \
     egrep="egrep --color=auto"                              \
     fgrep="fgrep --color=auto"                              \
@@ -29,6 +41,7 @@ alias \
 # --- LONG COMMANDS
 alias \
     df='df -h'                          \
+    dud='du -h -d 1'                    \
     a="sudo apt"                        \
     e="$EDITOR"                         \
     em="neomutt"                        \
@@ -37,8 +50,7 @@ alias \
     g="git"                             \
     o='xdg-open'                        \
     open='xdg-open'                     \
-    v="$VISUAL"                         \
-    vi="/bin/vim -N -u NONE"            \
+    vi="/bin/vim"                       \
     p="zathura"                         \
     ka="killall"                        \
     grp="grep -Rli"                     \
@@ -94,9 +106,19 @@ alias \
     cfmc="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/ncmpcpp/config"     \
     cfn="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/newsboat/config"     \
     cfu="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/newsboat/urls"       \
-    cfv="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/init.vim"       \
     cfx="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/sxiv/exec/key-handler" \
     cfA="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/alacritty/alacritty.yml"
+
+# vim and neovim config
+alias cfi="$EDITOR ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/init.lua"
+alias cfv="/usr/bin/vim $HOME/.vimrc"
+
+# ascii table
+alias ascii='man ascii | grep -m 1 -A 63 --color=never Oct | less'
+
+# special regex
+alias reg_mac='echo ^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$'
+alias reg_git_hash='echo \b[0-9a-f]{5,40}\b'
 
 # --- Pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
@@ -108,9 +130,16 @@ alias \
     impress="libreoffice --impress"
 
 # --- Use nevim for vim if present.
-command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d"
+command -v nvim >/dev/null && alias vimdiff="nvim -d"
 
+# -----------------------------------------------------------------------------
 # --- FUNCTIONS
+# -----------------------------------------------------------------------------
+
+# Nicely print key name and key syms
+keys() {
+    xev | awk -F'[ )]+' '/^KeyPress/ { a[NR+2] } NR in a { printf "%-3s %s\n", $5, $8 }'
+}
 
 # Spell checker
 spell() {
@@ -173,18 +202,33 @@ ex() {
 }
 
 # Download documents!
-shdl() { curl -O $(curl -s https://sci-hub.st/"$@" | grep location.href | grep -o http.*pdf) ;}
+shdl() { curl -O $(curl -s https://sci-hub.se/"$@" | grep location.href | grep -o http.*pdf) ;}
 # shdl() { curl -O $(curl -s https://sci-hub.st/"$@" | grep location.href | grep -o https.*pdf) ;}
 # shdl() { curl -O $(curl -s https://sci-hub.scihubtw.st/"$@" | grep location.href | grep -o https.*pdf) ;}
 
 # Search through the scripts
 se() {
-    du -a ~/.local/{bin,scripts}/* | awk '{print $2}' | fzf | xargs -r $EDITOR
+    du -a ~/.local/{bin,scripts}/* | awk '{print $2}' | fzf --layout=reverse | xargs -r $EDITOR
+}
+
+# b - browse chrome bookmarks (dependency: jq)
+bk() {
+     bookmarks_path=~/.config/BraveSoftware/Brave-Browser/Default/Bookmarks
+
+     jq_script='
+        def ancestors: while(. | length >= 2; del(.[-1,-2]));
+        . as $in | paths(.url?) as $key | $in | getpath($key) | {name,url, path: [$key[0:-2] | ancestors as $a | $in | getpath($a) | .name?] | reverse | join("/") } | .path + "/" + .name + "\t" + .url'
+
+    jq -r "$jq_script" < "$bookmarks_path" \
+        | sed -E $'s/(.*)\t(.*)/\\1\t\x1b[36m\\2\x1b[m/g' \
+        | fzf --layout=reverse --ansi \
+        | cut -d$'\t' -f2 \
+        | xargs xdg-open
 }
 
 # PACMAN-related Utilities
 install_with_fzf() {
-    pacman -Slq | fzf --multi --preview 'pacman -Si {1}' | \
+    pacman -Slq | fzf --layout=reverse --multi --preview 'pacman -Si {1}' | \
         xargs -ro sudo pacman -S
 }
 remove_with_fzf() {
@@ -216,19 +260,29 @@ update_fzf() {
 open_with_fzf() {
     cat ~/.cache/files | fzf | xargs -ro -d "\n" xdg-open 2>&-
 }
+open_dotfiles_with_fzf() {
+    c ls-tree -r master --name-only ~ | grep -v 'share/wikidates' | fzf --layout=reverse -m \
+        --preview="\
+        /usr/bin/git \
+             --git-dir=$HOME/repos/dotfiles/ \
+             --work-tree=$HOME status -s {} | grep . && echo;
+        echo -e '\t → {} ←\n'; bat --color=always --style=plain {}" | \
+        xargs -ro -d "\n" -I {} $EDITOR -p {}
+}
 text_file_with_fzf() {
     cat ~/.cache/files  | fzf -m --height 100% --preview="less {}" | \
         xargs -ro -d "\n" $EDITOR -p  2>&-
 }
 text_file_cur_dir_with_fzf() {
-    fd -t f -H -I  | fzf -m --no-height --preview="less {}" | \
+    fd -t f -H -I  | fzf --layout=reverse -m --no-height --preview="less {}" | \
         xargs -ro -d "\n" $EDITOR -p  2>&-
 }
 cd_with_fzf() {
-    # cd $HOME && cd "$(fd -H -t d . $HOME | fzf --preview="tree -C -L 1 {}" --bind="ctrl-space:toggle-preview" --preview-window=:hidden)"
+    # cd $HOME && cd "$(fd -H -t d . $HOME | fzf --layout=reverse --preview="tree -C -L 1 {}" --bind="ctrl-space:toggle-preview" --preview-window=:hidden)"
     cd "$(\
         cat ~/.cache/directories | \
         fzf --preview="tree -C -L 1 {}" \
+        --layout=reverse \
         --bind="ctrl-x:toggle-preview" --preview-window=:right \
         )"
 }
@@ -256,4 +310,21 @@ sed -i s/'\/\*-*\*\\'/'*--------------------------------*- C++ -*---------------
 # List processes and thier id of a given pattern
 lsid() {
     pgrep -af "$1" | while read -r pid cmd; do echo "$pid => $cmd"; done
+}
+
+v() {
+    if [ "$(pwd)" == '/home/ali/OpenFOAM/ali-7/run/cdi' ]; then
+        /usr/bin/vim $@
+    else
+        /usr/bin/nvim $@
+    fi
+}
+
+# go to the root of the project seamlessly
+cdp() {
+    TEMP_PWD=`pwd`
+    while ! [-d .git ]; do
+        cd ..
+    done
+    OLDPWD=$TEMP_PWD
 }
