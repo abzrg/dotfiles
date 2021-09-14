@@ -1,11 +1,24 @@
-" b = buffers
-nnoremap 'b  :Buffers<cr>
-" c = config
-nnoremap 'c  :Files ~/.config/<cr>
-" f = fzf
-nnoremap 'f  :Files<cr>
-" g = grep (ripgrep)
-nnoremap 'g  :Rg 
+" let g:fzf_layout = {
+"             \ 'up':'~90%',
+"             \ 'window': {
+"                 \ 'width': 0.8,
+"                 \ 'height': 0.8,
+"                 \ 'yoffset':0.5,
+"                 \ 'xoffset': 0.5,
+"                 \ 'highlight': 'Todo',
+"                 \ 'border': 'sharp'}}
+let g:fzf_layout = { 'down': '~40%'}
+
+" Disable line numbering in fzf buffer
+autocmd TermOpen * setlocal nonumber nornu
+
+nnoremap ;b  :Buffers<cr>
+nnoremap ;c  :Files ~/.config/<cr>
+nnoremap ;f  :Files<cr>
+nnoremap ;g  :Rg<CR>
+nnoremap ;o  :History<CR>
+nnoremap ;;  :Helptags<CR>
+nnoremap ;n  :Files ~/Documents/Notes/<CR>
 
 " Fix linger/delay exiting with ESC
 autocmd! FileType fzf tnoremap <buffer> <Esc> <C-c>

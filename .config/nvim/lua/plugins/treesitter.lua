@@ -4,17 +4,14 @@ if (not status) then
 end
 
 require('nvim-treesitter.configs').setup {
-    -- ts-context-commentstring
-    context_commentstring = {
-        enable = true
-    },
     highlight = {
         enable = true,
-        disable = {"c","bash", "cpp"},
+        disable = {"bash", "vim"},
     },
     indent = {
         enable = false,
-        disable = {"c","bash","cpp"},
+        -- disable = {"c","bash","cpp"},
+        disable = {"bash"},
     },
     ensure_installed = 'all',
     ignore_install = { "jsonc" }

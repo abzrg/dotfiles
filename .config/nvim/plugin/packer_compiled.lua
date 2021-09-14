@@ -69,65 +69,18 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
-  ["formatter.nvim"] = {
-    config = { " require('plugins/formatter') " },
+  ["committia.vim"] = {
+    config = { " require('plugins/committia') " },
     loaded = true,
-    path = "/home/ali/.local/share/nvim/site/pack/packer/start/formatter.nvim"
-  },
-  ["friendly-snippets"] = {
-    loaded = true,
-    path = "/home/ali/.local/share/nvim/site/pack/packer/start/friendly-snippets"
+    path = "/home/ali/.local/share/nvim/site/pack/packer/start/committia.vim"
   },
   ["fzf.vim"] = {
     loaded = true,
     path = "/home/ali/.local/share/nvim/site/pack/packer/start/fzf.vim"
   },
-  ["goyo.vim"] = {
+  ["nightfox.nvim"] = {
     loaded = true,
-    path = "/home/ali/.local/share/nvim/site/pack/packer/start/goyo.vim"
-  },
-  ["hop.nvim"] = {
-    config = { " require('plugins/hop') " },
-    loaded = true,
-    path = "/home/ali/.local/share/nvim/site/pack/packer/start/hop.nvim"
-  },
-  ["indent-blankline.nvim"] = {
-    config = { " require('plugins/indent-blankline') " },
-    loaded = true,
-    path = "/home/ali/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim"
-  },
-  ["limelight.vim"] = {
-    loaded = true,
-    path = "/home/ali/.local/share/nvim/site/pack/packer/start/limelight.vim"
-  },
-  ["lspsaga.nvim"] = {
-    config = { " require('plugins/lspsaga') " },
-    loaded = true,
-    path = "/home/ali/.local/share/nvim/site/pack/packer/start/lspsaga.nvim"
-  },
-  ["lualine.nvim"] = {
-    config = { " require('plugins/lualine') " },
-    loaded = true,
-    path = "/home/ali/.local/share/nvim/site/pack/packer/start/lualine.nvim"
-  },
-  neogit = {
-    loaded = true,
-    path = "/home/ali/.local/share/nvim/site/pack/packer/start/neogit"
-  },
-  ["neoscroll.nvim"] = {
-    config = { " require('plugins/neoscroll') " },
-    loaded = true,
-    path = "/home/ali/.local/share/nvim/site/pack/packer/start/neoscroll.nvim"
-  },
-  ["numb.nvim"] = {
-    config = { " require('plugins/numb') " },
-    loaded = true,
-    path = "/home/ali/.local/share/nvim/site/pack/packer/start/numb.nvim"
-  },
-  ["nvcode-color-schemes.vim"] = {
-    config = { " require('plugins/nvcode-color-schemes') " },
-    loaded = true,
-    path = "/home/ali/.local/share/nvim/site/pack/packer/start/nvcode-color-schemes.vim"
+    path = "/home/ali/.local/share/nvim/site/pack/packer/start/nightfox.nvim"
   },
   ["nvim-autopairs"] = {
     config = { " require('plugins/autopairs') " },
@@ -139,96 +92,36 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/ali/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua"
   },
-  ["nvim-compe"] = {
-    after = { "tabout.nvim" },
-    after_files = { "/home/ali/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe.vim" },
-    config = { " require('plugins/compe') " },
-    loaded = false,
-    needs_bufread = false,
-    path = "/home/ali/.local/share/nvim/site/pack/packer/opt/nvim-compe"
-  },
-  ["nvim-lspconfig"] = {
-    config = { " require('plugins/lspconfig') " },
-    loaded = true,
-    path = "/home/ali/.local/share/nvim/site/pack/packer/start/nvim-lspconfig"
-  },
   ["nvim-lua-guide"] = {
     loaded = true,
     path = "/home/ali/.local/share/nvim/site/pack/packer/start/nvim-lua-guide"
-  },
-  ["nvim-tree.lua"] = {
-    config = { " require('plugins/nvim-tree')" },
-    loaded = true,
-    path = "/home/ali/.local/share/nvim/site/pack/packer/start/nvim-tree.lua"
   },
   ["nvim-treesitter"] = {
     config = { " require('plugins/treesitter') " },
     loaded = true,
     path = "/home/ali/.local/share/nvim/site/pack/packer/start/nvim-treesitter"
   },
-  ["nvim-ts-autotag"] = {
-    config = { " require('plugins/ts-autotag') " },
-    loaded = false,
-    needs_bufread = false,
-    path = "/home/ali/.local/share/nvim/site/pack/packer/opt/nvim-ts-autotag"
-  },
-  ["nvim-ts-rainbow"] = {
-    config = { " require('plugins/ts-rainbow') " },
-    loaded = true,
-    path = "/home/ali/.local/share/nvim/site/pack/packer/start/nvim-ts-rainbow"
-  },
-  ["nvim-web-devicons"] = {
-    loaded = true,
-    path = "/home/ali/.local/share/nvim/site/pack/packer/start/nvim-web-devicons"
-  },
   ["packer.nvim"] = {
     loaded = true,
     path = "/home/ali/.local/share/nvim/site/pack/packer/start/packer.nvim"
-  },
-  ["plenary.nvim"] = {
-    loaded = true,
-    path = "/home/ali/.local/share/nvim/site/pack/packer/start/plenary.nvim"
-  },
-  ["popup.nvim"] = {
-    loaded = true,
-    path = "/home/ali/.local/share/nvim/site/pack/packer/start/popup.nvim"
-  },
-  ["starlite-nvim"] = {
-    config = { " require('plugins/starlite') " },
-    loaded = true,
-    path = "/home/ali/.local/share/nvim/site/pack/packer/start/starlite-nvim"
-  },
-  ["startscreen.vim"] = {
-    loaded = true,
-    path = "/home/ali/.local/share/nvim/site/pack/packer/start/startscreen.vim"
-  },
-  ["tabout.nvim"] = {
-    config = { " require('plugins/tabout') " },
-    load_after = {
-      ["nvim-compe"] = true
-    },
-    loaded = false,
-    needs_bufread = false,
-    path = "/home/ali/.local/share/nvim/site/pack/packer/opt/tabout.nvim",
-    wants = { "nvim-treesitter" }
   },
   ["targets.vim"] = {
     loaded = true,
     path = "/home/ali/.local/share/nvim/site/pack/packer/start/targets.vim"
   },
-  ["telescope.nvim"] = {
-    config = { " require('plugins/telescope') " },
-    loaded = true,
-    path = "/home/ali/.local/share/nvim/site/pack/packer/start/telescope.nvim"
-  },
-  ["unicode.vim"] = {
-    loaded = true,
-    path = "/home/ali/.local/share/nvim/site/pack/packer/start/unicode.vim"
-  },
   ["vim-commentary"] = {
     config = { " require('plugins/vim-commentary') " },
     loaded = true,
     path = "/home/ali/.local/share/nvim/site/pack/packer/start/vim-commentary"
+  },
+  ["vim-fetch"] = {
+    loaded = true,
+    path = "/home/ali/.local/share/nvim/site/pack/packer/start/vim-fetch"
+  },
+  ["vim-fugitive"] = {
+    config = { " require('plugins/vim-fugitive') " },
+    loaded = true,
+    path = "/home/ali/.local/share/nvim/site/pack/packer/start/vim-fugitive"
   },
   ["vim-repeat"] = {
     loaded = true,
@@ -241,93 +134,34 @@ _G.packer_plugins = {
   ["vim-surround"] = {
     loaded = true,
     path = "/home/ali/.local/share/nvim/site/pack/packer/start/vim-surround"
-  },
-  ["vim-vsnip"] = {
-    loaded = true,
-    path = "/home/ali/.local/share/nvim/site/pack/packer/start/vim-vsnip"
   }
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: hop.nvim
-time([[Config for hop.nvim]], true)
- require('plugins/hop') 
-time([[Config for hop.nvim]], false)
+-- Config for: committia.vim
+time([[Config for committia.vim]], true)
+ require('plugins/committia') 
+time([[Config for committia.vim]], false)
 -- Config for: nvim-treesitter
 time([[Config for nvim-treesitter]], true)
  require('plugins/treesitter') 
 time([[Config for nvim-treesitter]], false)
--- Config for: starlite-nvim
-time([[Config for starlite-nvim]], true)
- require('plugins/starlite') 
-time([[Config for starlite-nvim]], false)
--- Config for: indent-blankline.nvim
-time([[Config for indent-blankline.nvim]], true)
- require('plugins/indent-blankline') 
-time([[Config for indent-blankline.nvim]], false)
--- Config for: numb.nvim
-time([[Config for numb.nvim]], true)
- require('plugins/numb') 
-time([[Config for numb.nvim]], false)
--- Config for: lualine.nvim
-time([[Config for lualine.nvim]], true)
- require('plugins/lualine') 
-time([[Config for lualine.nvim]], false)
--- Config for: lspsaga.nvim
-time([[Config for lspsaga.nvim]], true)
- require('plugins/lspsaga') 
-time([[Config for lspsaga.nvim]], false)
--- Config for: nvim-autopairs
-time([[Config for nvim-autopairs]], true)
- require('plugins/autopairs') 
-time([[Config for nvim-autopairs]], false)
--- Config for: telescope.nvim
-time([[Config for telescope.nvim]], true)
- require('plugins/telescope') 
-time([[Config for telescope.nvim]], false)
 -- Config for: nvim-colorizer.lua
 time([[Config for nvim-colorizer.lua]], true)
  require('plugins/colorizer') 
 time([[Config for nvim-colorizer.lua]], false)
--- Config for: neoscroll.nvim
-time([[Config for neoscroll.nvim]], true)
- require('plugins/neoscroll') 
-time([[Config for neoscroll.nvim]], false)
+-- Config for: nvim-autopairs
+time([[Config for nvim-autopairs]], true)
+ require('plugins/autopairs') 
+time([[Config for nvim-autopairs]], false)
 -- Config for: vim-commentary
 time([[Config for vim-commentary]], true)
  require('plugins/vim-commentary') 
 time([[Config for vim-commentary]], false)
--- Config for: nvcode-color-schemes.vim
-time([[Config for nvcode-color-schemes.vim]], true)
- require('plugins/nvcode-color-schemes') 
-time([[Config for nvcode-color-schemes.vim]], false)
--- Config for: formatter.nvim
-time([[Config for formatter.nvim]], true)
- require('plugins/formatter') 
-time([[Config for formatter.nvim]], false)
--- Config for: nvim-ts-rainbow
-time([[Config for nvim-ts-rainbow]], true)
- require('plugins/ts-rainbow') 
-time([[Config for nvim-ts-rainbow]], false)
--- Config for: nvim-lspconfig
-time([[Config for nvim-lspconfig]], true)
- require('plugins/lspconfig') 
-time([[Config for nvim-lspconfig]], false)
--- Config for: nvim-tree.lua
-time([[Config for nvim-tree.lua]], true)
- require('plugins/nvim-tree')
-time([[Config for nvim-tree.lua]], false)
-vim.cmd [[augroup packer_load_aucmds]]
-vim.cmd [[au!]]
-  -- Event lazy-loads
-time([[Defining lazy-load event autocommands]], true)
-vim.cmd [[au FileType html ++once lua require("packer.load")({'nvim-ts-autotag'}, { event = "FileType html" }, _G.packer_plugins)]]
-vim.cmd [[au FileType jsx ++once lua require("packer.load")({'nvim-ts-autotag'}, { event = "FileType jsx" }, _G.packer_plugins)]]
-vim.cmd [[au FileType javascript ++once lua require("packer.load")({'nvim-ts-autotag'}, { event = "FileType javascript" }, _G.packer_plugins)]]
-vim.cmd [[au InsertEnter * ++once lua require("packer.load")({'nvim-compe'}, { event = "InsertEnter *" }, _G.packer_plugins)]]
-vim.cmd [[au FileType xml ++once lua require("packer.load")({'nvim-ts-autotag'}, { event = "FileType xml" }, _G.packer_plugins)]]
-time([[Defining lazy-load event autocommands]], false)
-vim.cmd("augroup END")
+-- Config for: vim-fugitive
+time([[Config for vim-fugitive]], true)
+ require('plugins/vim-fugitive') 
+time([[Config for vim-fugitive]], false)
 if should_profile then save_profiles() end
 
 end)

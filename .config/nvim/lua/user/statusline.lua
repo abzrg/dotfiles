@@ -5,7 +5,7 @@ function _G.statusline()
     local file_encoding = '%{"[".(&fenc==""?&enc:&fenc).((exists("+bomb") && &bomb)?",B":"")."] "}'
     local file_format = '[%{&fileformat}]'
     local percentage_through_file = ' %3p%% '
-    local column_and_line_number = '%3l→ ,%3c↓'
+    local column_and_line_number = '%3l→ ,%3c↓%='
     local filetype = '%y %q'
     return string.format(
         '%s%s%s%s%s%s%s%s',

@@ -68,3 +68,14 @@ if &buftype == 'help'
   endif
   endfunction
 ]])
+
+-- openfoam
+vim.cmd([[
+
+augroup OpenFoam
+autocmd!
+autocmd BufEnter,BufReadPost,BufRead *.C :setlocal path+=~/OpenFOAM/OpenFOAM-7/**
+autocmd BufEnter,BufReadPost,BufRead *.H :setlocal path+=~/OpenFOAM/OpenFOAM-7/**
+augroup END
+
+]])

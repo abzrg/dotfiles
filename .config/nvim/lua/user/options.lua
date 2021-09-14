@@ -28,11 +28,11 @@ vim.opt.mouse           = 'a'         -- enable mouse
 vim.opt.scrolloff       = 3           -- start scroll 3 lines before edge of the viewport
 vim.opt.sidescrolloff   = 3
 vim.opt.pumblend        = 10          -- pseudo-transparency for pop-up menu
-vim.opt.laststatus      = 2           -- always show status line
-vim.opt.cmdheight       = 2
+vim.opt.laststatus      = 0           -- always show status line
+vim.opt.cmdheight       = 1
 vim.opt.updatetime      = 1000        -- CursorHold interval
 vim.opt.textwidth       = 80          -- automatically hard wrap at 80 columns
-vim.opt.pumheight      = 10          -- Makes pop up-menu smaller
+vim.opt.pumheight       = 10          -- Makes pop up-menu smaller
 
 vim.opt.path            = '**'        -- Fuzzy find files like a boss!
 vim.opt.path            = vim.opt.path + vim.fn.expand('~/.config/nvim')
@@ -97,6 +97,23 @@ vim.opt.listchars = {
 
 -- Highlight up to 255 columns (this is the current Vim max) beyond 'textwidth'
 vim.opt_local.colorcolumn = '+' .. vim.fn.join(vim.fn.range(0,254), ',+')
+
+vim.cmd([[
+highlight link ColorColumn EndOfBuffer
+]])
+
+-- Fix syntax highlighting
+vim.cmd([[
+augroup BgHighlight
+    autocmd!
+    autocmd BufEnter,FocusGained,VimEnter,WinEnter * TSBufEnable highlight
+    autocmd FocusLost,WinLeave * TSBufDisable highlight
+    autocmd BufEnter,FocusGained,VimEnter,WinEnter * setlocal cursorline | ownsyntax
+    autocmd FocusLost,WinLeave * setlocal nocursorline | ownsyntax off
+    autocmd BufEnter,FocusGained,VimEnter,WinEnter * let &l:colorcolumn='+' . join(range(0, 254), ',+')
+    autocmd FocusLost,WinLeave * let &l:colorcolumn=join(range(1, 255), ',')
+augroup END
+]])
 
 -- Unfortunately non of these lines work
 -- vim.opt.formatoptions = vim.opt.formatoptions + { j = true }       -- remove comment leader when joining comment lines

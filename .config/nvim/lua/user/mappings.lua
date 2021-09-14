@@ -61,7 +61,8 @@ vim.api.nvim_set_keymap('n', '<M-n>', ':bn<CR>', {noremap = true})
 
 -- Edit and source this file from anywhere
 vim.api.nvim_set_keymap('n', '<leader>e', ':e $MYVIMRC<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<leader>s', ':source $MYVIMRC<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>s', ':source $MYVIMRC<CR>',
+                        {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>i', ':PlugInstall<CR>', {noremap = true})
 
 -- Navigate between tabs easily
@@ -84,26 +85,34 @@ vim.api.nvim_set_keymap('n', ']<space>',
                         {silent = true, noremap = true})
 
 -- Better vertical line-by-line navigation
-vim.api.nvim_set_keymap('n', 'j', 'gj', {})
-vim.api.nvim_set_keymap('n', 'k', 'gk', {})
+vim.api.nvim_set_keymap('n', 'j', 'gj', {silent=true})
+vim.api.nvim_set_keymap('n', 'k', 'gk', {silent=true})
 
 -- Fix the behavior of `Y`, to be similar to behavior of `C` and `D`
 vim.api.nvim_set_keymap('n', 'Y', 'y$', {})
 
 -- Make the behaviour of arrow key and C-n/p the same
-vim.api.nvim_set_keymap('c', '<C-p>', '<Up>', {noremap = true})
-vim.api.nvim_set_keymap('c', '<C-n>', '<Down>', {noremap = true})
+vim.api.nvim_set_keymap('c', '<C-n>', 'wildmenumode() ? "\\<c-n>" : "\\<down>"', {noremap = true, expr = true})
+vim.api.nvim_set_keymap('c', '<C-p>', 'wildmenumode() ? "\\<c-p>" : "\\<up>"', {noremap = true, expr = true})
 
--- Keep it centered
-vim.api.nvim_set_keymap('n', 'n', 'nzzzv', {noremap = true})
-vim.api.nvim_set_keymap('n', 'N', 'Nzzzv', {noremap = true})
+-- Use <C-l/h> as ;/, (absolute direction) -- source: https://superuser.com/a/1430972
+vim.api.nvim_set_keymap('n', '<C-h>', '(getcharsearch().forward ? \',\' : \';\')', {expr = true, noremap = true})
+vim.api.nvim_set_keymap('n', '<C-l>', '(getcharsearch().forward ? \';\' : \',\')', {expr = true, noremap = true})
+
+-- Use somewhat unused H and L key for going to the begining/end of the line
+vim.api.nvim_set_keymap('n', 'H', '^', {noremap = true})
+vim.api.nvim_set_keymap('n', 'L', '$', {noremap = true})
+
+-- Keep it centered + make n and N's direction absolute -- source: https://superuser.com/a/1430972 + primeagen
+vim.api.nvim_set_keymap('n', 'n', '(v:searchforward ? \'nzzzv\' : \'Nzzzv\')', {expr = true, noremap = true})
+vim.api.nvim_set_keymap('n', 'N', '(v:searchforward ? \'Nzzzv\' : \'nzzzv\')', {expr = true, noremap = true})
 vim.api.nvim_set_keymap('n', 'J', 'mzJ`z', {noremap = true})
 
 -- Quick Fix List mappings + Centered
 vim.api.nvim_set_keymap('n', '<C-j>', ':cnext<CR>zzzv', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-k>', ':cprevious<CR>zzzv', {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-l>', ':cnf<CR>zzzv', {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-h>', ':cpf<CR>zzzv', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Up>', ':cnf<CR>zzzv', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Down>', ':cpf<CR>zzzv', {noremap = true})
 
 -- C style comment with pressing Ctrl-/
 vim.api.nvim_set_keymap('i', '<C-_>', '/**/<Left><Left>', {noremap = true})
@@ -130,6 +139,7 @@ vim.api.nvim_set_keymap('v', '"', 'S"', {})
 vim.api.nvim_set_keymap('v', '`', 'S`', {})
 vim.api.nvim_set_keymap('v', '(', 'S(', {})
 vim.api.nvim_set_keymap('v', '[', 'S[', {})
+vim.api.nvim_set_keymap('x', '``', ':s/\\V\\v(.*)/```\\r\\1\\r```/ | nohl<CR>', {}) -- add markdown's codeblock triple backtics
 
 -- Undo break points
 vim.api.nvim_set_keymap('i', ',', ',<C-g>U', {noremap = true})
