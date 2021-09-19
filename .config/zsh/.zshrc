@@ -218,13 +218,6 @@ bindkey '\ee' edit-command-line
 # Enter vim buffer from normal mode
 autoload -U edit-command-line && zle -N edit-command-line && bindkey -M vicmd "^v" edit-command-line
 
-# Load syntax highlighting; should be last.
-source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null
-# Suggest aliases for commands
-# source /usr/share/zsh/plugins/zsh-you-should-use/you-should-use.plugin.zsh
-# Search repos for programs that can't be found
-# source /usr/share/doc/pkgfile/command-not-found.zsh
-
 # Openfoam
 autoload bashcompinit
 bashcompinit
@@ -240,11 +233,11 @@ alias of20='source ~/OpenFOAM/OpenFOAM-v2012/etc/bashrc'
 alias -s {c,cpp,cc,cxx,C,H,h,hpp,html,js,css,py,pl,md,txt,tex}=nvim
 alias -s pdf=zathura
 
-# Faster navigation with z.lua
-eval "$(lua ~/.local/src/z.lua-1.8.13/z.lua --init zsh)"
-
 # Random events of the day
 # shuf -n1 ~/.wikidates/$(date +%B_%d)
+
+# Zoxide, A smarter cd command.
+eval "$(zoxide init zsh)"
 
 # Gpg agent
 GPG_TTY=$(tty)
@@ -258,7 +251,30 @@ zstyle ':vcs_info:*' disable bzr svn cdv darcs mtn svk tla # I don't use these V
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' unstagedstr '!' # Add ! for unstaged changes
 zstyle ':vcs_info:*' stagedstr '+' # Add + for staged changes
-zstyle ':vcs_info:*' formats '%f%F{cyan}(%m%b%F{red}%u%f%F{green}%c%f%F{cyan})%f'
+#----%m: A "misc" replacement
+#----%u: The string from the unstagedstr style if there are unstaged changes in the repository.
+#----%c: The string from the stagedstr style if there are staged changes in the repository.
+#----%b: Information about the current branch.
+#----source: https://zsh.sourceforge.io/Doc/Release/User-Contributions.html#Version-Control-Information
+zstyle ':vcs_info:*' formats '%f%F{cyan}(%F{blue}%b%f%F{red}%u%f%F{green}%c%f%F{red}%m%f%F{cyan})%f'
+zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
++vi-git-untracked() { # for checking untracked files
+  if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
+     git status --porcelain | grep -m 1 '^??' &>/dev/null
+  then
+    hook_com[misc]='?'
+  fi
+}
 function precmd() { vcs_info } # Update each time new prompt is rendered
 setopt prompt_subst # Allow dynamic command prompt
-PS1='%F{magenta}%(3~|%2~|%~)%f ${vcs_info_msg_0_}%F{red}%(?..(%?%))%f%F{blue}%#%f '
+# The $'%-30(l::\n)' will adds a new line if the window is too narrow (source: https://unix.stackexchange.com/a/537248/419393)
+PS1='%F{blue}[%f%F{magenta}%(3~|%2~|%~)%f%F{blue}]%f ${vcs_info_msg_0_}%F{red}%(?..(%?%))%f'$'%-30(l::\n)''%F{red}%#%f ' # ❯
+# PS1='%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %F{magenta}%(3~|%2~|%~)%f ${vcs_info_msg_0_}%F{red}%(?..(%?%))%f%{$fg[red]%}] %F{white}%#%f ' # ❯
+
+# Load syntax highlighting; should be last.
+source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null
+# Suggest aliases for commands
+# source /usr/share/zsh/plugins/zsh-you-should-use/you-should-use.plugin.zsh
+# Search repos for programs that can't be found
+# source /usr/share/doc/pkgfile/command-not-found.zsh
+
