@@ -27,9 +27,13 @@ export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME/java"
 export NOTES_DIR="$HOME/Documents/Notes"
 export SUDO_ASKPASS="$HOME/.local/bin/dmenupass"
 export FLASK_APP="application.py"
-export BAT_THEME="base16"
+export BAT_THEME="OneHalfDark"
 export FZF_DEFAULT_COMMAND='fd -t f -t l -H' # Including hidden files in search
-export FZF_DEFAULT_OPTS="--height 40% --preview-window=border-sharp"
+export FZF_DEFAULT_OPTS="
+    --layout=reverse --height 40% --preview-window=border-sharp
+    --color fg:188,bg:233,hl:103,fg+:222,bg+:234,hl+:104
+    --color info:183,prompt:110,spinner:107,pointer:167,marker:215
+"
 export CHEAT_USE_FZF=true
 export LESSOPEN='|/usr/bin/lesspipe.sh %s' # allow less to view non-text files
 export LESS_TERMCAP_mb=$'\e[1;32m'      # begin bold
@@ -41,33 +45,6 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'    # begin underline
 export LESS_TERMCAP_ue=$'\e[0m'         # reset underline
 export LESS=-R
 export COLORTERM="truecolor"
-
-# Base16 Tomorrow Night
-# Author: Chris Kempson (http://chriskempson.com)
-_gen_fzf_default_opts() {
-local color00='#1d1f21'
-local color01='#282a2e'
-local color02='#373b41'
-local color03='#969896'
-local color04='#b4b7b4'
-local color05='#c5c8c6'
-local color06='#e0e0e0'
-local color07='#ffffff'
-local color08='#cc6666'
-local color09='#de935f'
-local color0A='#f0c674'
-local color0B='#b5bd68'
-local color0C='#8abeb7'
-local color0D='#81a2be'
-local color0E='#b294bb'
-local color0F='#a3685a'
-export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS"\
-" --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D"\
-" --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C"\
-" --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D"
-}
-_gen_fzf_default_opts
-
 export LF_ICONS="\
 # di=:\
 fi=:\

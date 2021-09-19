@@ -26,9 +26,14 @@ export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME/java"
 # Other program settings
 export NOTES_DIR="$HOME/Documents/Notes"
 export SUDO_ASKPASS="$HOME/.local/bin/dmenupass"
-export BAT_THEME="base16"
-export FZF_DEFAULT_OPTS="--layout=reverse --height 40% --preview-window=border-sharp"
+export BAT_THEME="OneHalfDark"
+# FZF with jellybeans colorscheme
 export FZF_DEFAULT_COMMAND='fd -t f -t l -H' # Including hidden files in search
+export FZF_DEFAULT_OPTS="
+    --layout=reverse --height 40% --preview-window=border-sharp
+    --color fg:188,bg:233,hl:103,fg+:222,bg+:234,hl+:104
+    --color info:183,prompt:110,spinner:107,pointer:167,marker:215
+"
 export CHEAT_USE_FZF=true
 export LESSOPEN='|/usr/bin/lesspipe.sh %s' # allow less to view non-text files
 export LESS=-R
