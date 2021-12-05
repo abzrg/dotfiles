@@ -18,6 +18,16 @@
 - Quokka.js
 - VSCode Neovim
 
+**Note** that to acces microsoft's markte place, edit the file `/usr/lib/code/product.json` and add/replace the following in the file:
+
+```json
+	"extensionsGallery": {
+    "serviceUrl": "https://marketplace.visualstudio.com/_apis/public/gallery",
+    "cacheUrl": "https://vscode.blob.core.windows.net/gallery/index",
+    "itemUrl": "https://marketplace.visualstudio.com/items"
+	},
+```
+
 ## Some of the keybindings I use
 
 - `alt-tab`: switch between the terminal and editor
